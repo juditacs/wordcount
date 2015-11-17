@@ -11,7 +11,7 @@ The output should contain lines like this:
 
 ## Example
 
-    $ echo "apple pear apple art" | python2 wordcount.py 
+    $ echo "apple pear apple art" | python2 wordcount.py
     apple   2
     art     1
     pear    1
@@ -24,3 +24,15 @@ The output should contain lines like this:
 ### Usage
 
     time zcat de.gz | python2 wordcount.py > python_out
+
+#### Javascript
+
+Nodejs and npm are needed.
+Install dependencies:
+
+    cd javascript
+    npm install
+
+Run:
+
+    node index.js
