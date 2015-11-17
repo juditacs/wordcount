@@ -25,7 +25,7 @@ The output should contain lines like this:
 
     time zcat de.gz | python2 wordcount.py > python_out
 
-#### Javascript
+## Javascript
 
 Nodejs and npm are needed.
 Install dependencies:
