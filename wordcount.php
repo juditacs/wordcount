@@ -18,6 +18,7 @@ while (false !== ($line = fgets($stdin))) {
     }
 
 }
+fclose($stdin);
 
 $array2 = array();
 
