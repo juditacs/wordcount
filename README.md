@@ -36,3 +36,14 @@ Install dependencies:
 Run:
 
     node index.js
+
+
+## BASH
+
+Set the LC\_COLLATE variable to C to consider non-alphanumeric characters when sorting:
+
+    export LC_COLLATE=C
+
+Run:
+
+    time zcat de.gz | bash wordcount.sh > bash_out
