@@ -1,16 +1,32 @@
 <?php
 
-//$stdin = fopen('php://stdin', 'r');
-$stdin = fopen('php://stdin', 'r');
+function countWord($word,$array){
 
-$array = array();
-while ($word = fscanf($stdin, "%s")) {
-    $word = $word[0];
     if (!array_key_exists($word,$array)){
         $array[$word] = 1;
-        continue;
+        return;
     }
     $array[$word]++;
+}
+
+
+$stdin = fopen('php://stdin', 'r');
+//$stdin = fopen('de', 'r');
+
+
+
+$array = array();
+while (false !== ($line = fgets($stdin))) {
+    $words = explode(" ", $line);
+
+    foreach($words as $word){
+        if (!array_key_exists($word,$array)){
+            $array[$word] = 1;
+            continue;
+        }
+        $array[$word]++;
+    }
+
 }
 ksort($array);
 arsort($array);
