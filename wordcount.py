@@ -7,7 +7,6 @@ def word_count():
     for l in stdin:
         for word in l.split():
             counter[word] += 1
-    return
     for word, cnt in sorted(counter.iteritems(), key=lambda x: (-x[1], x[0])):
         print('{0}\t{1}'.format(word, cnt))
 
