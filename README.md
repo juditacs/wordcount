@@ -19,5 +19,8 @@ The output should contain lines like this:
 
 ## Test corpus: 100,000 German sentences
 
-(https://drive.google.com/file/d/0BzkofJIHAyZoRmhVM0lkZUNfZ2s/view?usp=sharing)[Corpus]
+[de.gz](https://drive.google.com/file/d/0BzkofJIHAyZoRmhVM0lkZUNfZ2s/view?usp=sharing)
 
+### Usage
+
+    time zcat de.gz | python2 wordcount.py > python_out
