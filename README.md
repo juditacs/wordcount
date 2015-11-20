@@ -47,3 +47,15 @@ Set the LC\_COLLATE variable to C to consider non-alphanumeric characters when s
 Run:
 
     time zcat de.gz | bash wordcount.sh > bash_out
+
+
+## Java
+
+Usage:
+
+    javac WordCount.java
+    time cat de | java WordCount > wc.java
+
+The JVM startup can be measured by e.g.
+
+    time echo "Hello" | java WordCount
