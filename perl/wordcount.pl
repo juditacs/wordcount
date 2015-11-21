@@ -5,7 +5,7 @@ sub word_count {
     my %counter;
     my $line = <STDIN>;
     while($line ne "") {
-        my @words = split(/\s+/, $line);
+        my @words = split(' ', $line);
         for my $word (@words) {
             $counter{$word} ++;
         }

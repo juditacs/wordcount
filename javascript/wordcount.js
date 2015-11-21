@@ -5,7 +5,6 @@ var data = {};
 
 var log = new Console(process.stderr, process.stderr);
 
-log.time('Read');
 process.stdin.setEncoding('utf8');
 process.stdin.on('readable', function() {
   var chunk = process.stdin.read();
@@ -22,13 +21,8 @@ process.stdin.on('readable', function() {
 });
 
 process.stdin.on('end', function() {
-  log.timeEnd('Read');
-  log.time('Sort');
   var sorted = _.sortByOrder(data, ['count', 'word'], ['desc', 'asc']);
-  log.timeEnd('Sort');
-  log.time('Write');
   _.forEach(sorted, function(item){
     process.stdout.write(item.word + '\t' + item.count + '\n');
   });
-  log.timeEnd('Write');
 });
