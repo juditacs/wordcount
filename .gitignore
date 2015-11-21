@@ -11,3 +11,5 @@ javascript/node_modules
 .idea/workspace.xml
 PHP.iml
 de
+data/romanian*
+**/*class
