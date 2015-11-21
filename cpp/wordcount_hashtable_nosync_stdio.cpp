@@ -24,7 +24,6 @@ int main() {
     for (auto p: m) mm.insert(std::pair<int, std::string>{p.second, p.first});
     for (auto p: mm) {
         std::cout << p.second << "\t" << p.first << std::endl;
-        printf("%d\t%s\n", p.first, p.second.c_str());
     }
 
 }
