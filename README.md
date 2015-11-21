@@ -25,7 +25,7 @@ The output should contain lines like this:
 
     time zcat de.gz | python2 wordcount.py > python_out
 
-#### Javascript
+## Javascript
 
 Nodejs and npm are needed.
 Install dependencies:
@@ -36,3 +36,26 @@ Install dependencies:
 Run:
 
     node index.js
+
+
+## BASH
+
+Set the LC\_COLLATE variable to C to consider non-alphanumeric characters when sorting:
+
+    export LC_COLLATE=C
+
+Run:
+
+    time zcat de.gz | bash wordcount.sh > bash_out
+
+
+## Java
+
+Usage:
+
+    javac WordCount.java
+    time cat de | java WordCount > wc.java
+
+The JVM startup can be measured by e.g.
+
+    time echo "Hello" | java WordCount

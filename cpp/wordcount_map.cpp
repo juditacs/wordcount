@@ -1,6 +1,5 @@
 #include <iostream>
 #include <map>
-#include <unordered_map>
 #include <set>
 
 
@@ -14,13 +13,15 @@ public:
 };
 
 int main() {
-    std::unordered_map<std::string, int> m;
+    std::map<std::string, int> m;
     std::string s;
-    while (std::cin >> s)
+    while (std::cin >> s) {
         ++m[s];
+    }
     std::multiset<std::pair<int, std::string>, F> mm;
     for (auto p: m) mm.insert(std::pair<int, std::string>{p.second, p.first});
-    for (auto p: mm) 
+    for (auto p: mm) {
         std::cout << p.second << "\t" << p.first << std::endl;
+    }
 
 }
