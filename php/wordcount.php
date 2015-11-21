@@ -7,15 +7,18 @@ $stdin = fopen('php://stdin', 'r');
 
 $array = array();
 while (false !== ($line = fgets($stdin))) {
-    $words = preg_split('/\s+/', trim($line));
-
+  $words = preg_split('/\s+/', $line);
     foreach($words as $word){
+        if(empty($word)){
+            continue;
+        }
         if (!array_key_exists($word,$array)){
             $array[$word] = 1;
             continue;
         }
         $array[$word]++;
     }
+
 
 }
 fclose($stdin);
