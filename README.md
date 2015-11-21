@@ -40,15 +40,21 @@ This might take a while.
 
 Load the image into a container:
 
-    docker run -it wordcount
+    docker run -it wordcount bash
 
 You should see the cloned directory in `/root`
 
+    cd wordcount
+
 ## Downloading the dataset
 
-    bash scripts/create\_input.sh
+    bash scripts/create_input.sh
 
 This command downloads a part of the Romanian WebCorpus and creates two versions: a shorter version containing 100,000 sentences and a longer version with 1,000,000 sentences. The corpus is tokenized so in theory splitting on space should yield words.
+
+## Compile/build/whatever the wordcount scripts
+
+    bash scripts/build.sh
 
 ## Run tests on one language
 
