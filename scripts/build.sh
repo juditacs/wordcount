@@ -12,5 +12,3 @@ javac WordCountEntries.java
 
 cd ../javascript
 npm install
-
-echo "export PYTHONIOENCODING=\"utf-8\"" >> ~/.bashrc
