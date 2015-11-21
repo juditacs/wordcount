@@ -1,0 +1,11 @@
+bash/wordcount.sh
+cpp/wc_baseline
+cpp/wc_baseline_hash
+cpp/wc_hash_nosync
+cpp/wc_vector
+node javascript/wordcount.js
+python/wordcount_py2.py
+perl/wordcount.pl
+python/wordcount_py3.py
+php php/wordcount.php
+php php/wordcountRevB.php
