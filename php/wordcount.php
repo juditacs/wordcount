@@ -1,13 +1,13 @@
 <?php
 ini_set('memory_limit', '2048M');
-//$stdin = fopen('php://stdin', 'r');
-$stdin = fopen('de', 'r');
+$stdin = fopen('php://stdin', 'r');
+//$stdin = fopen('de', 'r');
 
 
 
 $array = array();
 while (false !== ($line = fgets($stdin))) {
-    $words = preg_split('/\s+/', $line);
+    $words = preg_split('/\s+/', trim($line));
 
     foreach($words as $word){
         if (!array_key_exists($word,$array)){
