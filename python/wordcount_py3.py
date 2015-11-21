@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 from collections import defaultdict
 from sys import stdin
+import codecs
+
+stdin = codecs.getreader('utf8')(stdin.detach(), errors='ignore')
 
 
 def word_count():
