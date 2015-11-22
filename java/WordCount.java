@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
+/** Word count for Java. Slow because of boxing/unboxing. */
 class WordCount {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,7 +20,7 @@ class WordCount {
         while ((line = br.readLine()) != null) {
             line = line.trim();
             if (!line.isEmpty()) {
-                for (String word : p.split(line)) 
+                for (String word : p.split(line)) {
                     m.put(word, m.containsKey(word) ? m.get(word) + 1 : 1);
                 }
             }

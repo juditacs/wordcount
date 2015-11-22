@@ -9,6 +9,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.regex.Pattern;
 
+/**
+ * Word count for Java with list sorting. This version is slower than the
+ * other one probably because sortling a long list of tuples (Map.Entry) is
+ * slower than much shorter lists of Strings.
+ */
 class WordCountEntries {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
