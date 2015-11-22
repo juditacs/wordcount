@@ -8,15 +8,21 @@ import java.util.HashMap;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 class WordCount {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Map<String, Integer> m = new HashMap<String, Integer>();
+        Pattern p = Pattern.compile("\\s+");
         String line;
         while ((line = br.readLine()) != null) {
-            for (String word : line.split("\\s"))
-                m.put(word, m.containsKey(word) ? m.get(word) + 1 : 1);
+            line = line.trim();
+            if (!line.isEmpty()) {
+                for (String word : p.split(line)) 
+                    m.put(word, m.containsKey(word) ? m.get(word) + 1 : 1);
+                }
+            }
         }
 
         NavigableMap<Integer, List<String>> mm = new TreeMap<Integer, List<String>>();
