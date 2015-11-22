@@ -7,15 +7,26 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.regex.Pattern;
 
+/**
+ * Word count for Java with list sorting. This version is slower than the
+ * other one probably because sortling a long list of tuples (Map.Entry) is
+ * slower than much shorter lists of Strings.
+ */
 class WordCountEntries {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Map<String, Integer> m = new HashMap<String, Integer>();
+        Pattern p = Pattern.compile("\\s+");
         String line;
         while ((line = br.readLine()) != null) {
-            for (String word : line.split("\\s"))
-                m.put(word, m.containsKey(word) ? m.get(word) + 1 : 1);
+            line = line.trim();
+            if (!line.isEmpty()) {
+                for (String word : p.split(line)) {
+                    m.put(word, m.containsKey(word) ? m.get(word) + 1 : 1);
+                }
+            }
         }
 
         List<Map.Entry<String, Integer>> lst =
