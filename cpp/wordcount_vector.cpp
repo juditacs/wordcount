@@ -25,6 +25,7 @@ int main() {
     std::sort(mvec.begin(), mvec.end(), F());
     for (auto p: mvec) {
         std::cout << p.second << "\t" << p.first << std::endl;
+        //printf("%s\t%d\n", p.second, p.first);
     }
 
 }
