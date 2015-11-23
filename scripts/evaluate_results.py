@@ -19,7 +19,7 @@ def read_results(stream):
 def print_markdown_table(results):
     # header
     print('| Experiment | CPU seconds | User time | Maximum memory |')
-    print('| -- | -- | -- | -- |')
+    print('| --- | --- | --- | --- |')
     for src, res in sorted(results.iteritems(), key=lambda x: x[1][0] / x[1][3]):
         print('| {0} | {1} | {2} | {3} |'.format(src, res[0] / res[3],
               res[1] / res[3], res[2] / res[3]))
