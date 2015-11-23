@@ -102,8 +102,9 @@ Results.txt in a tab separated file that can be formatted to a Markdown table wi
 
 This scripts averages the results of all runs for each command and prints a table similar to this:
 
+
 | Experiment | CPU seconds | User time | Maximum memory |
-| -- | -- | -- | -- |
+| --- | --- | --- | --- |
 | cpp/wc_vector | 2.68 | 2.37 | 32168 |
 | python/wordcount_py2.py | 2.68 | 2.61 | 71512 |
 | bash/wordcount.sh | 3.0 | 4.19 | 10820 |
