@@ -4,12 +4,12 @@
 
 
 class F {
-public:
-    bool operator()(std::pair<int, std::string> lhs, std::pair<int, std::string> rhs) {
-        if (lhs.first > rhs.first) return true;
-        if (lhs.first == rhs.first && lhs.second < rhs.second) return true;
-        return false;
-    }
+    public:
+        bool operator()(std::pair<int, std::string> lhs, std::pair<int, std::string> rhs) {
+            if (lhs.first > rhs.first) return true;
+            if (lhs.first == rhs.first && lhs.second < rhs.second) return true;
+            return false;
+        }
 };
 
 int main() {
@@ -23,5 +23,4 @@ int main() {
     for (auto p: mm) {
         std::cout << p.second << "\t" << p.first << std::endl;
     }
-
 }
