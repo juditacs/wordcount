@@ -30,6 +30,16 @@ Why Romanian? Just because.
 
 # Using the provided scripts
 
+## Installation
+
+There are two ways to install all the dependencies:
+
+1. Build a Docker image with the provided Dockerfile, which installs all the required packages.
+2. Install them manually via a package manager. The Docker image is an Ubuntu image but the same packages work for me on Manjaro Linux as well. Use this command on Ubuntu to install all dependencies, but be prepared for a lot of new packages. You've been warned.
+    
+    sudo apt-get install wget gcc python npm perl php5 git default-jdk time
+
+
 ## Docker image
 
 You can run the experiment in a Docker container. The Dockerfile is provided, run:
@@ -45,6 +55,7 @@ Load the image into a container:
 You should see the cloned directory in `/root`
 
     cd wordcount
+
 
 ## Downloading the dataset
 
@@ -75,6 +86,27 @@ The script either prints OK or the list of failed tests and a final FAIL.
 All commands are listed in the file `run_commands.txt` and the script `scripts/test_all.sh` runs test.sh with each command:
 
     bash scripts/test_all.sh
+
+## Run the actual experiment on a larger dataset
+
+If all tests are passed, the scripts work reasonably well. This does not mean that all output will be the same, see the full test later.
+For now, we consider them good enough for testing.
+
+This command will run each test twice and save the results to results.txt.
+
+    bash scripts/compare.sh data/romanian_100k.gz 2
+
+Results.txt in a tab separated file that can be formatted to a Markdown table with this command:
+
+    cat results.txt | python2 scripts/evaluate_results.py
+
+This scripts averages the results of all runs for each command and prints a table similar to this:
+
+| Experiment | CPU seconds | User time | Maximum memory |
+| -- | -- | -- | -- |
+| cpp/wc_vector | 2.68 | 2.37 | 32168 |
+| python/wordcount_py2.py | 2.68 | 2.61 | 71512 |
+| bash/wordcount.sh | 3.0 | 4.19 | 10820 |
 
 ## Adding a new program
 
@@ -126,3 +158,8 @@ Usage:
 The JVM startup can be measured by e.g.
 
     time echo "Hello" | java WordCount
+
+# TODO
+
+* compare full output on each language
+  * which one should be the oraculum?
