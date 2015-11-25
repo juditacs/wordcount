@@ -11,22 +11,23 @@ The output should contain lines like this:
 
 ## Example
 
-    $ echo "apple pear apple art" | python2 wordcount.py
+    $ echo "apple pear apple art" | python2 python/wordcount.py
     apple   2
     art     1
     pear    1
 
-## Test corpus: 100,000 Romanian sentences from the WebCorpus
+## Test corpus: Hungarian Wikisource
 
-`scripts/create_input.sh` downloads a sample from the Romanian WebCorpus.
-Why Romanian? Just because.
+`scripts/create_input.sh` downloads the latest Hungarian Wikisource XML dump.
+Why Wikisource? It's not too small not too large and more importantly, it's valid utf8.
+Why Hungarian? There are many non-ascii characters and the number of different word types is high.
 
-
-[romanian\_100k.gz](http://avalon.aut.bme.hu/~judit/files/romanian_1M.gz)
 
 ### Usage
 
-    time zcat romanian_100k.gz | python3 python/wordcount_py3.py > python_out
+To test on a small sample:
+
+    time cat data/huwikisource-20151102-pages-meta-current.xml | head -10000 | python3 python/wordcount_py3.py > python_out
 
 # Using the provided scripts
 
@@ -61,8 +62,6 @@ You should see the cloned directory in `/root`
 
     bash scripts/create_input.sh
 
-This command downloads a part of the Romanian WebCorpus and creates two versions: a shorter version containing 100,000 sentences and a longer version with 1,000,000 sentences. The corpus is tokenized so in theory splitting on space should yield words.
-
 ## Compile/build/whatever the wordcount scripts
 
     bash scripts/build.sh
@@ -94,7 +93,11 @@ For now, we consider them good enough for testing.
 
 This command will run each test twice and save the results to results.txt.
 
-    bash scripts/compare.sh data/romanian_100k.gz 2
+    bash scripts/compare.sh data/huwikisource-20151102-pages-meta-current.xml 2
+
+Or test it on a part of huwikisource:
+
+    bash scripts/compare.sh <( head -10000 data/huwikisource-20151102-pages-meta-current.xml) 1
 
 Results.txt in a tab separated file that can be formatted to a Markdown table with this command:
 
