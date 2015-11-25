@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-wget http://avalon.aut.bme.hu/~judit/files/romanian_1M.gz
-mv romanian_1M.gz data/
-zcat data/romanian_1M.gz | head -100000 | gzip > data/romanian_100k.gz
+wget http://dumps.wikimedia.org/huwikisource/latest/huwikisource-latest-pages-meta-current.xml.bz2
+mv huwikisource-latest-pages-meta-current.xml.bz2 data
+cd data
+bunzip2 huwikisource-latest-pages-meta-current.xml.bz2
