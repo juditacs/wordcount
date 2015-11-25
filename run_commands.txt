@@ -5,6 +5,7 @@ cpp/wc_hash_nosync
 cpp/wc_vector
 java -classpath java WordCount
 java -classpath java WordCountEntries
+julia julia/wordcount.jl
 python/wordcount_py2.py
 perl/wordcount.pl
 python/wordcount_py3.py
