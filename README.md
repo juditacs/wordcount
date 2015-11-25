@@ -27,7 +27,7 @@ Why Hungarian? There are many non-ascii characters and the number of different w
 
 To test on a small sample:
 
-    time cat data/huwikisource-20151102-pages-meta-current.xml | head -10000 | python3 python/wordcount_py3.py > python_out
+    time cat data/huwikisource-latest-pages-meta-current.xml | head -10000 | python3 python/wordcount_py3.py > python_out
 
 # Using the provided scripts
 
@@ -93,11 +93,11 @@ For now, we consider them good enough for testing.
 
 This command will run each test twice and save the results to results.txt.
 
-    bash scripts/compare.sh data/huwikisource-20151102-pages-meta-current.xml 2
+    bash scripts/compare.sh data/huwikisource-latest-pages-meta-current.xml 2
 
 Or test it on a part of huwikisource:
 
-    bash scripts/compare.sh <( head -10000 data/huwikisource-20151102-pages-meta-current.xml) 1
+    bash scripts/compare.sh <( head -10000 data/huwikisource-latest-pages-meta-current.xml) 1
 
 Results.txt in a tab separated file that can be formatted to a Markdown table with this command:
 
