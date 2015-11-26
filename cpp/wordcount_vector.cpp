@@ -6,7 +6,7 @@
 
 class F {
 public:
-    bool operator()(std::pair<int, std::string> lhs, std::pair<int, std::string> rhs) {
+    bool operator()(std::pair<int, std::string> const& lhs, std::pair<int, std::string> const& rhs) {
         if (lhs.first > rhs.first) return true;
         if (lhs.first == rhs.first && lhs.second < rhs.second) return true;
         return false;
