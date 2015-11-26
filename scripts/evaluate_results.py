@@ -19,10 +19,12 @@ def read_results(stream):
 
 def print_markdown_table(results):
     # header
-    print('| Experiment | CPU seconds | User time | Maximum memory |')
-    print('| --- | --- | --- | --- |')
-    for src, res in sorted(results.iteritems(), key=lambda x: x[1][0]):
-        print('| {0} | {1} | {2} | {3} |'.format(src, res[0], res[1], res[2]))
+    print('| Rank | Experiment | CPU seconds | User time | Maximum memory |')
+    print('| :---: | :---: | :---: | :---: | :---: |')
+    for rank, (src, res) in enumerate(sorted(
+            results.iteritems(), key=lambda x: x[1][0])):
+        print('| {0} | {1} | {2} | {3} | {4} |'.format(
+            rank+1, src, res[0], res[1], res[2]))
 
 
 def main():
