@@ -6,18 +6,20 @@ Counting words in different programming languages.
 
 Updated: 26-11-2015
 
-| Experiment | CPU seconds | User time | Maximum memory |
-| --- | --- | --- | --- |
-| cpp/wc_vector | 15.96 | 12.24 | 244404 |
-| cpp/wc_hash_nosync | 18.81 | 15.02 | 327184 |
-| python/wordcount_py2.py | 20.02 | 19.58 | 554352 |
-| cpp/wc_baseline_hash | 24.23 | 20.45 | 343276 |
-| java -classpath java WordCount | 27.37 | 31.39 | 545940 |
-| java -classpath java WordCountEntries | 28.13 | 32.23 | 540276 |
-| python/wordcount_py3.py | 33.06 | 32.59 | 482988 |
-| cpp/wc_baseline | 35.1 | 31.25 | 355692 |
-| php php/wordcount.php | 39.82 | 35.58 | 781668 |
-| bash/wordcount.sh | 82.36 | 93.9 | 12924 |
+| Rank | Experiment | CPU seconds | User time | Maximum memory |
+| :---: | :---: | :---: | :---: | :---: |
+| 1 | cpp/wc_vector | 7.14 | 5.32 | 126268 |
+| 2 | cpp/wc_hash_nosync | 8.04 | 6.07 | 163404 |
+| 3 | python/wordcount_py2.py | 8.68 | 8.48 | 280616 |
+| 4 | cpp/wc_baseline_hash | 10.18 | 8.14 | 171656 |
+| 5 | java -classpath java WordCount | 13.56 | 15.66 | 404064 |
+| 6 | java -classpath java WordCountEntries | 13.8 | 15.77 | 398768 |
+| 7 | cpp/wc_baseline | 13.9 | 12.0 | 178084 |
+| 8 | python/wordcount_py3.py | 14.14 | 13.86 | 245164 |
+| 9 | php php/wordcount.php | 15.16 | 13.15 | 396516 |
+| 10 | perl/wordcount.pl | 17.04 | 16.79 | 225352 |
+| 11 | nodejs javascript/wordcount.js | 27.9 | 24.93 | 577472 |
+| 12 | bash/wordcount.sh | 34.92 | 40.51 | 10768 |
 
 
 # Format
