@@ -25,8 +25,9 @@ func main () {
 
   sort.Strings(keys)
 
+  out := bufio.NewWriter(os.Stdout)
   for _, word := range keys {
-    fmt.Printf("%s\t%d\n", word, freqs[word])
+    fmt.Fprintln(out, "%s\t%d", word, freqs[word])
   }
 
 }
