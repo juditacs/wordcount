@@ -103,8 +103,7 @@ Results.txt in a tab separated file that can be formatted to a Markdown table wi
 
     cat results.txt | python2 scripts/evaluate_results.py
 
-This scripts averages the results of all runs for each command and prints a table similar to this:
-
+This scripts prints the fastest run for each command in a markup table like this:
 
 | Experiment | CPU seconds | User time | Maximum memory |
 | --- | --- | --- | --- |
