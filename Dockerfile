@@ -8,7 +8,7 @@ RUN yes | apt-get install julia
 RUN yes | apt-get install golang-go
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN sudo apt-get install --yes nodejs
-RUN git clone git@github.com:siklosid/wordcount.git
+RUN git clone https://github.com/siklosid/wordcount.git
 RUN locale-gen en_US.UTF-8  
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
