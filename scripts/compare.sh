@@ -13,16 +13,19 @@ else
 	n=$2
 fi
 
-if [[ "$data" == *gz ]]; then
-    command=zcat
-else
-    command=cat
-fi
+workdir=`mktemp -d`
+cat $data > $workdir/input
+wc -l $workdir/input
 
-cat run_commands.txt | while read line; do
+for i in $( seq 1 $n); do
+    cat run_commands.txt | while read line; do
     echo $line
-    for i in $( seq 1 $n); do
-        $command $data | eval /usr/bin/time -f "%e__%U__%M" $line > out 2>stat
-        echo ${line}__$(cat stat) | sed 's/__/\t/g' >> results.txt
-    done
+    cat $workdir/input | eval /usr/bin/time -f "%e__%U__%M" -o $workdir/stat $line > $workdir/out
+    wcl=$(wc -l $workdir/out | cut -f1 -d" ")
+    if [ $wcl -ne 0 ]; then
+        echo ${line}__$(cat $workdir/stat) | sed 's/__/\t/g' >> results.txt
+    fi
 done
+    done
+
+rm -r $workdir
