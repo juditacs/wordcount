@@ -6,6 +6,27 @@ Counting words in different programming languages.
 
 Updated: 26-11-2015
 
+On the full Hungarian Wikisource:
+
+| Rank | Experiment | CPU seconds | User time | Maximum memory |
+| :---: | :---: | :---: | :---: | :---: |
+| 1 | cpp/wc_vector | 15.96 | 12.24 | 244404 |
+| 2 | cpp/wc_hash_nosync | 18.81 | 15.02 | 327184 |
+| 3 | python/wordcount_py2.py | 20.02 | 19.58 | 554352 |
+| 4 | cpp/wc_baseline_hash | 24.23 | 20.45 | 343276 |
+| 5 | java -classpath java WordCount | 27.37 | 31.39 | 545940 |
+| 6 | java -classpath java WordCountEntries | 28.13 | 32.23 | 540276 |
+| 7 | python/wordcount_py3.py | 33.06 | 32.59 | 482988 |
+| 8 | cpp/wc_baseline | 35.1 | 31.25 | 355692 |
+| 9 | perl/wordcount.pl | 39.15 | 38.66 | 447000 |
+| 10 | php php/wordcount.php | 39.82 | 35.58 | 781668 |
+| 11 | nodejs javascript/wordcount.js | 72.93 | 67.14 | 1005116 |
+| 12 | bash/wordcount.sh | 82.36 | 93.9 | 12924 |
+| 13 | julia julia/wordcount.jl | 94.46 | 93.51 | 725232 |
+
+
+On a smaller dataset:
+
 | Rank | Experiment | CPU seconds | User time | Maximum memory |
 | :---: | :---: | :---: | :---: | :---: |
 | 1 | cpp/wc_vector | 7.14 | 5.32 | 126268 |
