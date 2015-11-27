@@ -7,6 +7,7 @@ java -classpath java WordCount
 java -classpath java WordCountEntries
 julia julia/wordcount.jl
 nodejs javascript/wordcount.js
+nodejs javascript/wordcount2.js
 perl/wordcount.pl
 python/wordcount_py2.py
 python/wordcount_py3.py
