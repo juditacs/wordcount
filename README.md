@@ -182,7 +182,7 @@ Adding a new programming language or a new version for an existing programming l
 ### Adding your program to this experiment
 
 1. Make sure all dependencies are installed via standard packages and your code compiles.
-1. Pass at least the first 3 tests successfully.
+1. Your code passes all the tests.
 1. Make sure it runs for less than two minutes for 100,000 lines of text. If it is slower, it doesn't make much sense to add it.
 
 # Old notes for manual building and running
