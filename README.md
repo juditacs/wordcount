@@ -4,13 +4,13 @@ Counting words in different programming languages.
 
 # Leaderboard
 
-Updated: 26-11-2015
+Updated: 27-11-2015
 
 On the full Hungarian Wikisource:
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory |
 | :---: | :---: | :---: | :---: | :---: |
-| 1 | cpp/wc_vector | 15.96 | 12.24 | 244404 |
+| 1 | cpp/wc_vector | 15.75 | 11.65 | 245316 |
 | 2 | cpp/wc_hash_nosync | 18.81 | 15.02 | 327184 |
 | 3 | python/wordcount_py2.py | 20.02 | 19.58 | 554352 |
 | 4 | cpp/wc_baseline_hash | 24.23 | 20.45 | 343276 |
@@ -29,7 +29,7 @@ On a smaller dataset:
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory |
 | :---: | :---: | :---: | :---: | :---: |
-| 1 | cpp/wc_vector | 7.14 | 5.32 | 126268 |
+| 1 | cpp/wc_vector | 6.82 | 4.68 | 125856 |
 | 2 | cpp/wc_hash_nosync | 8.04 | 6.07 | 163404 |
 | 3 | python/wordcount_py2.py | 8.68 | 8.48 | 280616 |
 | 4 | cpp/wc_baseline_hash | 10.18 | 8.14 | 171656 |
