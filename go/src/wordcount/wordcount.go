@@ -40,11 +40,15 @@ func isSpace(r rune) bool {
     switch r {
     case ' ', '\t', '\n', '\v', '\f', '\r':
       return true
+/*
     case '\u0085':
       return true
+*/
     }
     return false
   }
+
+/*
   // High-valued ones.
   if '\u2000' <= r && r <= '\u200a' {
     return true
@@ -53,6 +57,7 @@ func isSpace(r rune) bool {
   case '\u1680', '\u2028', '\u2029', '\u202f', '\u205f', '\u3000':
     return true
   }
+*/
   return false
 }
 
