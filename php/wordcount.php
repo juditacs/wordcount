@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-ini_set('memory_limit', '16GB');
+ini_set('memory_limit', '16384M');
 $stdin = fopen('php://stdin', 'r');
 //$stdin = fopen('test', 'r');
 
