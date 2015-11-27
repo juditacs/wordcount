@@ -1,7 +1,7 @@
 FROM ubuntu
 MAINTAINER Judit Acs
 RUN apt-get update
-RUN yes | apt-get install -y wget curl gcc g++ nano python perl php5 git default-jdk time software-properties-common
+RUN yes | apt-get install -y wget curl gcc g++ nano python perl php5 git default-jdk time software-properties-common mono-mcs
 RUN yes | apt-add-repository ppa:staticfloat/juliareleases
 RUN yes | apt-get update
 RUN yes | apt-get install julia
