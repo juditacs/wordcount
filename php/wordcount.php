@@ -38,6 +38,6 @@ krsort($array2);
 foreach($array2 as $count => $wordsArray){
     sort ($wordsArray);
     foreach($wordsArray as $word) {
-        print "$word\t $count\n";
+        print "$word\t$count\n";
     }
 }
