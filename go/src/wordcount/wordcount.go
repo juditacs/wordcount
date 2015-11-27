@@ -27,7 +27,8 @@ func main () {
 
   out := bufio.NewWriter(os.Stdout)
   for _, word := range keys {
-    fmt.Fprintln(out, "%s\t%d", word, freqs[word])
+    fmt.Fprintf(out, "%s\t%d\n", word, freqs[word])
   }
+  out.Flush()
 
 }
