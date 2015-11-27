@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -26,22 +27,22 @@ class WordCount {
         }
 
         NavigableMap<Integer, List<String>> mm = new TreeMap<Integer, List<String>>();
-        for (String word : m.keySet()) {
-            Integer count = m.get(word);
+        for (Entry<String, Integer> entry : m.entrySet()) {
+            Integer count = entry.getValue();
             List<String> lst = mm.get(count);
             if (lst == null) {
                 lst = new ArrayList<String>();
                 mm.put(count, lst);
             }
-            lst.add(word);
+            lst.add(entry.getKey());
         }
 
         StringBuilder sb = new StringBuilder();
-        for (Integer count : mm.descendingKeySet()) {
-            List<String> lst = mm.get(count);
+        for (Entry<Integer, List<String>> entry : mm.descendingMap().entrySet()) {
+            List<String> lst = entry.getValue();
             Collections.sort(lst);
             for (String word : lst) {
-                sb.append(word).append("\t").append(count).append(System.lineSeparator());
+                sb.append(word).append("\t").append(entry.getKey()).append(System.lineSeparator());
             }
         }
         System.out.print(sb);
