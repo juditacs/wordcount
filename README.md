@@ -2,6 +2,9 @@
 
 Counting words in different programming languages.
 
+See the article on this project:
+http://juditacs.github.io/2015/11/26/wordcount.html
+
 # Leaderboard
 
 Updated: 27-11-2015
