@@ -17,18 +17,18 @@ func main () {
     freqs[scanner.Text()]++
   }
 
-  keys := make([]string, len(freqs))
+  keys := make(PairList, len(freqs))
   count := 0
-  for k := range freqs {
-    keys[count] = k
+  for k, v := range freqs {
+    keys[count] = Pair{Key:k, Value:v}
     count++
   }
 
-  sort.Strings(keys)
+  sort.Sort(keys)
 
   out := bufio.NewWriter(os.Stdout)
-  for _, word := range keys {
-    fmt.Fprintf(out, "%s\t%d\n", word, freqs[word])
+  for _, pair := range keys {
+    fmt.Fprintf(out, "%s\t%d\n", pair.Key, pair.Value)
   }
   out.Flush()
 
@@ -81,3 +81,14 @@ func ScanWords(data []byte, atEOF bool) (advance int, token []byte, err error) {
   // Request more data.
   return start, nil, nil
 }
+
+
+type Pair struct {
+  Key string
+  Value int
+}
+
+type PairList []Pair
+func (p PairList) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
+func (p PairList) Len() int { return len(p) }
+func (p PairList) Less(i, j int) bool { return p[i].Value > p[j].Value || (p[i].Value == p[j].Value && p[i].Key < p[j].Key)}
