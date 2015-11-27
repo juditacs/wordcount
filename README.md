@@ -43,9 +43,23 @@ On a smaller dataset:
 | 12 | bash/wordcount.sh | 34.92 | 40.51 | 10768 |
 
 
-# Format
+# The task
 
-All programs should read from STDIN and write to STDOUT. The input is always encoded in UTF-8.
+The task is to split a text and count each word's frequency, then print the list sorted by frequency in decreasing order.
+Ties are printed in alphabetical order.
+
+## Details
+
+* the input is read from STDIN
+* the input is always encoded in UTF-8
+* output is printed to STDOUT
+* break only on space, tab and newline (do not break on non-breaking space)
+* do not write anything to STDERR
+* the output is tab-separated
+* sort by frequency AND secondary sort in alphabetical order
+* try to write simple code with few dependencies
+
+
 The output should contain lines like this:
 
     freqword <tab> freq
