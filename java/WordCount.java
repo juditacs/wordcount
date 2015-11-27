@@ -37,12 +37,14 @@ class WordCount {
             lst.add(word);
         }
 
+        StringBuilder sb = new StringBuilder();
         for (Integer count : mm.descendingKeySet()) {
             List<String> lst = mm.get(count);
             Collections.sort(lst);
             for (String word : lst) {
-                System.out.println(word + "\t" + count);
+                sb.append(word).append("\t").append(count).append(System.lineSeparator());
             }
         }
+        System.out.print(sb);
     }
 }
