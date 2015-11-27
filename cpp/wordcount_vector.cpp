@@ -17,6 +17,7 @@ int main() {
     std::unordered_map<std::string, int> m;
     std::string s;
     std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
     while (std::cin >> s) {
         ++m[s];
     }
@@ -24,7 +25,7 @@ int main() {
     for (auto p: m) mvec.push_back(std::pair<int, std::string>{p.second, p.first});
     std::sort(mvec.begin(), mvec.end(), F());
     for (auto p: mvec) {
-        std::cout << p.second << "\t" << p.first << std::endl;
+        std::cout << p.second << "\t" << p.first << "\n";
     }
 
 }
