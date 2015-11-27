@@ -51,7 +51,7 @@ On a smaller dataset:
 The task is to split a text and count each word's frequency, then print the list sorted by frequency in decreasing order.
 Ties are printed in alphabetical order.
 
-## Details
+## Rules
 
 * the input is read from STDIN
 * the input is always encoded in UTF-8
@@ -61,6 +61,8 @@ Ties are printed in alphabetical order.
 * the output is tab-separated
 * sort by frequency AND secondary sort in alphabetical order
 * try to write simple code with few dependencies
+  * standard library
+* single-thread is preferred but you can add multi-threaded or multicore versions too
 
 
 The output should contain lines like this:
