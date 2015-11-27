@@ -1,15 +1,15 @@
+#!/usr/bin/php
 <?php
-ini_set('memory_limit', '2048M');
+ini_set('memory_limit', '16384M');
 $stdin = fopen('php://stdin', 'r');
-//$stdin = fopen('de', 'r');
-
+//$stdin = fopen('test', 'r');
 
 
 $array = array();
 while (false !== ($line = fgets($stdin))) {
   $words = preg_split('/\s+/', $line);
     foreach($words as $word){
-        if(empty($word)){
+        if(empty($word) &&  $word !== "0"){
             continue;
         }
         if (!array_key_exists($word,$array)){
@@ -22,7 +22,6 @@ while (false !== ($line = fgets($stdin))) {
 
 }
 fclose($stdin);
-
 $array2 = array();
 
 foreach($array as $key => $value){
@@ -39,6 +38,6 @@ krsort($array2);
 foreach($array2 as $count => $wordsArray){
     sort ($wordsArray);
     foreach($wordsArray as $word) {
-        echo $word . "\t" . $count . "\n";
+        print "$word\t$count\n";
     }
 }
