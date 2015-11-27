@@ -12,3 +12,4 @@ python/wordcount_py2.py
 python/wordcount_py3.py
 php php/wordcount.php
 go/bin/wordcount
+mono csharp/WordCountList.exe
