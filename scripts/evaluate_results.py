@@ -8,21 +8,23 @@ def read_results(stream):
         fd = line.strip().split('\t')
         script = fd[0]
         if script not in res:
-            res[script] = [0, 0, 0, 0]
-        res[script][0] += float(fd[1])
-        res[script][1] += float(fd[2])
-        res[script][2] += int(fd[3])
-        res[script][3] += 1
-    return res
+            res[script] = []
+        r = [float(fd[1]), float(fd[2]), int(fd[3])]
+        res[script].append(r)
+    maxres = {}
+    for k, v in res.iteritems():
+        maxres[k] = min(v, key=lambda x: x[1])
+    return maxres
 
 
 def print_markdown_table(results):
     # header
-    print('| Experiment | CPU seconds | User time | Maximum memory |')
-    print('| --- | --- | --- | --- |')
-    for src, res in sorted(results.iteritems(), key=lambda x: x[1][0] / x[1][3]):
-        print('| {0} | {1} | {2} | {3} |'.format(src, res[0] / res[3],
-              res[1] / res[3], res[2] / res[3]))
+    print('| Rank | Experiment | CPU seconds | User time | Maximum memory |')
+    print('| :---: | :---: | :---: | :---: | :---: |')
+    for rank, (src, res) in enumerate(sorted(
+            results.iteritems(), key=lambda x: x[1][0])):
+        print('| {0} | {1} | {2} | {3} | {4} |'.format(
+            rank+1, src, res[0], res[1], res[2]))
 
 
 def main():

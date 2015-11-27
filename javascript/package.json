@@ -1,8 +1,9 @@
 {
   "name": "wordcount",
   "version": "1.0.0",
-  "description": "",
+  "description": "Javascript implementation of wordcount for https://github.com/juditacs/wordcount",
   "main": "wordcount.js",
+  "repository": "juditacs/wordcount",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
