@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 import java.util.Collections;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 class WordCount {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Map<String, Integer> m = new HashMap<String, Integer>();
+        Map<String, Integer> m = new LinkedHashMap<String, Integer>();
         Pattern p = Pattern.compile("\\s+");
         String line;
         while ((line = br.readLine()) != null) {
