@@ -9,22 +9,6 @@ http://juditacs.github.io/2015/11/26/wordcount.html
 
 Updated: 27-11-2015 16:31
 
-On 5 million lines from the Hungarian Wikipedia:
-
-| Rank | Experiment | CPU seconds | User time | Maximum memory |
-| :---: | :---: | :---: | :---: | :---: |
-| 1 | cpp/wc_vector | 34.21 | 32.73 | 772048 |
-| 2 | go/bin/wordcount | 41.42 | 39.89 | 817552 |
-| 3 | python/wordcount_py2.py | 66.65 | 64.68 | 1433152 |
-| 4 | java -classpath java WordCount | 85.71 | 70.95 | 1829388 |
-| 5 | cpp/wc_baseline_hash | 85.8 | 70.14 | 971720 |
-| 6 | python/wordcount_py3.py | 105.08 | 102.45 | 1241144 |
-| 7 | perl/wordcount.pl | 129.33 | 127.21 | 1242100 |
-| 8 | php php/wordcount.php | 135.94 | 118.29 | 2119284 |
-| 9 | mono csharp/Program.exe | 240.38 | 209.28 | 699264 |
-| 10 | bash/wordcount.sh | 282.95 | 288.29 | 13616 |
-| 11 | julia julia/wordcount.jl | 393.71 | 385.91 | 4230204 |
-
 On the full Hungarian Wikisource:
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory |
