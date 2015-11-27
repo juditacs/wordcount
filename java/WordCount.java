@@ -1,29 +1,27 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.NavigableMap;
-import java.util.TreeMap;
 import java.util.Collections;
-import java.util.regex.Pattern;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 /** Word count for Java. Slow because of boxing/unboxing. */
 class WordCount {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Map<String, Integer> m = new LinkedHashMap<String, Integer>();
-        Pattern p = Pattern.compile("\\s+");
         String line;
         while ((line = br.readLine()) != null) {
-            line = line.trim();
-            if (!line.isEmpty()) {
-                for (String word : p.split(line)) {
-                    m.put(word, m.containsKey(word) ? m.get(word) + 1 : 1);
-                }
+            StringTokenizer st = new StringTokenizer(line);
+
+            while (st.hasMoreTokens()) {
+                String word = st.nextToken();
+                m.put(word, m.containsKey(word) ? m.get(word) + 1 : 1);
             }
         }
 
