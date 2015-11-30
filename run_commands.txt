@@ -10,6 +10,7 @@ nodejs javascript/wordcount.js
 nodejs javascript/wordcount2.js
 perl/wordcount.pl
 python/wordcount_py2.py
+python/wordcount_py2gabor.py
 python/wordcount_py3.py
 php php/wordcount.php
 go/bin/wordcount
