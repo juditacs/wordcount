@@ -19,3 +19,7 @@ go install wordcount
 
 cd ../csharp
 mcs WordCountList.cs
+
+cd ../haskell
+cabal install --verbose=0
+cp dist/build/WordCount/WordCount .
