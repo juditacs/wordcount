@@ -16,6 +16,7 @@ Notes:
 * NodeJS runs out of memory (16GB is not enough) - fixed by @szelpe
 * a faster C# (mono) version added by @szelpe
 * Golang took over Python and is now 2nd place - congrats @siklosid
+* Haskell version by (https://github.com/larion)
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor
 | :---: | :---: | :---: | :---: | :---: | :--: |
@@ -29,9 +30,9 @@ Notes:
 | 8 | perl/wordcount.pl | 124.81 | 122.59 | 1242100 | @juditacs |
 | 9 | php php/wordcount.php | 135.94 | 118.29 | 2119284 | @bpatrik |
 | 10 | bash/wordcount.sh | 280.79 | 287.16 | 11564 | @juditacs |
-| 11 | julia julia/wordcount.jl | 339.72 | 333.17 | 4226912 | @zseder |
-| 12 | nodejs javascript/wordcount2.js | 755.98 | 732.0 | 985596 | @szelpe |
-
+| 11 | haskell/WordCount | 290.53 | 285.36 | 4208920 | @larion |
+| 12 | julia julia/wordcount.jl | 339.72 | 333.17 | 4226912 | @zseder |
+| 13 | nodejs javascript/wordcount2.js | 755.98 | 732.0 | 985596 | @szelpe |
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory |
 | :---: | :---: | :---: | :---: | :---: |
