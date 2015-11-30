@@ -1,13 +1,17 @@
+customlt(a,b) = (b.second < a.second) ? true : b.second == a.second ? a.first < b.first : false
+
 function main()
-    wc = Dict{AbstractString,Int64}()
+    wc = Dict{UTF8String,Int64}()
     for l in eachline(STDIN)
         for w in split(l)
             wc[w]=get(wc, w, 0) + 1
         end
     end
 
-    for t in sort(collect(wc), by=x -> (-x.second, x.first))
-        println(t.first, "\t", t.second)
+    v = collect(wc)
+    sort!(v,lt=customlt)
+    for t in v
+        @printf("%s\t%d\n",t.first,t.second)
     end
 end
 
