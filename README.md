@@ -7,13 +7,31 @@ http://juditacs.github.io/2015/11/26/wordcount.html
 
 # Leaderboard
 
-Updated: 27-11-2015 16:31
+Updated: 30-11-2015 10:47
 
 On 5 million lines from the Hungarian Wikipedia:
 
 Notes:
 * removed two C++ versions
-* NodeJS runs out of memory (16GB is not enough)
+* NodeJS runs out of memory (16GB is not enough) - fixed by @szelpe
+* a faster C# (mono) version added by @szelpe
+* Golang took over Python and is now 2nd place - congrats @siklosid
+
+| Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor
+| :---: | :---: | :---: | :---: | :---: | :--: |
+| 1 | cpp/wc_vector | 34.21 | 32.73 | 772048 | @juditacs |
+| 2 | go/bin/wordcount | 40.92 | 39.37 | 856128 | @siklosid |
+| 3 | python/wordcount_py2.py | 66.65 | 64.68 | 1433152 | @juditacs |
+| 4 | java -classpath java WordCount | 79.92 | 68.17 | 1799236 | @DavidNemeskey |
+| 5 | cpp/wc_baseline_hash | 85.8 | 70.14 | 971720 | @juditacs |
+| 6 | mono csharp/WordCountList.exe | 100.69 | 71.01 | 900496 | @szelpe |
+| 7 | python/wordcount_py3.py | 105.08 | 102.45 | 1241144 | @juditacs |
+| 8 | perl/wordcount.pl | 124.81 | 122.59 | 1242100 | @juditacs |
+| 9 | php php/wordcount.php | 135.94 | 118.29 | 2119284 | @bpatrik |
+| 10 | bash/wordcount.sh | 280.79 | 287.16 | 11564 | @juditacs |
+| 11 | julia julia/wordcount.jl | 339.72 | 333.17 | 4226912 | @zseder |
+| 12 | nodejs javascript/wordcount2.js | 755.98 | 732.0 | 985596 | @szelpe |
+
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory |
 | :---: | :---: | :---: | :---: | :---: |
