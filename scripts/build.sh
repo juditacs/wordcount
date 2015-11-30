@@ -16,3 +16,6 @@ npm install
 cd ../go
 export GOPATH=$(pwd)
 go install wordcount
+
+cd ../csharp
+mcs WordCountList.cs

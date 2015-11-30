@@ -1,0 +1,36 @@
+﻿{
+    "name": "WordCount",
+    "version": "1.0.0-*",
+    "description": "WordCount",
+    "authors": [ "Peter Szel" ],
+    "compilationOptions": {
+        "emitEntryPoint": true
+    },
+
+    "dependencies": {
+        "Microsoft.NETCore.Runtime": "1.0.1-beta-*",
+        "System.IO": "4.0.11-beta-*",
+        "System.Console": "4.0.0-beta-*",
+        "System.Runtime": "4.0.21-beta-*",
+        "System.Linq": "4.0.1-beta-23516"
+    },
+
+    "frameworks": {
+        "dnxcore50": { }
+    },
+    
+    "configurations": {
+        "Debug": {
+            "compilationOptions": {
+                "define": ["DEBUG", "TRACE"],
+                "optimize": false
+            }
+        },
+        "Release": {
+            "compilationOptions": {
+                "define": ["RELEASE", "TRACE"],
+                "optimize": true
+            }
+        }
+    }
+}
