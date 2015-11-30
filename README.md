@@ -16,7 +16,7 @@ Notes:
 * NodeJS runs out of memory (16GB is not enough) - fixed by @szelpe
 * a faster C# (mono) version added by @szelpe
 * Golang took over Python and is now 2nd place - congrats @siklosid
-* Haskell version by (https://github.com/larion)
+* Haskell version by @larion
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor
 | :---: | :---: | :---: | :---: | :---: | :--: |
