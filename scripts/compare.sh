@@ -13,6 +13,8 @@ else
 	n=$2
 fi
 
+comment=$3
+
 workdir=`mktemp -d`
 cat $data > $workdir/input
 wc -l $workdir/input
@@ -23,7 +25,7 @@ for i in $( seq 1 $n); do
     cat $workdir/input | eval /usr/bin/time -f "%e__%U__%M" -o $workdir/stat $line > $workdir/out
     wcl=$(wc -l $workdir/out | cut -f1 -d" ")
     if [ $wcl -ne 0 ]; then
-        echo ${line}__$(cat $workdir/stat) | sed 's/__/\t/g' >> results.txt
+        echo ${line}__$(cat $workdir/stat)__${comment} | sed 's/__/\t/g' >> results.txt
     fi
 done
     done
