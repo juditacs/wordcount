@@ -1,0 +1,20 @@
+name:                WordCount
+version:             0.1.0.0
+-- synopsis:            
+-- description:         
+-- license:             
+--license-file:        LICENSE
+author:              Larion Garaczi
+maintainer:          l4rion@gmail.com
+-- copyright:           
+category:            Language
+build-type:          Simple
+cabal-version:       >=1.8
+
+executable WordCount
+  main-is:              WordCount.hs
+  -- other-modules:       
+  build-depends:       base ==4.6.*, containers ==0.5.*, unordered-containers ==0.2.*, text ==1.2.*
+  ghc-options:
+    -O2
+    -with-rtsopts=-H512M
