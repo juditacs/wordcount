@@ -7,7 +7,7 @@ http://juditacs.github.io/2015/11/26/wordcount.html
 
 # Leaderboard
 
-Updated: 30-11-2015 10:47
+Updated: 30-11-2015 18:53
 
 On 5 million lines from the Hungarian Wikipedia:
 
@@ -17,6 +17,7 @@ Notes:
 * a faster C# (mono) version added by @szelpe
 * Golang took over Python and is now 2nd place - congrats @siklosid
 * Haskell version by @larion
+* further test are run only on the Hungarian Wikipedia, the other tables are deprecated
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor
 | :---: | :---: | :---: | :---: | :---: | :--: |
@@ -29,23 +30,13 @@ Notes:
 | 7 | python/wordcount_py3.py | 105.08 | 102.45 | 1241144 | @juditacs |
 | 8 | perl/wordcount.pl | 124.81 | 122.59 | 1242100 | @juditacs |
 | 9 | php php/wordcount.php | 135.94 | 118.29 | 2119284 | @bpatrik |
-| 10 | bash/wordcount.sh | 280.79 | 287.16 | 11564 | @juditacs |
-| 11 | haskell/WordCount | 290.53 | 285.36 | 4208920 | @larion |
-| 12 | julia julia/wordcount.jl | 339.72 | 333.17 | 4226912 | @zseder |
+| 10 | julia julia/wordcount.jl | 175.81 | 173.58 | 2503776 | @getzdan |
+| 11 | bash/wordcount.sh | 280.79 | 287.16 | 11564 | @juditacs |
+| 12 | haskell/WordCount | 290.53 | 285.36 | 4208920 | @larion |
 | 13 | nodejs javascript/wordcount2.js | 755.98 | 732.0 | 985596 | @szelpe |
 
-| Rank | Experiment | CPU seconds | User time | Maximum memory |
-| :---: | :---: | :---: | :---: | :---: |
-| 1 | cpp/wc_vector | 34.21 | 32.73 | 772048 |
-| 2 | python/wordcount_py2.py | 66.65 | 64.68 | 1433152 |
-| 3 | java -classpath java WordCount | 85.71 | 70.95 | 1829388 |
-| 4 | cpp/wc_baseline_hash | 85.8 | 70.14 | 971720 |
-| 5 | python/wordcount_py3.py | 105.08 | 102.45 | 1241144 |
-| 6 | perl/wordcount.pl | 129.33 | 127.21 | 1242100 |
-| 7 | php php/wordcount.php | 135.94 | 118.29 | 2119284 |
-| 8 | mono csharp/Program.exe | 240.38 | 209.28 | 699264 |
-| 9 | bash/wordcount.sh | 282.95 | 288.29 | 13616 |
-| 10 | julia julia/wordcount.jl | 393.71 | 385.91 | 4230204 |
+
+## Not updated
 
 On the full Hungarian Wikisource:
 
