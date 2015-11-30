@@ -1,6 +1,7 @@
 {
   "name": "wordcount",
   "version": "1.0.0",
+  "readme": "../README.md",
   "description": "Javascript implementation of wordcount for https://github.com/juditacs/wordcount",
   "main": "wordcount.js",
   "repository": "juditacs/wordcount",
@@ -10,6 +11,6 @@
   "author": "Laci",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^3.10.1"
+    "timsort": "^0.2.1"
   }
 }
