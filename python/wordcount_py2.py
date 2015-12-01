@@ -1,10 +1,10 @@
 #!/usr/bin/env python2
-from collections import defaultdict
+from collections import Counter
 from sys import stdin
 
 
 def word_count():
-    counter = defaultdict(int)
+    counter = Counter()
     for l in stdin:
         for word in l.split():
             counter[word] += 1
