@@ -1,20 +1,7 @@
 #!/usr/bin/env perl
 
+my %words;
+while(<>) { $words{$_}++ for split }
 
-sub word_count {
-    my %counter;
-    my $line = <STDIN>;
-    while($line ne "") {
-        my @words = split(' ', $line);
-        for my $word (@words) {
-            $counter{$word} ++;
-        }
-        $line = <STDIN>;
-    }
-
-    foreach my $word (sort { -$counter{$a} <=> -$counter{$b} or $a cmp $b } keys %counter) {
-        printf "%s\t%s\n", $word, $counter{$word};
-    }
-}
-
-word_count();
+print "$_\t$words{$_}\n"
+    for sort {$words{$b}<=>$words{$a} or $a cmp $b} keys %words;
