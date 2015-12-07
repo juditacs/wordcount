@@ -7,11 +7,13 @@ http://juditacs.github.io/2015/11/26/wordcount.html
 
 # Leaderboard
 
-Updated: 30-11-2015 18:53
+Updated: 07-12-2015 20:00
 
 On 5 million lines from the Hungarian Wikipedia:
 
 Notes:
+* <b>New 2nd place, a clever Python implementation by @gaborszabo88</b>
+* improved Perl, Julia and Javascript versions
 * removed two C++ versions
 * NodeJS runs out of memory (16GB is not enough) - fixed by @szelpe
 * a faster C# (mono) version added by @szelpe
@@ -22,18 +24,19 @@ Notes:
 | Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor
 | :---: | :---: | :---: | :---: | :---: | :--: |
 | 1 | cpp/wc_vector | 34.21 | 32.73 | 772048 | @juditacs |
-| 2 | go/bin/wordcount | 40.92 | 39.37 | 856128 | @siklosid |
-| 3 | python/wordcount_py2.py | 66.65 | 64.68 | 1433152 | @juditacs |
-| 4 | java -classpath java WordCount | 79.92 | 68.17 | 1799236 | @DavidNemeskey |
-| 5 | cpp/wc_baseline_hash | 85.8 | 70.14 | 971720 | @juditacs |
-| 6 | mono csharp/WordCountList.exe | 100.69 | 71.01 | 900496 | @szelpe |
-| 7 | python/wordcount_py3.py | 105.08 | 102.45 | 1241144 | @juditacs |
-| 8 | perl/wordcount.pl | 124.81 | 122.59 | 1242100 | @juditacs |
-| 9 | php php/wordcount.php | 135.94 | 118.29 | 2119284 | @bpatrik |
-| 10 | julia julia/wordcount.jl | 175.81 | 173.58 | 2503776 | @getzdan |
-| 11 | bash/wordcount.sh | 280.79 | 287.16 | 11564 | @juditacs |
-| 12 | haskell/WordCount | 290.53 | 285.36 | 4208920 | @larion |
-| 13 | nodejs javascript/wordcount2.js | 755.98 | 732.0 | 985596 | @szelpe |
+| 2 | python/wordcount_py2gabor.py | 36.93 | 35.69 | 596792 | @gaborszabo88 |
+| 3 | go/bin/wordcount | 40.92 | 39.37 | 856128 | @siklosid |
+| 4 | python/wordcount_py2.py | 66.65 | 64.68 | 1433152 | @juditacs |
+| 5 | java -classpath java WordCount | 79.92 | 68.17 | 1799236 | @DavidNemeskey |
+| 6 | cpp/wc_baseline_hash | 85.8 | 70.14 | 971720 | @juditacs |
+| 7 | mono csharp/WordCountList.exe | 100.69 | 71.01 | 900496 | @szelpe |
+| 8 | perl/wordcount.pl | 103.82 | 101.63 | 1237776 | @larion |
+| 9 | python/wordcount_py3.py | 105.08 | 102.45 | 1241144 | @juditacs |
+| 10 | php php/wordcount.php | 135.94 | 118.29 | 2119284 | @bpatrik |
+| 11 | julia julia/wordcount.jl | 143.81 | 140.8 | 2558176 |
+| 12 | bash/wordcount.sh | 280.79 | 287.16 | 11564 | @juditacs |
+| 13 | haskell/WordCount | 290.53 | 285.36 | 4208920 | @larion |
+| 14 | nodejs javascript/wordcount.js | 702.88 | 701.76 | 985500 | @kundralaci |
 
 
 ## Not updated
