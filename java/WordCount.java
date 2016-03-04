@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 class WordCount {
     public static void main(String[] args) throws IOException {
-        		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		Pattern p = Pattern.compile("\\s+");
 		Map<String, Integer> words = new HashMap<>();
 		String line;
