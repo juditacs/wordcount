@@ -5,39 +5,41 @@ $stdin = fopen('php://stdin', 'r');
 //$stdin = fopen('test', 'r');
 
 
+class WordCount {
+    public $word;
+    public $count;
+    function __construct($word, $count) {
+        $this->word = $word;
+        $this->count = $count;
+    }
+}
+
 $array = array();
 while (false !== ($line = fgets($stdin))) {
   $words = preg_split('/\s+/', $line);
     foreach($words as $word){
-        if(empty($word) &&  $word !== "0"){
+        if(empty($word) && $word !== "0"){
             continue;
         }
         if (!array_key_exists($word,$array)){
-            $array[$word] = 1;
+            $newWord = new WordCount($word, 1);
+            $array[$word] = $newWord;
             continue;
         }
-        $array[$word]++;
+        $array[$word]->count++;
     }
 
 
 }
 fclose($stdin);
-$array2 = array();
 
-foreach($array as $key => $value){
+uasort($array, function($a, $b) {
+        if ($a->count == $b->count ) {
+            return strcmp($a->word, $b->word);
+        }
+        return ($a->count < $b->count) ? 1 : -1;
+});
 
-    if (!array_key_exists($value,$array2)){
-        $array2[$value] = array($key);
-        continue;
-    }
-    $array2[$value][] =(string) $key;
-}
-
-
-krsort($array2);
-foreach($array2 as $count => $wordsArray){
-    sort ($wordsArray);
-    foreach($wordsArray as $word) {
-        print "$word\t$count\n";
-    }
+foreach($array as $wordCount){
+        print $wordCount->word . "\t" . $wordCount->count . "\n";
 }
