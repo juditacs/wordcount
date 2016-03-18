@@ -12,7 +12,8 @@ perl/wordcount.pl
 python/wordcount_py2.py
 python/wordcount_py2gabor.py
 python/wordcount_py3.py
-php php/wordcount.php
+php5.6 php/wordcount.php
+php7.0 php/wordcount.php
 go/bin/wordcount
 mono csharp/WordCountList.exe
 haskell/WordCount
