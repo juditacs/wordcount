@@ -4,19 +4,29 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Comparator;
+import java.util.Collections;
 
 /** Word count for Java. Slow because of boxing/unboxing. */
 class WordCount {
     
-    private static class CountForWord{
+    private static class CountForWord implements Comparable<CountForWord>{
         String word;
         int count = 1;
 
         public CountForWord(String word) {
             this.word = word;
         }
-        
+
+        @Override
+        public int compareTo(CountForWord t) {
+            if(count < t.count){
+                return 1;
+            }else if(count > t.count){
+                return -1;
+            }else{
+                return -word.compareTo(t.word);
+            }
+        }
     }
     
     private static void submitWord(Map<String, CountForWord> m, String word){
@@ -57,12 +67,7 @@ class WordCount {
 
         System.err.println("sorting...");
         ArrayList<CountForWord> lst = new ArrayList<>(m.values());
-        lst.sort(new Comparator<CountForWord>() {
-            @Override
-            public int compare(CountForWord t, CountForWord t1) {
-                return -Integer.compare(t.count, t1.count);
-            }
-        });
+        Collections.sort(lst);
         System.err.println("output...");
         for(CountForWord c : lst){
             System.out.println(c.word + "\t" + c.count);
