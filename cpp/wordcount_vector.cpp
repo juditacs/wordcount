@@ -25,8 +25,8 @@ int main() {
         ++m[s];
     }
     vector<pair<int, string>> mvec;
-    for (const auto& p: m) {
-        mvec.emplace_back(p.second, p.first);
+    for (auto& p: m) {
+        mvec.emplace_back(p.second, move(p.first));
     }
     sort(mvec.begin(), mvec.end(), F());
     for (const auto& p: mvec) {
