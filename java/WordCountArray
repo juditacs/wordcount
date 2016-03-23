@@ -1,0 +1,59 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.regex.Pattern;
+
+public class WordCountArray {
+	
+	public static void main(String[] args) throws IOException {
+		Pattern p = Pattern.compile("\\s+");
+
+		int maxCount = 1;
+
+		HashMap<String, Integer> words = new HashMap<>(2_000_000); // Init capacity needs testing
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String line;
+		while ((line = br.readLine()) != null) {
+			line = line.trim();
+			if (!line.isEmpty()) {
+				for (String word : p.split(line)) {
+					int count = words.containsKey(word) ? words.get(word) + 1 : 1;
+					words.put(word, count);
+					maxCount = Math.max(maxCount, count);
+				}
+			}
+		}
+
+		// System.err.println("Reading complete. maxCount: " + maxCount);
+
+		@SuppressWarnings("unchecked")
+		ArrayList<String>[] counts = new ArrayList[maxCount];
+
+		for (String word : words.keySet()) {
+			int count = words.get(word);
+			ArrayList<String> lst = counts[count - 1];
+			if (lst == null) {
+				lst = new ArrayList<String>();
+				counts[count - 1] = lst;
+			}
+			lst.add(word);
+		}
+
+		// System.err.println("Shuffling complete");
+
+		for (int count = counts.length; count > 0; count--) {
+			ArrayList<String> lst = counts[count - 1];
+			if (lst == null) {
+				continue;
+			}
+			Collections.sort(lst); // Try other sorting algorithms
+			for (Object word : lst) {
+				System.out.println(word + "\t" + count);
+			}
+		}
+	}
+}
