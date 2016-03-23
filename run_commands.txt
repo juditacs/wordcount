@@ -17,3 +17,4 @@ php7.0 php/wordcount.php
 go/bin/wordcount
 mono csharp/WordCountList.exe
 haskell/WordCount
+racket/wordcount
