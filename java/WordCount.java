@@ -1,48 +1,71 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.NavigableMap;
-import java.util.TreeMap;
-import java.util.Collections;
-import java.util.regex.Pattern;
+import java.util.Comparator;
 
 /** Word count for Java. Slow because of boxing/unboxing. */
 class WordCount {
+    
+    private static class CountForWord{
+        String word;
+        int count = 1;
+
+        public CountForWord(String word) {
+            this.word = word;
+        }
+        
+    }
+    
+    private static void submitWord(Map<String, CountForWord> m, String word){
+        CountForWord c;
+        if((c = m.get(word)) != null){
+            c.count ++;
+        }else{
+            m.put(word, new CountForWord(word));
+        }
+    }
+    
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Map<String, Integer> m = new HashMap<String, Integer>();
-        Pattern p = Pattern.compile("\\s+");
+        Map<String, CountForWord> m = new HashMap<String, CountForWord>();
         String line;
         while ((line = br.readLine()) != null) {
             line = line.trim();
             if (!line.isEmpty()) {
-                for (String word : p.split(line)) {
-                    m.put(word, m.containsKey(word) ? m.get(word) + 1 : 1);
+                int index = 0;
+                for(int i = 0; i < line.length(); i++){
+                    char c = line.charAt(i);
+                    if(c == '\t' || c == ' '){
+                        if(index == i){
+                            index ++;
+                        }else{
+                            String word = line.substring(index, i);
+                            index = i + 1;
+                            submitWord(m, word);
+                        }
+                    }
+                }
+                if(index < line.length()){
+                    submitWord(m, line.substring(index));
                 }
             }
         }
+        br.close();
 
-        NavigableMap<Integer, List<String>> mm = new TreeMap<Integer, List<String>>();
-        for (String word : m.keySet()) {
-            Integer count = m.get(word);
-            List<String> lst = mm.get(count);
-            if (lst == null) {
-                lst = new ArrayList<String>();
-                mm.put(count, lst);
+        System.err.println("sorting...");
+        ArrayList<CountForWord> lst = new ArrayList<>(m.values());
+        lst.sort(new Comparator<CountForWord>() {
+            @Override
+            public int compare(CountForWord t, CountForWord t1) {
+                return -Integer.compare(t.count, t1.count);
             }
-            lst.add(word);
-        }
-
-        for (Integer count : mm.descendingKeySet()) {
-            List<String> lst = mm.get(count);
-            Collections.sort(lst);
-            for (String word : lst) {
-                System.out.println(word + "\t" + count);
-            }
+        });
+        System.err.println("output...");
+        for(CountForWord c : lst){
+            System.out.println(c.word + "\t" + c.count);
         }
     }
 }
