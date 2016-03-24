@@ -3,10 +3,13 @@
 #include <unordered_map>
 #include <algorithm>
 
+using namespace std;
 
 class F {
 public:
-    bool operator()(std::pair<int, std::string> const& lhs, std::pair<int, std::string> const& rhs) {
+    using value_type = pair<int, string>;
+
+    bool operator()(value_type const& lhs, value_type const& rhs) {
         if (lhs.first > rhs.first) return true;
         if (lhs.first == rhs.first && lhs.second < rhs.second) return true;
         return false;
@@ -14,18 +17,20 @@ public:
 };
 
 int main() {
-    std::unordered_map<std::string, int> m;
-    std::string s;
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    while (std::cin >> s) {
+    unordered_map<string, int> m;
+    string s;
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    while (cin >> s) {
         ++m[s];
     }
-    std::vector<std::pair<int, std::string>> mvec;
-    for (auto p: m) mvec.push_back(std::pair<int, std::string>{p.second, p.first});
-    std::sort(mvec.begin(), mvec.end(), F());
-    for (auto p: mvec) {
-        std::cout << p.second << "\t" << p.first << "\n";
+    vector<pair<int, string>> mvec;
+    for (auto& p: m) {
+        mvec.emplace_back(p.second, move(p.first));
+    }
+    sort(mvec.begin(), mvec.end(), F());
+    for (const auto& p: mvec) {
+        cout << p.second << "\t" << p.first << "\n";
     }
 
 }
