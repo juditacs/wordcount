@@ -41,21 +41,7 @@ Notes:
 
 On the full Hungarian Wikipedia:
 
-
-| Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor |
-| :---: | :---: | :---: | :---: | :---: | :---: |
-| 1 | cpp/wc_v6 | 260.87 | 250.97 | 3904412 | @juditacs |
-| 2 | python/wordcount_py2gabor.py | 333.34 | 321.56 | 3844908 | @gaborszabo88 |
-| 3 | go/bin/wordcount | 349.26 | 332.43 | 6066928 | @siklosid |
-| 4 | python/wordcount_py2.py | 545.38 | 529.71 | 8670208 | @juditacs |
-| 5 | mono csharp/WordCountList.exe | 796.2 | 637.8 | 4780360 | @szelpe |
-| 6 | perl/wordcount.pl | 881.23 | 861.38 | 6979772 | @larion |
-| 7 | python/wordcount_py3.py | 909.86 | 888.65 | 7561112 | @juditacs |
-| 8 | php php/wordcount.php | 1107.38 | 998.33 | 12467064 | @bpatrik |
-| 9 | julia julia/wordcount.jl | 1798.55 | 1763.0 | 7284708 | @getzdan |
-| 10 | bash/wordcount.sh | 2100.96 | 2128.94 | 13768 | @juditacs |
-
-The current Javascript version runs out of memory (16GB), the Java version did not finish for a day, so it was killed.
+TBA
 
 # The task
 
