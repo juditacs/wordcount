@@ -75,10 +75,10 @@ class WordCountArray {
         
         ArrayList<String>[] groupedByCount = new ArrayList[maxCount];
         for(CountForWord c : m.values()){
-            if(groupedByCount[c.count] == null){
-                groupedByCount[c.count] = new ArrayList<String>();
+            if(groupedByCount[c.count-1] == null){
+                groupedByCount[c.count-1] = new ArrayList<String>();
             }
-            groupedByCount[c.count].add(c.word);
+            groupedByCount[c.count-1].add(c.word);
         }
         
         BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
