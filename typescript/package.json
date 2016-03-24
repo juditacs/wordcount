@@ -7,7 +7,7 @@
   "repository": "juditacs/wordcount",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "typings install && tsc"
+    "install": "typings install && tsc",
     "start": "node wordcount.js"
   },
   "author": "Laci",
