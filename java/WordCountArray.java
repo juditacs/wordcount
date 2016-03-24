@@ -89,9 +89,7 @@ class WordCount {
             }
             Collections.sort(lst);
             for (String word : lst) {
-                outputWriter.write(word);
-                outputWriter.write("\t");
-                outputWriter.write(count);
+                outputWriter.write(word + "\t" + count);
                 outputWriter.newLine();
             }
         }

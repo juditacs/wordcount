@@ -73,9 +73,7 @@ class WordCount {
         System.err.println("output...");
         BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
         for(CountForWord c : lst){
-            outputWriter.write(c.word);
-            outputWriter.write("\t");
-            outputWriter.write(c.count);
+            outputWriter.write(c.word + "\t" + c.count);
             outputWriter.newLine();
         }
         outputWriter.close();
