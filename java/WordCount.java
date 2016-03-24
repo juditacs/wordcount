@@ -1,4 +1,6 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -69,8 +71,13 @@ class WordCount {
         ArrayList<CountForWord> lst = new ArrayList<>(m.values());
         Collections.sort(lst);
         System.err.println("output...");
+        BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
         for(CountForWord c : lst){
-            System.out.println(c.word + "\t" + c.count);
+            outputWriter.write(c.word);
+            outputWriter.write("\t");
+            outputWriter.write(c.count);
+            outputWriter.newLine();
         }
+        outputWriter.close();
     }
 }
