@@ -25,7 +25,7 @@ namespace WordCount_TPoise
                 }
             }
 
-            foreach (var wordCount in wordCounts.AsParallel().OrderByDescending(k => k.Value).ThenBy(k => k.Key).Take(10))
+            foreach (var wordCount in wordCounts.AsParallel().OrderByDescending(k => k.Value).ThenBy(k => k.Key))
             {
                 Console.WriteLine("{0}\t{1}", wordCount.Key, wordCount.Value);
             }
