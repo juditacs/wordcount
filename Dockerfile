@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:14.04
 MAINTAINER Judit Acs
 RUN apt-get update
 RUN yes | apt-get install -y wget curl gcc g++ nano python perl git default-jdk time software-properties-common mono-mcs ghc cabal-install
