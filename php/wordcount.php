@@ -26,9 +26,11 @@ foreach($array as $key => $value){
     }
 }
 krsort($array2);
+ob_start();
 foreach($array2 as $count => $wordsArray){
     sort ($wordsArray);
     foreach($wordsArray as $word) {
         print "$word\t$count\n";
     }
 }
+ob_end_flush();
