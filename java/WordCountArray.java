@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Collections;
 
 /** Word count for Java. Slow because of boxing/unboxing. */
-class WordCount {
+class WordCountArray {
     
     private static class CountForWord implements Comparable<CountForWord>{
         String word;
