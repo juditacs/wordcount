@@ -24,7 +24,7 @@ class WordCount {
             }else if(count > t.count){
                 return -1;
             }else{
-                return -word.compareTo(t.word);
+                return word.compareTo(t.word);
             }
         }
     }
