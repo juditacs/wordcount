@@ -12,10 +12,10 @@ object Wordcount {
 
     val map = collection.mutable.Map[String, Int]().withDefaultValue(0)
 
-    words.foreach(w => map.update(w, map(w) - 1))
+    words.foreach(w => map.update(w, map(w) + 1))
     map -= ""
 
-    map.toVector.sortBy(x => (x._2, x._1)).foreach(x => log.write(s"${x._1}\t${-x._2}\n"))
+    map.toVector.sortBy(x => (-x._2, x._1)).foreach(x => log.write(s"${x._1}\t${x._2}\n"))
     log.flush()
   }
 }
