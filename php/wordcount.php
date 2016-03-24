@@ -7,12 +7,12 @@ $stdin = fopen('php://stdin', 'r');
 
 $array = array();
 while (false !== ($line = fgets($stdin))) {
-  $words = preg_split('/\s+/', $line);
+    $words = preg_split('/\s+/', $line);
     foreach($words as $word){
         if(empty($word) &&  $word !== "0"){
             continue;
         }
-        if (!array_key_exists($word,$array)){
+        if (!isset($array[$word])){
             $array[$word] = 1;
             continue;
         }
@@ -25,11 +25,6 @@ fclose($stdin);
 $array2 = array();
 
 foreach($array as $key => $value){
-
-    if (!array_key_exists($value,$array2)){
-        $array2[$value] = array($key);
-        continue;
-    }
     $array2[$value][] =(string) $key;
 }
 
