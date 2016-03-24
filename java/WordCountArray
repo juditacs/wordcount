@@ -1,32 +1,49 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 public class WordCountArray {
-	
+
 	public static void main(String[] args) throws IOException {
-		Pattern p = Pattern.compile("\\s+");
 
 		int maxCount = 1;
 
-		HashMap<String, Integer> words = new HashMap<>(2_000_000); // Init capacity needs testing
+		HashMap<String, Integer> words = new HashMap<>(); // Init capacity needs testing
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String line;
 		while ((line = br.readLine()) != null) {
 			line = line.trim();
 			if (!line.isEmpty()) {
-				for (String word : p.split(line)) {
+				int index = 0;
+				for (int i = 0; i < line.length(); i++) {
+					char c = line.charAt(i);
+					if (c == '\t' || c == ' ') {
+						if (index == i) {
+							index++;
+						} else {
+							String word = line.substring(index, i);
+							int count = words.containsKey(word) ? words.get(word) + 1 : 1;
+							words.put(word, count);
+							maxCount = Math.max(maxCount, count);
+							index = i + 1;
+						}
+					}
+				}
+				if (index < line.length()) {
+					String word = line.substring(index);
 					int count = words.containsKey(word) ? words.get(word) + 1 : 1;
-					words.put(word, count);
+					words.put(line.substring(index), count);
 					maxCount = Math.max(maxCount, count);
 				}
 			}
 		}
+		br.close();
 
 		// System.err.println("Reading complete. maxCount: " + maxCount);
 
@@ -45,15 +62,19 @@ public class WordCountArray {
 
 		// System.err.println("Shuffling complete");
 
+		BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 		for (int count = counts.length; count > 0; count--) {
 			ArrayList<String> lst = counts[count - 1];
 			if (lst == null) {
 				continue;
 			}
 			Collections.sort(lst); // Try other sorting algorithms
-			for (Object word : lst) {
-				System.out.println(word + "\t" + count);
+
+			for (String word : lst) {
+				outputWriter.write(word + "\t" + count);
+				outputWriter.newLine();
 			}
 		}
+		outputWriter.close();
 	}
 }
