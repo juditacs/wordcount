@@ -33,50 +33,29 @@ Notes:
 | 8 | perl/wordcount.pl | 103.82 | 101.63 | 1237776 | @larion |
 | 9 | python/wordcount_py3.py | 105.08 | 102.45 | 1241144 | @juditacs |
 | 10 | php php/wordcount.php | 135.94 | 118.29 | 2119284 | @bpatrik |
-| 11 | julia julia/wordcount.jl | 143.81 | 140.8 | 2558176 |
+| 11 | julia julia/wordcount.jl | 143.81 | 140.8 | 2558176 | @getzdan |
 | 12 | bash/wordcount.sh | 280.79 | 287.16 | 11564 | @juditacs |
 | 13 | haskell/WordCount | 290.53 | 285.36 | 4208920 | @larion |
 | 14 | nodejs javascript/wordcount.js | 702.88 | 701.76 | 985500 | @kundralaci |
 
 
-## Not updated
+On the full Hungarian Wikipedia:
 
-On the full Hungarian Wikisource:
 
-| Rank | Experiment | CPU seconds | User time | Maximum memory |
+| Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor |
 | :---: | :---: | :---: | :---: | :---: |
-| 1 | cpp/wc_vector | 15.75 | 11.65 | 245316 |
-| 2 | cpp/wc_hash_nosync | 18.81 | 15.02 | 327184 |
-| 3 | python/wordcount_py2.py | 20.02 | 19.58 | 554352 |
-| 4 | cpp/wc_baseline_hash | 24.23 | 20.45 | 343276 |
-| 5 | java -classpath java WordCount | 27.37 | 31.39 | 545940 |
-| 6 | java -classpath java WordCountEntries | 28.13 | 32.23 | 540276 |
-| 7 | python/wordcount_py3.py | 33.06 | 32.59 | 482988 |
-| 8 | cpp/wc_baseline | 35.1 | 31.25 | 355692 |
-| 9 | perl/wordcount.pl | 39.15 | 38.66 | 447000 |
-| 10 | php php/wordcount.php | 39.82 | 35.58 | 781668 |
-| 11 | nodejs javascript/wordcount.js | 72.93 | 67.14 | 1005116 |
-| 12 | bash/wordcount.sh | 82.36 | 93.9 | 12924 |
-| 13 | julia julia/wordcount.jl | 94.46 | 93.51 | 725232 |
+| 1 | cpp/wc_v6 | 260.87 | 250.97 | 3904412 | @juditacs |
+| 2 | python/wordcount_py2gabor.py | 333.34 | 321.56 | 3844908 | @gaborszabo88 |
+| 3 | go/bin/wordcount | 349.26 | 332.43 | 6066928 | @siklosid |
+| 4 | python/wordcount_py2.py | 545.38 | 529.71 | 8670208 | @juditacs |
+| 5 | mono csharp/WordCountList.exe | 796.2 | 637.8 | 4780360 | @szelpe |
+| 6 | perl/wordcount.pl | 881.23 | 861.38 | 6979772 | @larion |
+| 7 | python/wordcount_py3.py | 909.86 | 888.65 | 7561112 | @juditacs |
+| 8 | php php/wordcount.php | 1107.38 | 998.33 | 12467064 | @bpatrik |
+| 9 | julia julia/wordcount.jl | 1798.55 | 1763.0 | 7284708 | @getzdan |
+| 10 | bash/wordcount.sh | 2100.96 | 2128.94 | 13768 | @juditacs |
 
-
-On a smaller dataset:
-
-| Rank | Experiment | CPU seconds | User time | Maximum memory |
-| :---: | :---: | :---: | :---: | :---: |
-| 1 | cpp/wc_vector | 6.82 | 4.68 | 125856 |
-| 2 | cpp/wc_hash_nosync | 8.04 | 6.07 | 163404 |
-| 3 | python/wordcount_py2.py | 8.68 | 8.48 | 280616 |
-| 4 | cpp/wc_baseline_hash | 10.18 | 8.14 | 171656 |
-| 5 | java -classpath java WordCount | 13.56 | 15.66 | 404064 |
-| 6 | java -classpath java WordCountEntries | 13.8 | 15.77 | 398768 |
-| 7 | cpp/wc_baseline | 13.9 | 12.0 | 178084 |
-| 8 | python/wordcount_py3.py | 14.14 | 13.86 | 245164 |
-| 9 | php php/wordcount.php | 15.16 | 13.15 | 396516 |
-| 10 | perl/wordcount.pl | 17.04 | 16.79 | 225352 |
-| 11 | nodejs javascript/wordcount.js | 27.9 | 24.93 | 577472 |
-| 12 | bash/wordcount.sh | 34.92 | 40.51 | 10768 |
-
+The current Javascript version runs out of memory (16GB), the Java version did not finish for a day, so it was killed.
 
 # The task
 
