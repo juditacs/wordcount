@@ -86,8 +86,6 @@ To test on a small sample:
 
     time cat data/huwikisource-latest-pages-meta-current.xml | head -10000 | python3 python/wordcount_py3.py > python_out
 
-# Using the provided scripts
-
 ## Installation
 
 There are two ways to install all the dependencies:
