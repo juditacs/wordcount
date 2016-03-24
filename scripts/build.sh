@@ -8,6 +8,7 @@ g++ wordcount_vector.cpp -std=c++11 -o wc_vector -O3
 
 cd ../java
 javac WordCount.java
+javac WordCountArray.java
 javac WordCountEntries.java
 
 cd ../javascript
