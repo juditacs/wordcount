@@ -21,7 +21,7 @@ Notes:
 * Haskell version by @larion
 * further test are run only on the Hungarian Wikipedia, the other tables are deprecated
 
-| Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor
+| Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor |
 | :---: | :---: | :---: | :---: | :---: | :--: |
 | 1 | cpp/wc_vector | 34.21 | 32.73 | 772048 | @juditacs |
 | 2 | python/wordcount_py2gabor.py | 36.93 | 35.69 | 596792 | @gaborszabo88 |
@@ -43,7 +43,7 @@ On the full Hungarian Wikipedia:
 
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor |
-| :---: | :---: | :---: | :---: | :---: |
+| :---: | :---: | :---: | :---: | :---: | :---: |
 | 1 | cpp/wc_v6 | 260.87 | 250.97 | 3904412 | @juditacs |
 | 2 | python/wordcount_py2gabor.py | 333.34 | 321.56 | 3844908 | @gaborszabo88 |
 | 3 | go/bin/wordcount | 349.26 | 332.43 | 6066928 | @siklosid |
