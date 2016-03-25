@@ -1,3 +1,4 @@
+awk/wordcount.sh
 bash/wordcount.sh
 cpp/wc_baseline
 cpp/wc_baseline_hash
