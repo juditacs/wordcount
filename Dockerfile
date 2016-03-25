@@ -12,6 +12,8 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN sudo apt-get install --yes nodejs
 RUN cabal update
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh
+RUN wget www.scala-lang.org/files/archive/scala-2.11.7.deb
+RUN dpkg -i scala-2.11.7.deb
 RUN git clone https://github.com/juditacs/wordcount.git
 RUN wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar -O wordcount/clojure.jar
 RUN locale-gen en_US.UTF-8

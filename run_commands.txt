@@ -19,3 +19,4 @@ mono csharp/WordCountList.exe
 haskell/WordCount
 rust/wordcount/wordcount
 java -cp clojure.jar clojure.main clojure/wordcount.clj
+scala -J-Xmx2g -classpath scala Wordcount
