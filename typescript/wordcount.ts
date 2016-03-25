@@ -1,29 +1,42 @@
 ///<reference path="typings/main.d.ts"/>
 
-
 import * as readline from 'readline';
-
 process.stdin.setEncoding('utf8');
-
 let rl = readline.createInterface({ input: process.stdin, terminal: false });
+
 let wordCounts:Array<number> = [];
+let i,words;
 
-const regExp = /[ \t\n\r]+/g;
+//removing functions
+let functions  = Object.getOwnPropertyNames(Array.prototype);
+for(i = functions.length - 1; i >= 0; i--){
+    if(functions[i] == "length"){
+        continue;
+    }
+    wordCounts[functions[i]] = null;
+} 
 
-rl.on('line', (line) => {
-    var words = line.trim().split(regExp);
 
-    for(var i = 0, len = words.length; i < len; i++) {
-        var word = words[i];
+const RegExp = /[ \t\n\r]+/g;
+rl.on('line', (line:string) => {
+    words = line.trim().split(RegExp);
 
-        if (!word)
+    for(i = words.length-1; i >=0 ; i--) {
+        if (!words[i])
             return;
 
-        if(wordCounts.hasOwnProperty(word)) {
-            wordCounts[word]++;
-        }
-        else {
-            wordCounts[word] = 1;
+        if(words[i] != "length") { //array has length property, escape it :)
+            if (wordCounts[words[i]]) {
+                wordCounts[words[i]]++;
+            } else {
+                wordCounts[words[i]] = 1;
+            }
+        }else{
+            if (wordCounts["$_pref_length"]) {
+                wordCounts["$_pref_length"]++;
+            } else {
+                wordCounts["$_pref_length"] = 1;
+            }
         }
     }
 
@@ -31,20 +44,19 @@ rl.on('line', (line) => {
     let wordList = Object.keys(wordCounts);
 
     wordList.sort((x, y) => {
-        if(wordCounts[x] < wordCounts[y])
-            return 1;
-
-        if(wordCounts[x] === wordCounts[y] && x > y)
+        if(wordCounts[x] < wordCounts[y] ||
+          (wordCounts[x] === wordCounts[y] && x > y))
             return 1;
 
         return -1;
     });
 
-    for(var i = 0, len = wordList.length; i < len; i++) {
-        var word = wordList[i];
-        var count = wordCounts[word];
-
-        process.stdout.write(word + '\t' + count + '\n');
+    for(i = wordList.length-1; i >=0 ; i--) {
+       if(wordList[i] === "$_pref_length"){
+           process.stdout.write('length\t' + wordCounts[wordList[i]] + '\n');
+       }else{
+           process.stdout.write(wordList[i] + '\t' + wordCounts[wordList[i]] + '\n');
+       }
     }
 
     process.exit(0);
