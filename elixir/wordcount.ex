@@ -3,11 +3,16 @@ IO.stream(:stdio, :line)
 # the number of appearances in the input text.
 |> Enum.reduce(%{}, fn (line, acc) ->
   line
-  |> String.split
+  |> String.strip
+  |> String.split(~r/\s/)
   |> Enum.reduce(acc, fn (word, counter) ->
-    case Dict.get(counter, word) do
-      nil -> Dict.put(counter, word, 1)
-      prev_count -> Dict.put(counter, word, prev_count + 1)
+    if String.length(word) == 0 do
+      counter
+    else
+      case Dict.get(counter, word) do
+        nil -> Dict.put(counter, word, 1)
+        prev_count -> Dict.put(counter, word, prev_count + 1)
+      end
     end
   end)
 end)
