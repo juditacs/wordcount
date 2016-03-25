@@ -20,3 +20,4 @@ haskell/WordCount
 rust/wordcount/wordcount
 java -cp clojure.jar clojure.main clojure/wordcount.clj
 scala -J-Xmx2g -classpath scala Wordcount
+elixir elixir/wordcount.ex

@@ -27,7 +27,12 @@ cp dist/build/WordCount/WordCount .
 cd ../rust/wordcount
 cargo build --release
 cp target/release/wordcount .
-cd ..
 
 cd ../scala
 scalac Wordcount.scala
+
+cd ../elixir
+# Elixir has to run the script to compile it (http://stackoverflow.com/questions/35722248/the-command-elixirc-is-compiling-and-executing-the-code)
+echo "wadus" | elixir elixir/wordcount.ex > /dev/null
+
+cd ..
