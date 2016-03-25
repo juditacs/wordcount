@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 export LC_COLLATE=C
-sed 's/[\t ]/\n/g' | grep -v ^$ | sort | uniq -c | sed 's/^\s*//' | sort  -k1,2nr -k2 | awk 'BEGIN{OFS="\t"}{print $2,$1}'
+gawk '{for(i=1;i<=NF;i++) a[$i]++} END {PROCINFO["sorted_in"] = "@val_num_desc"; for(k in a) print k,"\t",a[k]}'
