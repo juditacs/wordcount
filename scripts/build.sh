@@ -13,6 +13,9 @@ javac WordCountEntries.java
 cd ../javascript
 npm install
 
+cd ../typescript
+npm install
+
 cd ../go
 export GOPATH=$(pwd)
 go install wordcount
