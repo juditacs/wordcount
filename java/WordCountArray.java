@@ -1,8 +1,9 @@
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -43,33 +44,44 @@ class WordCountArray {
     
     public static void main(String[] args) throws IOException {
         int maxCount = 0;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Map<String, CountForWord> m = new HashMap<String, CountForWord>();
-        String line;
-        while ((line = br.readLine()) != null) {
-            line = line.trim();
-            if (!line.isEmpty()) {
-                int index = 0;
-                for(int i = 0; i < line.length(); i++){
-                    char c = line.charAt(i);
-                    if(c == '\t' || c == ' '){
-                        if(index == i){
-                            index ++;
-                        }else{
-                            String word = line.substring(index, i);
-                            index = i + 1;
+        
+        Map<String, CountForWord> m = new HashMap<>();
+        try (ReadableByteChannel channel = Channels.newChannel(System.in)) {
+            ByteBuffer buffer = ByteBuffer.allocateDirect(8192);
+
+            buffer.clear();
+            
+            int startPos = 0;
+            while(channel.read(buffer) != -1){
+                buffer.flip();
+                
+                for(int i = startPos; i < buffer.limit(); i++){
+                    byte b = buffer.get(i); // get char without advancing
+                    if(b == (byte) '\t' || b == (byte) ' ' || b == (byte) '\n'){
+                        if(buffer.position() != i){
+                            byte[] wordBytes = new byte[i - buffer.position()];
+                            buffer.get(wordBytes);
+                            String word = new String(wordBytes, "UTF-8");
                             int count = submitWord(m, word);
                             maxCount = Math.max(count, maxCount);
                         }
+                        buffer.get(); // advance buffer one byte
                     }
                 }
-                if(index < line.length()){
-                    int count = submitWord(m, line.substring(index));
+                buffer.compact();
+                startPos = buffer.position();
+            }
+            // what remains in the buffer must be a word, or nothing
+            if(buffer.position() > 0){
+                byte[] wordBytes = new byte[buffer.position()];
+                buffer.get(wordBytes);
+                String word = new String(wordBytes, "UTF-8").trim();
+                if(!word.isEmpty()){
+                    int count = submitWord(m, word);
                     maxCount = Math.max(count, maxCount);
                 }
             }
         }
-        br.close();
 
         System.err.println("sorting...");
         
