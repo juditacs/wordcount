@@ -41,6 +41,13 @@ rl.on('line', (line:string) => {
     }
 
 }).on('close', () => {
+    for(i = functions.length - 1; i >= 0; i--){
+        if(wordCounts[functions[i]] === null){
+            continue;
+        }
+        delete(wordCounts[functions[i]])
+    }
+
     let wordList = Object.keys(wordCounts);
 
     wordList.sort((x, y) => {
