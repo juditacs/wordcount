@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-if [ -z $4 ]; then
-    echo "Usage: run_one.sh [input file] [testnum=3] [command] [comment]"
+if [ "$#" -lt 2 ]; then
+    echo "Usage: run_one.sh input file command [comment] [testnum=1]"
     exit
 fi
 
 data=$1
 
-if [ -z $2 ]; then
-	n=3
+to_run=$2
+
+comment=$3
+
+if [ -z $4 ]; then
+	n=1
 else
-	n=$2
+	n=$4
 fi
-
-to_run=$3
-
-comment=$4
 
 workdir=`mktemp -d`
 cat $data > $workdir/input
