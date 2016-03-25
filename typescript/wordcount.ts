@@ -53,9 +53,9 @@ rl.on('line', (line:string) => {
     wordList.sort((x, y) => {
         if(wordCounts[x] < wordCounts[y] ||
           (wordCounts[x] === wordCounts[y] && x > y))
-            return 1;
+            return -1;
 
-        return -1;
+        return 1;
     });
 
     for(i = wordList.length-1; i >=0 ; i--) {
