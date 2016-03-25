@@ -12,6 +12,7 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN sudo apt-get install --yes nodejs
 RUN cabal update
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh
+RUN sudo apt-get install --yes elixir
 RUN git clone https://github.com/juditacs/wordcount.git
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8

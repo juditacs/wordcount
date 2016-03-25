@@ -18,3 +18,4 @@ go/bin/wordcount
 mono csharp/WordCountList.exe
 haskell/WordCount
 rust/wordcount/wordcount
+elixir elixir/wordcount.ex
