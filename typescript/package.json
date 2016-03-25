@@ -2,7 +2,7 @@
   "name": "wordcount",
   "version": "1.0.0",
   "readme": "../README.md",
-  "description": "Javascript implementation of wordcount for https://github.com/juditacs/wordcount",
+  "description": "Typescript implementation of wordcount for https://github.com/juditacs/wordcount (fork from javascript version)",
   "main": "wordcount.js",
   "repository": "juditacs/wordcount",
   "scripts": {
@@ -10,10 +10,9 @@
     "install": "typings install && tsc",
     "start": "node wordcount.js"
   },
-  "author": "Laci",
+  "author": "Braun Patrik",
   "license": "MIT",
   "dependencies": {
-    "timsort": "^0.2.1",
     "typescript": "^1.8.9",
     "typings": "^0.7.9"
   }
