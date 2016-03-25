@@ -42,7 +42,7 @@ rl.on('line', (line:string) => {
 
 }).on('close', () => {
     for(i = functions.length - 1; i >= 0; i--){
-        if(wordCounts[functions[i]] === null){
+        if(wordCounts[functions[i]] !== null){
             continue;
         }
         delete(wordCounts[functions[i]])
