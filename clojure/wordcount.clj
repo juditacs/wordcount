@@ -2,12 +2,11 @@
 
 (defn -main []
   (let [in (slurp *in*)]
-    (->> (str/split in #"\s+")
-         (remove str/blank?)
-         (group-by identity)
-         (map #(list (first %) (-> % second count)))
-         (sort-by #(vector (-> % second -) (first %)))
-         (map #(str (first %) "\t" (second %)))
+    (->> (-> (str/split in #"\s+")
+             frequencies
+             (dissoc ""))
+         (sort-by (fn [[token freq]] [(- freq) token]))
+         (map (fn [[token freq]] (str token "\t" freq)))
          (str/join "\n")
          println)))
 
