@@ -6,19 +6,19 @@ namespace WordCountProgram
 {
     public class Program
     {
-        public static void Main2()
+        public static void Main()
         {
             var wordCounts = new Dictionary<string, WordCount>();
             var wordCountList = new List<WordCount>();
             string line;
-            
-            while ((line = Console.ReadLine()) != null) 
+            WordCount wc = null;
+            while ((line = Console.ReadLine()) != null)
             {
-                foreach (var word in line.Split(new [] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var word in line.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (wordCounts.ContainsKey(word))
+                    if (wordCounts.TryGetValue(word, out wc))
                     {
-                        wordCounts[word].Count++;
+                        wc.Count++;
                     }
                     else
                     {
@@ -28,16 +28,16 @@ namespace WordCountProgram
                     }
                 }
             }
-            
+
             wordCountList.Sort(new WordCountComparer());
-            
+
             foreach (var wordCount in wordCountList)
             {
                 Console.WriteLine("{0}\t{1}", wordCount.Word, wordCount.Count);
             }
         }
     }
-    
+
     public class WordCount
     {
         public WordCount(string word)
@@ -50,7 +50,7 @@ namespace WordCountProgram
 
         public long Count;
     }
-    
+
     public class WordCountComparer : IComparer<WordCount>
     {
         public int Compare(WordCount x, WordCount y)
