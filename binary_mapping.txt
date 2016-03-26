@@ -1,0 +1,23 @@
+bash/wordcount.sh	bash/wordcount.sh
+cpp/wc_baseline	cpp/wordcount_map.cpp
+cpp/wc_baseline_hash	cpp/wordcount_hashtable.cpp
+cpp/wc_hash_nosync	cpp/wordcount_hashtable_nosync_stdio.cpp
+cpp/wc_vector	cpp/wordcount_vector.cpp
+java -classpath java WordCount	java/WordCount.java
+java -classpath java WordCountEntries	java/WordcountEntries.java
+julia julia/wordcount.jl	julia/wordcount.jl
+nodejs javascript/wordcount.js	javascript/wordcount.js
+nodejs javascript/wordcount2.js	javascript/wordcount2.js
+perl/wordcount.pl	perl/wordcount.pl
+python/wordcount_py2.py	python/wordcount_py2.py
+python/wordcount_py2gabor.py	python/wordcount_py2gabor.py
+python/wordcount_py3.py	python/wordcount_py3.py
+php5.6 php/wordcount.php	php/wordcount.php
+php7.0 php/wordcount.php	php/wordcount.php
+go/bin/wordcount	go/src/wordcount/wordcount.go
+mono csharp/WordCountList.exe	csharp/WordCountList.cs
+haskell/WordCount	haskell/WordCount.hs
+rust/wordcount/wordcount	rust/wordcount/src/main.rs
+java -cp clojure.jar clojure.main clojure/wordcount.clj	clojure/wordcount.clj
+scala -J-Xmx2g -classpath scala Wordcount	scala/Wordcount.scala
+nodejs typescript/wordcount.js	typescript/wordcount.ts
