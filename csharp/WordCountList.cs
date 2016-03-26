@@ -6,7 +6,7 @@ namespace WordCountProgram
 {
     public class Program
     {
-        public static void Main()
+        public static void Main2()
         {
             var wordCounts = new Dictionary<string, WordCount>();
             var wordCountList = new List<WordCount>();
