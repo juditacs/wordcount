@@ -35,9 +35,9 @@ def print_markdown_table(results):
     print('| :---: | :---: | :---: | :---: | :---: | :---: |')
     for rank, (src, res) in enumerate(sorted(
             results.iteritems(), key=lambda x: x[1][0])):
-        print('| {0} | {1} | {2} | {3} | {4} | {5} | '.format(
+        print(u'| {0} | {1} | {2} | {3} | {4} | {5} | '.format(
             rank+1, src, res[0], res[1], res[2],
-            ', '.join(res[3])))
+            ', '.join(res[3])).encode('utf8'))
 
 
 def read_binary_mapping(fn):
