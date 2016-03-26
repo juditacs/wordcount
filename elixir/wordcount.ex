@@ -1,13 +1,11 @@
 IO.stream(:stdio, :line)
+# Split the input in words and reject empty
+|> Stream.flat_map(&String.split(&1, ~r/\s/, strip: true))
+|> Stream.reject(&(&1 == ""))
 # Create a dictionary in which the keys are the words and the values are
 # the number of appearances in the input text.
-|> Enum.reduce(%{}, fn (line, acc) ->
-  line
-  |> String.split(~r/\s/, strip: true)
-  |> Enum.reduce(acc, fn
-      "", counter -> counter # Continue if the word is empty
-      word, counter -> Map.update(counter, word, 1, &(&1 + 1))
-  end)
+|> Enum.reduce(%{}, fn word, counter ->
+  Map.update(counter, word, 1, &(&1 + 1))
 end)
 # Transform the dictionary into a list of tuples with the form {word, appearances}
 |> Map.to_list
