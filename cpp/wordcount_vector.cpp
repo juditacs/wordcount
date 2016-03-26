@@ -1,36 +1,36 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
 #include <algorithm>
+#include <iostream>
+#include <memory>
+#include <tuple>
+#include <unordered_map>
 
-using namespace std;
-
-class F {
-public:
-    using value_type = pair<int, string>;
-
-    bool operator()(value_type const& lhs, value_type const& rhs) {
-        if (lhs.first > rhs.first) return true;
-        if (lhs.first == rhs.first && lhs.second < rhs.second) return true;
-        return false;
-    }
+struct word_freq {
+	std::string const* word;
+	int                freq;
 };
 
 int main() {
-    unordered_map<string, int> m;
-    string s;
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    while (cin >> s) {
-        ++m[s];
-    }
-    vector<pair<int, string>> mvec;
-    for (auto& p: m) {
-        mvec.emplace_back(p.second, move(p.first));
-    }
-    sort(mvec.begin(), mvec.end(), F());
-    for (const auto& p: mvec) {
-        cout << p.second << "\t" << p.first << "\n";
-    }
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(nullptr);
 
+	std::unordered_map<std::string, int> m;
+	std::string s;
+	while (std::cin >> s) {
+		++m[s];
+	}
+
+	auto size = m.size();
+	std::unique_ptr<word_freq[]> v(new word_freq[size]);
+	std::transform(m.begin(), m.end(), v.get(), [](auto const& p){
+		return word_freq{&p.first, p.second};
+	});
+
+	auto const v_end = v.get() + size;
+	std::sort(v.get(), v_end, [](auto const& l, auto const& r){
+		return std::tie(r.freq, *l.word) < std::tie(l.freq, *r.word);
+	});
+
+	for (auto wf = v.get(); wf != v_end; ++wf) {
+		std::cout << wf->freq << "\t" << *wf->word << "\n";
+	}
 }
