@@ -3,8 +3,7 @@ IO.stream(:stdio, :line)
 # the number of appearances in the input text.
 |> Enum.reduce(%{}, fn (line, acc) ->
   line
-  |> String.strip
-  |> String.split(~r/\s/)
+  |> String.split(~r/\s/, strip: true)
   |> Enum.reduce(acc, fn (word, counter) ->
     if String.length(word) == 0 do
       counter
