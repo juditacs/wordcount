@@ -60,12 +60,16 @@ def get_contributors(fn):
     p = Popen('git blame --incremental {}'.format(fn),
               shell=True, stdout=PIPE).stdout.read()
     contributors = []
-    for l in p.split('\n'):
+    emails = {}
+    lines = p.split('\n')
+    for i, l in enumerate(lines):
         if not l.startswith('author '):
             continue
         c = l.decode('utf8').split(' ')
         nam = ' '.join(c[1:])
-        if nam not in contributors:
+        email = lines[i+1].decode('utf8').split()[1]
+        if email not in emails:
+            emails[email] = nam
             contributors.append(nam)
     return contributors
 
