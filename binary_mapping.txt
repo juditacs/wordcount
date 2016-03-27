@@ -1,5 +1,6 @@
 cpp/wordcount_baseline	cpp/wordcount_baseline.cpp
 cpp/wordcount	cpp/wordcount.cpp
+d/wordcount	d/wordcount.d
 go/bin/wordcount	go/src/wordcount/wordcount.go
 haskell/WordCount	haskell/WordCount.hs
 java -classpath java WordCount	java/WordCount.java

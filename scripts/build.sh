@@ -8,6 +8,9 @@ cd ../elixir
 # Elixir has to run the script to compile it (http://stackoverflow.com/questions/35722248/the-command-elixirc-is-compiling-and-executing-the-code)
 echo "wadus" | elixir elixir/wordcount.ex > /dev/null
 
+cd ../d
+dmd -O -release -inline -boundscheck=off wordcount.d
+
 cd ../java
 javac WordCount.java
 
