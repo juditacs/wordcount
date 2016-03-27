@@ -2,6 +2,7 @@ bash/wordcount.sh
 cpp/wordcount
 cpp/wordcount_baseline
 d/wordcount
+elixir/wordcount
 go/bin/wordcount
 haskell/WordCount
 java -classpath java WordCount
@@ -19,4 +20,3 @@ python/wordcount_py2.py
 python/wordcount_py3.py
 rust/wordcount/wordcount
 scala -J-Xmx2g -classpath scala Wordcount
-elixir/wordcount
