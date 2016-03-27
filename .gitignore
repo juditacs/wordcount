@@ -13,3 +13,19 @@ PHP.iml
 de
 data/romanian*
 **/*class
+
+# all the compile binaries
+cpp/wordcount
+cpp/wordcount_baseline
+csharp/WordCountList.exe
+go/bin/
+haskell/WordCount
+haskell/dist
+rust/wordcount/wordcount
+
+# The data-bigpack
+data/huwikisource-latest-pages-meta-current.xml
+huwiki-latest-pages-meta-current.xml.bz2
+
+# Results of a compare run
+results.txt

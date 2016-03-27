@@ -1,0 +1,6 @@
+[package]
+name = "wordcount"
+version = "0.1.0"
+authors = ["Joshua Holmer <jholmer.in@gmail.com>"]
+
+[dependencies]
