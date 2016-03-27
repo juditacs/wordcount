@@ -51,7 +51,11 @@ def read_binary_mapping(fn):
 
 def match_contributors(results, bin_map):
     for binary, result in results.iteritems():
-        src = bin_map[binary]
+        if binary in bin_map:
+            src = bin_map[binary]
+        else:
+            # use binary name if not specified
+            src = binary.split()[-1]
         ctr = get_contributors(src)
         result.append(ctr)
 
