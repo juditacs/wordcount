@@ -20,3 +20,5 @@ python/wordcount_py2.py
 python/wordcount_py3.py
 rust/wordcount/wordcount
 scala -J-Xmx2g -classpath scala Wordcount
+elixir elixir/wordcount.ex
+ex_wordcount/wordcount

@@ -38,3 +38,6 @@ cd ..
 
 cd ../scala
 scalac Wordcount.scala
+
+cd ../ex_wordcount/
+MIX_ENV=prod mix escript.build

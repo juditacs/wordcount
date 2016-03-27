@@ -5,16 +5,21 @@ defmodule Wordcount.Mixfile do
     [app: :wordcount,
      version: "0.0.1",
      elixir: "~> 1.2",
+     escript: escript,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
   end
 
+  def escript do
+    [main_module: Wordcount]
+  end
+  
   # Configuration for the OTP application
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger]]
+    [applications: []]
   end
 
   # Dependencies can be Hex packages:
