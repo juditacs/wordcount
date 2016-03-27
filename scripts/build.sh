@@ -11,7 +11,7 @@ cd ../javascript
 npm install
 
 cd ../typescript
-npm install
+npm install --unsafe-perm
 
 cd ../go
 export GOPATH=$(pwd)
