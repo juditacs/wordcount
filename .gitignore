@@ -15,10 +15,8 @@ data/romanian*
 **/*class
 
 # all the compile binaries
-cpp/wc_baseline
-cpp/wc_baseline_hash
-cpp/wc_hash_nosync
-cpp/wc_vector
+cpp/wordcount
+cpp/wordcount_baseline
 csharp/WordCountList.exe
 go/bin/
 haskell/WordCount
