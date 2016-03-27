@@ -5,6 +5,9 @@ Counting words in different programming languages.
 See the article on this project:
 http://juditacs.github.io/2015/11/26/wordcount.html
 
+or the follow-up article:
+http://juditacs.github.io/2016/03/19/wordcount2.html
+
 # Leaderboard
 
 ## Full Hungarian Wikipedia
@@ -96,12 +99,14 @@ The output should contain lines like this:
     art     1
     pear    1
 
-## Test corpus: Hungarian Wikisource
+## Test corpus: Hungarian Wikisource and Wikipedia
 
-`scripts/create_input.sh` downloads the latest Hungarian Wikisource XML dump.
+`scripts/create_input.sh` downloads and unpacks the latest Hungarian Wikisource XML dump.
 Why Wikisource? It's not too small not too large and more importantly, it's valid utf8.
 Why Hungarian? There are many non-ascii characters and the number of different word types is high.
 
+`script/create_large_input.sh` downloads the unpacks the latest Hungarian Wikipedia.
+This is the largest input used for comparison, see the first leaderboard.
 
 ### Usage
 
@@ -109,15 +114,10 @@ To test on a small sample:
 
     time cat data/huwikisource-latest-pages-meta-current.xml | head -10000 | python3 python/wordcount_py3.py > python_out
 
-## Installation
+## Installation with Docker
 
-There are two ways to install all the dependencies:
-
-1. Build a Docker image with the provided Dockerfile, which installs all the required packages.
-2. Install them manually via a package manager. The Docker image is an Ubuntu image but the same packages work for me on Manjaro Linux as well. Use this command on Ubuntu to install all dependencies, but be prepared for a lot of new packages. You've been warned.
-    
-    sudo apt-get install wget gcc python npm perl php5 git default-jdk time
-
+I strongly recommend building the Docker image instead of installing every package manually, but it's possible to install the dependencies manually.
+See the installation commands in `Dockerfile`.
 
 ## Docker image
 
@@ -139,6 +139,10 @@ You should see the cloned directory in `/root`
 ## Downloading the dataset
 
     bash scripts/create_input.sh
+
+or the full dataset:
+
+    bash scripts/create_large_input.sh
 
 ## Compile/build/whatever the wordcount scripts
 
@@ -166,12 +170,14 @@ All commands are listed in the file `run_commands.txt` and the script `scripts/t
 
 ## Run the actual experiment on a larger dataset
 
-If all tests are passed, the scripts work reasonably well. This does not mean that all output will be the same, see the full test later.
+If all tests are passed, the scripts work reasonably well.
+This does not mean that all output will be the same, see the full test later.
 For now, we consider them good enough for testing.
 
-This command will run each test twice and save the results to results.txt.
+This command will run each test twice and append the results to results.txt.
+It's possible to add a comment at the end of each line.
 
-    bash scripts/compare.sh data/huwikisource-latest-pages-meta-current.xml 2
+    bash scripts/compare.sh data/huwikisource-latest-pages-meta-current.xml 2 "full huwikisource"
 
 Or test it on a part of huwikisource:
 
@@ -183,19 +189,20 @@ Results.txt in a tab separated file that can be formatted to a Markdown table wi
 
 This scripts prints the fastest run for each command in a markup table like this:
 
-| Experiment | CPU seconds | User time | Maximum memory |
-| --- | --- | --- | --- |
-| cpp/wc_vector | 2.68 | 2.37 | 32168 |
-| python/wordcount_py2.py | 2.68 | 2.61 | 71512 |
-| bash/wordcount.sh | 3.0 | 4.19 | 10820 |
+| Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| 1 | rust/wordcount/wordcount | 20.57 | 19.79 | 990008 | Joshua Holmer | 
+| 2 | cpp/wc_vector | 33.3 | 31.93 | 775952 | Matias Fontanini, Judit Acs | 
+| 3 | python/wordcount_py2gabor.py | 40.13 | 38.71 | 594800 | Gabor Szabo | 
 
 ## Adding a new program
 
-Adding a new programming language or a new version for an existing programming language consists of three steps:
+Adding a new programming language or a new version for an existing programming language consists of the following steps:
 
-1. add dependencies to the Dockerfile. Basically add the package to the existing apt-get package list.
-2. if it needs compiling or any other setup method, add it to `scripts/build.sh`
-3. add the actual invoke command to `run_commands.txt`
+1. Add dependencies to the Dockerfile. Basically add the package to the existing apt-get package list.
+2. If it needs compiling or any other setup method, add it to `scripts/build.sh`
+3. Add the actual invoke command to `run_commands.txt`
+4. Add the binary - source code mapping to `binary_mapping.txt`. This is used by `scripts/evaluate_results.py` for finding out the contributors of each program. The file is <b>tab-separated</b>.
 
 ### Adding your program to this experiment
 
