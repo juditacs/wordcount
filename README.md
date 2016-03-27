@@ -42,7 +42,7 @@ Updated: March 28, 2016, 00:53 CET
 | 2 | d/wordcount | 31.09 | 29.72 | 752776 | Pavel Chebotarev | 
 | 3 | cpp/wordcount | 41.98 | 39.92 | 775132 | Matias Fontanini, Judit Acs | 
 | 4 | go/bin/wordcount | 42.15 | 40.28 | 859260 | David Siklosi | 
-| 5 | python/wordcount_py2.py | 43.13 | 41.55 | 596396 | Judit Acs | 
+| 5 | python/wordcount_py2.py | 43.13 | 41.55 | 596396 | Gabor Szabo | 
 | 6 | php7.0 php/wordcount.php | 53.85 | 39.34 | 709908 | Braun Patrik | 
 | 7 | python/wordcount_py2_baseline.py | 71.46 | 69.34 | 1437328 | Judit Acs | 
 | 8 | mono csharp/WordCountList.exe | 104.0 | 72.42 | 899168 | Peter Szel | 
