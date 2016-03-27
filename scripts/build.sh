@@ -4,10 +4,6 @@ cd cpp
 g++ wordcount_baseline.cpp -std=c++11 -o wordcount_baseline -O3
 g++ wordcount.cpp -std=c++11 -o wordcount -O3
 
-cd ../elixir
-# Elixir has to run the script to compile it (http://stackoverflow.com/questions/35722248/the-command-elixirc-is-compiling-and-executing-the-code)
-echo "wadus" | elixir elixir/wordcount.ex > /dev/null
-
 cd ../d
 dmd -O -release -inline -boundscheck=off wordcount.d
 
@@ -38,3 +34,6 @@ cd ..
 
 cd ../scala
 scalac Wordcount.scala
+
+cd ../elixir
+MIX_ENV=prod mix escript.build > /dev/null

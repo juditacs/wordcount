@@ -9,3 +9,4 @@ mono csharp/WordCountList.exe	csharp/WordCountList.cs
 nodejs typescript/wordcount.js	typescript/wordcount.ts
 rust/wordcount/wordcount	rust/wordcount/src/main.rs
 scala -J-Xmx2g -classpath scala Wordcount	scala/Wordcount.scala
+elixir/wordcount	elixir/lib/wordcount.ex
