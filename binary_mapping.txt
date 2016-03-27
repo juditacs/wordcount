@@ -2,7 +2,6 @@ bash/wordcount.sh	bash/wordcount.sh
 cpp/wordcount_baseline	cpp/wordcount_baseline.cpp
 cpp/wordcount	cpp/wordcount.cpp
 java -classpath java WordCount	java/WordCount.java
-java -classpath java WordCountEntries	java/WordcountEntries.java
 julia julia/wordcount.jl	julia/wordcount.jl
 nodejs javascript/wordcount.js	javascript/wordcount.js
 nodejs javascript/wordcount2.js	javascript/wordcount2.js

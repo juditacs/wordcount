@@ -6,7 +6,6 @@ g++ wordcount.cpp -std=c++11 -o wordcount -O3
 
 cd ../java
 javac WordCount.java
-javac WordCountEntries.java
 
 cd ../javascript
 npm install
