@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 
 import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
@@ -15,6 +16,19 @@ import gnu.trove.procedure.TObjectIntProcedure;
 
 /** Word count for Java. Slow because of boxing/unboxing. */
 class WordCountTrove {
+
+    private static class BytesHashingStrategy implements HashingStrategy<byte[]> {
+        @Override
+        public int computeHashCode(byte[] object) {
+            return Arrays.hashCode(object);
+        }
+
+        // Compare byte-byte byte, if they're equal aside from length, return last
+        @Override
+        public boolean equals(byte[] b1, byte[] b2) {
+            return b1 == b2 || Arrays.equals(b1, b2);
+        }
+    } 
 
     private static class CountForWord implements Comparable<CountForWord>{
         String word;
@@ -41,7 +55,7 @@ class WordCountTrove {
         }
     }
     
-    private static void submitWord(TObjectIntHashMap<String> m, String word){
+    private static void submitWord(TObjectIntCustomHashMap<byte[]> m, byte[] word) {
         m.adjustOrPutValue(word, 1, 1);        
     }
     
@@ -49,7 +63,7 @@ class WordCountTrove {
         System.err.println("Parsing and adding to map");
         long startTime = System.currentTimeMillis();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        TObjectIntHashMap<String> m = new TObjectIntHashMap<String>(1000000, 0.75f, -1);
+        TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(),1000000, 0.75f, -1);
         String line;
         while ((line = br.readLine()) != null) {
             line = line.trim();
@@ -58,17 +72,17 @@ class WordCountTrove {
                 for(int i = 0; i < line.length(); i++){
                     char c = line.charAt(i);
                     if(c == '\t' || c == ' '){
-                        if(index == i){
+                        if (index == i) {
                             index ++;
-                        }else{
-                            String word = line.substring(index, i);
+                        } else {
+                            byte[] word = line.substring(index, i).getBytes(StandardCharsets.UTF_8);
                             index = i + 1;
                             submitWord(m, word);
                         }
                     }
                 }
                 if(index < line.length()){
-                    submitWord(m, line.substring(index));
+                    submitWord(m, line.substring(index).getBytes(StandardCharsets.UTF_8));
                 }
             }
         }
@@ -79,13 +93,18 @@ class WordCountTrove {
         System.err.println("Creating Count objects for sorting");
         startTime = System.currentTimeMillis();
         final CountForWord[] lst = new CountForWord[m.size()];  // Array to avoid extra copy upon sorting
-        TObjectIntProcedure<String> proc = new TObjectIntProcedure<String>(){
+        TObjectIntProcedure<byte[]> proc = new TObjectIntProcedure<byte[]>(){
             int i=0; 
 
             @Override
-            public boolean execute(String a, int b) {
-                lst[i++] = new CountForWord(a, b);
-                return true;
+            public boolean execute(byte[] a, int b) {
+                try {
+                    lst[i++] = new CountForWord(new String(a,"UTF-8"), b);
+                    return true;    
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                
             }
         };
         m.forEachEntry(proc);
