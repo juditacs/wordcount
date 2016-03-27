@@ -10,17 +10,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.nio.charset.StandardCharsets;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.CharsetDecoder;
-import java.nio.CharBuffer;
-import java.nio.ByteBuffer;
 
 import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import gnu.trove.strategy.HashingStrategy;
 import gnu.trove.procedure.TObjectIntProcedure;
 
-
+/** Word count for Java. Slow because of boxing/unboxing. */
 class WordCountTrove {
 
     private static class BytesHashingStrategy implements HashingStrategy<byte[]> {
@@ -35,11 +31,6 @@ class WordCountTrove {
             return b1 == b2 || Arrays.equals(b1, b2);
         }
     } 
-
-    // Reused to do character set encoding/decoding
-    private static CharsetEncoder ENCODER = StandardCharsets.UTF_8.newEncoder();
-    private static CharsetDecoder DECODER = StandardCharsets.UTF_8.newDecoder();
-
 
     private static class CountForWord implements Comparable<CountForWord>{
         byte[] word;
@@ -102,10 +93,8 @@ class WordCountTrove {
         System.err.println("Parsing and adding to map");
         long startTime = System.currentTimeMillis();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
-        TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(), 100000, 0.75f, -1);
+        TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(),1000000, 0.75f, -1);
         String line;
-        ByteBuffer encodedBuffer = ByteBuffer.allocate(4096);
-        CharBuffer wordBuffer = CharBuffer.allocate(4096);
         while ((line = br.readLine()) != null) {
             line = line.trim();
             if (!line.isEmpty()) {
@@ -116,17 +105,9 @@ class WordCountTrove {
                         if (index == i) {
                             index ++;
                         } else {
-                            wordBuffer.clear();
-                            wordBuffer.put(line, index, i);
-                            wordBuffer.flip();
-                            ENCODER.reset();
-                            encodedBuffer.clear();
-                            ENCODER.encode(wordBuffer, encodedBuffer, true);
-                            encodedBuffer.flip();
-                            byte[] word =  new byte[encodedBuffer.remaining()];
-                            encodedBuffer.get(word);
-                            submitWord(m, word);
+                            byte[] word = line.substring(index, i).getBytes(StandardCharsets.UTF_8);
                             index = i + 1;
+                            submitWord(m, word);
                         }
                     }
                 }
@@ -142,7 +123,6 @@ class WordCountTrove {
         System.err.println("Creating Count objects for sorting");
         startTime = System.currentTimeMillis();
 
-        // It's much more efficient to segregate these two sets
         ArrayList<CountForWord> multiples = new ArrayList<CountForWord>(m.size()/2);
         ArrayList<byte[]> singles = new ArrayList<byte[]>(m.size()/2);
 
