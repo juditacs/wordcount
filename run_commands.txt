@@ -1,6 +1,7 @@
 bash/wordcount.sh
 cpp/wordcount
 cpp/wordcount_baseline
+elixir elixir/wordcount.ex
 go/bin/wordcount
 haskell/WordCount
 java -classpath java WordCount
