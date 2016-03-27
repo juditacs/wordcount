@@ -78,7 +78,7 @@ class WordCountTrove {
     public static void main(String[] args) throws IOException {
         System.err.println("Parsing and adding to map");
         long startTime = System.currentTimeMillis();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
         TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(),1000000, 0.75f, -1);
         String line;
         while ((line = br.readLine()) != null) {
