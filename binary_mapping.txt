@@ -1,0 +1,21 @@
+bash/wordcount.sh	bash/wordcount.sh
+cpp/wordcount_baseline	cpp/wordcount_baseline.cpp
+cpp/wordcount	cpp/wordcount.cpp
+go/bin/wordcount	go/src/wordcount/wordcount.go
+haskell/WordCount	haskell/WordCount.hs
+java -classpath java WordCount	java/WordCount.java
+java -cp clojure.jar clojure.main clojure/wordcount.clj	clojure/wordcount.clj
+julia julia/wordcount.jl	julia/wordcount.jl
+lua lua/wordcount.lua	lua lua/wordcount.lua
+mono csharp/WordCountList.exe	csharp/WordCountList.cs
+nodejs javascript/wordcount2.js	javascript/wordcount2.js
+nodejs javascript/wordcount.js	javascript/wordcount.js
+nodejs typescript/wordcount.js	typescript/wordcount.ts
+perl/wordcount.pl	perl/wordcount.pl
+php5.6 php/wordcount.php	php/wordcount.php
+php7.0 php/wordcount.php	php/wordcount.php
+python/wordcount_py2_baseline.py	python/wordcount_py2_baseline.py
+python/wordcount_py2.py	python/wordcount_py2.py
+python/wordcount_py3.py	python/wordcount_py3.py
+rust/wordcount/wordcount	rust/wordcount/src/main.rs
+scala -J-Xmx2g -classpath scala Wordcount	scala/Wordcount.scala

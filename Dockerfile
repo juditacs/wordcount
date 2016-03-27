@@ -8,6 +8,7 @@ RUN yes | apt-get update
 RUN yes | apt-get install php7.0-cli php5.6-cli
 RUN yes | apt-get install julia
 RUN yes | apt-get install golang-go
+RUN yes | apt-get install lua5.2
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN sudo apt-get install --yes nodejs
 RUN cabal update
@@ -17,7 +18,7 @@ RUN dpkg -i scala-2.11.7.deb
 RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
 RUN apt-get update
 RUN apt-get install -y esl-erlang elixir
-RUN git clone https://github.com/juditacs/wordcount.git
+RUN cd && git clone https://github.com/juditacs/wordcount.git
 RUN wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar -O wordcount/clojure.jar
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8

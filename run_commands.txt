@@ -1,23 +1,22 @@
 bash/wordcount.sh
-cpp/wc_baseline
-cpp/wc_baseline_hash
-cpp/wc_hash_nosync
-cpp/wc_vector
+cpp/wordcount
+cpp/wordcount_baseline
+elixir elixir/wordcount.ex
+go/bin/wordcount
+haskell/WordCount
 java -classpath java WordCount
-java -classpath java WordCountEntries
+java -cp clojure.jar clojure.main clojure/wordcount.clj
 julia julia/wordcount.jl
-nodejs javascript/wordcount.js
+lua lua/wordcount.lua
+mono csharp/WordCountList.exe
 nodejs javascript/wordcount2.js
+nodejs javascript/wordcount.js
+nodejs typescript/wordcount.js
 perl/wordcount.pl
-python/wordcount_py2.py
-python/wordcount_py2gabor.py
-python/wordcount_py3.py
 php5.6 php/wordcount.php
 php7.0 php/wordcount.php
-go/bin/wordcount
-mono csharp/WordCountList.exe
-haskell/WordCount
+python/wordcount_py2_baseline.py
+python/wordcount_py2.py
+python/wordcount_py3.py
 rust/wordcount/wordcount
-java -cp clojure.jar clojure.main clojure/wordcount.clj
 scala -J-Xmx2g -classpath scala Wordcount
-elixir elixir/wordcount.ex
