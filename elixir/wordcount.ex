@@ -18,4 +18,4 @@ end)
 # Force the stream into a list
 |> Enum.into([])
 # and print!
-|> IO.puts
+|> IO.write
