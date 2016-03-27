@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
 cd cpp
-g++ wordcount_map.cpp -std=c++11 -o wc_baseline -O3
-g++ wordcount_hashtable.cpp -std=c++11 -o wc_baseline_hash -O3
-g++ wordcount_hashtable_nosync_stdio.cpp -std=c++11 -o wc_hash_nosync -O3
-g++ wordcount_vector.cpp -std=c++11 -o wc_vector -O3
+g++ wordcount_baseline.cpp -std=c++11 -o wordcount_baseline -O3
+g++ wordcount.cpp -std=c++11 -o wordcount -O3
+
+cd ../elixir
+# Elixir has to run the script to compile it (http://stackoverflow.com/questions/35722248/the-command-elixirc-is-compiling-and-executing-the-code)
+echo "wadus" | elixir elixir/wordcount.ex > /dev/null
+
+cd ../d
+dmd -O -release -inline -boundscheck=off wordcount.d
 
 cd ../java
 javac WordCount.java
@@ -14,6 +19,9 @@ javac -cp .:trove-3.0.3.jar WordCountTrove.java
 
 cd ../javascript
 npm install
+
+cd ../typescript
+npm install --unsafe-perm
 
 cd ../go
 export GOPATH=$(pwd)
@@ -25,3 +33,11 @@ mcs WordCountList.cs
 cd ../haskell
 cabal install --verbose=0
 cp dist/build/WordCount/WordCount .
+
+cd ../rust/wordcount
+cargo build --release
+cp target/release/wordcount .
+cd ..
+
+cd ../scala
+scalac Wordcount.scala

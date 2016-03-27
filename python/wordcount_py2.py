@@ -1,15 +1,26 @@
 #!/usr/bin/env python2
-from collections import defaultdict
 from sys import stdin
 
-
-def word_count():
-    counter = defaultdict(int)
+def counter():
+    keyWords = {}
     for l in stdin:
         for word in l.split():
-            counter[word] += 1
-    for word, cnt in sorted(counter.iteritems(), key=lambda x: (-x[1], x[0])):
-        print('{0}\t{1}'.format(word, cnt))
+            if word in keyWords:
+                keyWords[word] += 1
+            else:
+                keyWords[word] = 1
+
+    keyCounts = {}
+    for word in keyWords.keys():
+        count = keyWords[word]
+        if count in keyCounts:
+            keyCounts[count].append(word)
+        else:
+            keyCounts[count] = [word]
+
+    for count in sorted(keyCounts, reverse = True):
+        for word in sorted(keyCounts[count]):
+            print word+'\t'+str(count)
 
 if __name__ == '__main__':
-    word_count()
+    counter()
