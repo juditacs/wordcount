@@ -31,14 +31,11 @@ class WordCountTrove {
     } 
 
     private static class CountForWord implements Comparable<CountForWord>{
-        String word;
+        byte[] word;
         int count = 1;
 
-        public CountForWord(String word) {
-            this.word = word;
-        }
 
-        public CountForWord(String word, int count) {
+        public CountForWord(byte[] word, int count) {
             this.word = word;
             this.count = count;
         }
@@ -47,11 +44,30 @@ class WordCountTrove {
         public int compareTo(CountForWord t) {
             if(count < t.count){
                 return 1;
-            }else if(count > t.count){
+            } else if(count > t.count) {
                 return -1;
-            }else{
-                return word.compareTo(t.word);
+            } else {
+                // Sorting by byte value is less correct
+                //  but avoids very expensive UTF-8 decoding
+                byte[] b1 = this.word;
+                byte[] b2 = t.word;
+                int limit = Math.min(b1.length, b2.length);
+                for(int i=0; i<limit; i++) {
+                    int diff = b1[i] - b2[i];
+                    if (diff != 0) {
+                        return diff;
+                    }
+                }
+                return b1.length-b2.length;
             }
+        }
+
+        public StringBuilder toStringBuilder() {
+            StringBuilder retval = new StringBuilder(word.length+6);
+            retval.append(new String(word, StandardCharsets.UTF_8))
+                .append('\t')
+                .append(count);
+            return retval;
         }
     }
     
@@ -99,7 +115,7 @@ class WordCountTrove {
             @Override
             public boolean execute(byte[] a, int b) {
                 try {
-                    lst[i++] = new CountForWord(new String(a,"UTF-8"), b);
+                    lst[i++] = new CountForWord(a, b);
                     return true;    
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
@@ -121,9 +137,8 @@ class WordCountTrove {
         System.err.println("output...");
         startTime = System.currentTimeMillis();
         BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
-        for(CountForWord c : lst){
-            outputWriter.write(c.word + "\t" + c.count);
-            outputWriter.newLine();
+        for (CountForWord c : lst) {
+            outputWriter.write((c.toStringBuilder().append('\n')).toString());
         }
         outputWriter.close();
         endTime = System.currentTimeMillis();
