@@ -10,6 +10,7 @@ cd ../java
 javac WordCount.java
 javac WordCountArray.java
 javac WordCountEntries.java
+javac -cp .:trove-3.0.3.jar WordCountTrove.java
 
 cd ../javascript
 npm install

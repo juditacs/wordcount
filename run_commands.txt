@@ -6,6 +6,7 @@ cpp/wc_vector
 java -classpath java WordCount
 java -classpath java WordCountArray
 java -classpath java WordCountEntries
+java -classpath java:.java/trove-3.0.3.jar WordCountTrove
 julia julia/wordcount.jl
 nodejs javascript/wordcount.js
 nodejs javascript/wordcount2.js
