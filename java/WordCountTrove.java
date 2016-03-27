@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.nio.charset.StandardCharsets;
 
 import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
@@ -47,18 +49,7 @@ class WordCountTrove {
             } else if(count > t.count) {
                 return -1;
             } else {
-                // Sorting by byte value is less correct
-                //  but avoids very expensive UTF-8 decoding
-                byte[] b1 = this.word;
-                byte[] b2 = t.word;
-                int limit = Math.min(b1.length, b2.length);
-                for(int i=0; i<limit; i++) {
-                    int diff = b1[i] - b2[i];
-                    if (diff != 0) {
-                        return diff;
-                    }
-                }
-                return b1.length-b2.length;
+                return BYTE_COMPARATOR_INSTANCE.compare(this.word, t.word);
             }
         }
 
@@ -70,6 +61,29 @@ class WordCountTrove {
             return retval;
         }
     }
+
+    private static class ByteArrayComparator implements Comparator<byte[]> {
+        @Override
+        public int compare(byte[] b1, byte[] b2) {
+            // Sorting by byte value is less correct
+            // but avoids very expensive UTF-8 decoding
+            int limit = Math.min(b1.length, b2.length);
+            for(int i=0; i<limit; i++) {
+                int diff = b1[i] - b2[i];
+                if (diff != 0) {
+                    return diff;
+                }
+            }
+            return b1.length-b2.length;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return o == this;
+        }
+    }
+
+    private static final ByteArrayComparator BYTE_COMPARATOR_INSTANCE = new ByteArrayComparator();
     
     private static void submitWord(TObjectIntCustomHashMap<byte[]> m, byte[] word) {
         m.adjustOrPutValue(word, 1, 1);        
@@ -108,19 +122,21 @@ class WordCountTrove {
 
         System.err.println("Creating Count objects for sorting");
         startTime = System.currentTimeMillis();
-        final CountForWord[] lst = new CountForWord[m.size()];  // Array to avoid extra copy upon sorting
+
+        ArrayList<CountForWord> multiples = new ArrayList<CountForWord>(m.size()/2);
+        ArrayList<byte[]> singles = new ArrayList<byte[]>(m.size()/2);
+
         TObjectIntProcedure<byte[]> proc = new TObjectIntProcedure<byte[]>(){
             int i=0; 
 
             @Override
             public boolean execute(byte[] a, int b) {
-                try {
-                    lst[i++] = new CountForWord(a, b);
-                    return true;    
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                if (b > 1) {
+                    multiples.add(new CountForWord(a, b));
+                } else {
+                    singles.add(a);
                 }
-                
+                return true;
             }
         };
         m.forEachEntry(proc);
@@ -130,15 +146,19 @@ class WordCountTrove {
 
         System.err.println("sorting...");
         startTime = System.currentTimeMillis();
-        Arrays.sort(lst);
+        Collections.sort(multiples);
+        Collections.sort(singles, BYTE_COMPARATOR_INSTANCE);
         endTime = System.currentTimeMillis();
         System.err.println("Sorting time (ms): "+(endTime-startTime));
 
         System.err.println("output...");
         startTime = System.currentTimeMillis();
         BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
-        for (CountForWord c : lst) {
+        for (CountForWord c : multiples) {
             outputWriter.write((c.toStringBuilder().append('\n')).toString());
+        }
+        for (byte[] b : singles) {
+            outputWriter.write(new String(b, StandardCharsets.UTF_8) + "\t1\n");
         }
         outputWriter.close();
         endTime = System.currentTimeMillis();
