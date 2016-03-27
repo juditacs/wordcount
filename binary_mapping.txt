@@ -7,8 +7,8 @@ julia julia/wordcount.jl	julia/wordcount.jl
 nodejs javascript/wordcount.js	javascript/wordcount.js
 nodejs javascript/wordcount2.js	javascript/wordcount2.js
 perl/wordcount.pl	perl/wordcount.pl
+python/wordcount_py2_baseline.py	python/wordcount_py2_baseline.py
 python/wordcount_py2.py	python/wordcount_py2.py
-python/wordcount_py2gabor.py	python/wordcount_py2gabor.py
 python/wordcount_py3.py	python/wordcount_py3.py
 php5.6 php/wordcount.php	php/wordcount.php
 php7.0 php/wordcount.php	php/wordcount.php
