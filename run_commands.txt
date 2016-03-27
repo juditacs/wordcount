@@ -10,7 +10,6 @@ java -cp clojure.jar clojure.main clojure/wordcount.clj
 julia julia/wordcount.jl
 lua lua/wordcount.lua
 mono csharp/WordCountList.exe
-nodejs javascript/wordcount2.js
 nodejs javascript/wordcount.js
 nodejs typescript/wordcount.js
 perl/wordcount.pl
