@@ -6,6 +6,9 @@ g++ wordcount_hashtable.cpp -std=c++11 -o wc_baseline_hash -O3
 g++ wordcount_hashtable_nosync_stdio.cpp -std=c++11 -o wc_hash_nosync -O3
 g++ wordcount_vector.cpp -std=c++11 -o wc_vector -O3
 
+cd ../d
+dmd -O -release -inline -boundscheck=off wordcount.d
+
 cd ../java
 javac WordCount.java
 javac WordCountEntries.java

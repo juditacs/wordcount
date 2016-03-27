@@ -3,6 +3,7 @@ cpp/wc_baseline	cpp/wordcount_map.cpp
 cpp/wc_baseline_hash	cpp/wordcount_hashtable.cpp
 cpp/wc_hash_nosync	cpp/wordcount_hashtable_nosync_stdio.cpp
 cpp/wc_vector	cpp/wordcount_vector.cpp
+d/wordcount	d/wordcount.d
 java -classpath java WordCount	java/WordCount.java
 java -classpath java WordCountEntries	java/WordcountEntries.java
 julia julia/wordcount.jl	julia/wordcount.jl
