@@ -202,7 +202,7 @@ Adding a new programming language or a new version for an existing programming l
 1. Add dependencies to the Dockerfile. Basically add the package to the existing apt-get package list.
 2. If it needs compiling or any other setup method, add it to `scripts/build.sh`
 3. Add the actual invoke command to `run_commands.txt`
-4. Add the binary - source code mapping to `binary_mapping.txt`. This is used by `scripts/evaluate_results.py` for finding out the contributors of each program. The file is <b>tab-separated</b>.
+4. If your executable differs from the source file, add the executable - source code mapping to `binary_mapping.txt`. This is used by `scripts/evaluate_results.py` for finding out the contributors of each program. The file is <b>tab-separated</b>.
 
 ### Adding your program to this experiment
 

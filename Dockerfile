@@ -15,6 +15,9 @@ RUN cabal update
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh
 RUN wget www.scala-lang.org/files/archive/scala-2.11.7.deb
 RUN dpkg -i scala-2.11.7.deb
+RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
+RUN apt-get update
+RUN apt-get install -y esl-erlang elixir
 RUN wget http://downloads.dlang.org/releases/2.x/2.070.2/dmd_2.070.2-0_amd64.deb
 RUN dpkg -i dmd_2.070.2-0_amd64.deb
 RUN cd && git clone https://github.com/juditacs/wordcount.git
