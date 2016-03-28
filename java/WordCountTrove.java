@@ -183,7 +183,7 @@ class WordCountTrove {
         System.err.println("Sorting multiples time (ms): "+(endTime-startTime)+ " with count: "+multiples.size());
 
         startTime = System.currentTimeMillis();
-        Collections.sort(singles, BYTE_COMPARATOR_INSTANCE);
+        fastRadixSort(singles, 0);
         endTime = System.currentTimeMillis();
         System.err.println("Sorting single time (ms): "+(endTime-startTime) + " with count: "+singles.size());
 
