@@ -123,8 +123,8 @@ class WordCountTrove {
         System.err.println("Creating Count objects for sorting");
         startTime = System.currentTimeMillis();
 
-        ArrayList<CountForWord> multiples = new ArrayList<CountForWord>(m.size()/2);
-        ArrayList<byte[]> singles = new ArrayList<byte[]>(m.size()/2);
+        final ArrayList<CountForWord> multiples = new ArrayList<CountForWord>(m.size()/2);
+        final ArrayList<byte[]> singles = new ArrayList<byte[]>(m.size()/2);
 
         TObjectIntProcedure<byte[]> proc = new TObjectIntProcedure<byte[]>(){
             int i=0; 
