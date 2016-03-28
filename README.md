@@ -21,7 +21,7 @@ Only the ones that finish are listed. The rest run out of memory.
 | 1 | rust/wordcount/wordcount | 201.14 | 158.65 | 6867252 | Joshua Holmer | 
 | 2 | cpp/wc_vector | 293.53 | 281.05 | 4186928 | Judit Acs, Matias Fontanini | 
 | 3 | go/bin/wordcount | 322.35 | 309.16 | 6084592 | David Siklosi | 
-| 4 | python/wordcount_py2gabor.py | 329.32 | 315.91 | 3895348 | Judit Acs | 
+| 4 | python/wordcount_py2gabor.py | 329.32 | 315.91 | 3895348 | Gabor Szabo | 
 | 5 | php7.0 php/wordcount.php | 455.05 | 353.92 | 4111164 | Braun Patrik | 
 | 6 | python/wordcount_py2.py | 532.92 | 515.44 | 8802352 | Judit Acs | 
 | 7 | mono csharp/WordCountList.exe | 751.76 | 589.84 | 4785268 | Peter Szel | 
