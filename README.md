@@ -21,7 +21,7 @@ Only the ones that finish are listed. The rest run out of memory.
 | 1 | rust/wordcount/wordcount | 201.14 | 158.65 | 6867252 | Joshua Holmer | 
 | 2 | cpp/wc_vector | 293.53 | 281.05 | 4186928 | Judit Acs, Matias Fontanini | 
 | 3 | go/bin/wordcount | 322.35 | 309.16 | 6084592 | David Siklosi | 
-| 4 | python/wordcount_py2gabor.py | 329.32 | 315.91 | 3895348 | Judit Acs | 
+| 4 | python/wordcount_py2gabor.py | 329.32 | 315.91 | 3895348 | Gabor Szabo | 
 | 5 | php7.0 php/wordcount.php | 455.05 | 353.92 | 4111164 | Braun Patrik | 
 | 6 | python/wordcount_py2.py | 532.92 | 515.44 | 8802352 | Judit Acs | 
 | 7 | mono csharp/WordCountList.exe | 751.76 | 589.84 | 4785268 | Peter Szel | 
@@ -34,40 +34,31 @@ Only the ones that finish are listed. The rest run out of memory.
 
 ## 5 million lines from the Hungarian Wikipedia
 
-Updated: March 26, 2016
-
-Old notes:
-* <b>New 2nd place, a clever Python implementation by @gaborszabo88</b>
-* improved Perl, Julia and Javascript versions
-* removed two C++ versions
-* NodeJS runs out of memory (16GB is not enough) - fixed by @szelpe
-* a faster C# (mono) version added by @szelpe
-* Golang took over Python and is now 2nd place - congrats @siklosid
-* Haskell version by @larion
-* further test are run only on the Hungarian Wikipedia, the other tables are deprecated
+Updated: March 28, 2016, 00:53 CET
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| 1 | rust/wordcount/wordcount | 20.57 | 19.79 | 990008 | Joshua Holmer | 
-| 2 | cpp/wc_vector | 33.3 | 31.93 | 775952 | Judit Acs, Matias Fontanini | 
-| 3 | python/wordcount_py2gabor.py | 40.13 | 38.71 | 594800 | Judit Acs | 
-| 4 | go/bin/wordcount | 40.7 | 39.08 | 859352 | David Siklosi | 
-| 5 | php7.0 php/wordcount.php | 54.18 | 40.44 | 709904 | Braun Patrik | 
-| 6 | cpp/wc_hash_nosync | 62.05 | 47.54 | 919672 | Judit Acs | 
-| 7 | python/wordcount_py2.py | 65.62 | 63.69 | 1437844 | Judit Acs | 
-| 8 | mono csharp/WordCountList.exe | 98.43 | 69.38 | 944220 | Peter Szel | 
-| 9 | python/wordcount_py3.py | 99.93 | 97.2 | 1246932 | Judit Acs | 
-| 10 | perl/wordcount.pl | 113.71 | 111.39 | 1242056 | Judit Acs, Larion Garaczi | 
-| 11 | php5.6 php/wordcount.php | 128.09 | 111.64 | 2126508 | Braun Patrik | 
-| 12 | java -classpath java WordCount | 134.45 | 120.37 | 1828812 | Dávid Márk Nemeskey | 
-| 13 | julia julia/wordcount.jl | 155.44 | 140.13 | 2531296 | getzdan, Attila Zseder | 
-| 14 | scala -J-Xmx2g -classpath scala Wordcount | 162.43 | 212.39 | 1469860 | Hans van den Bogert | 
-| 15 | bash/wordcount.sh | 270.82 | 285.57 | 13612 | Judit Acs | 
-| 16 | haskell/WordCount | 293.72 | 285.35 | 4216708 | Larion Garaczi | 
-| 17 | cpp/wc_baseline_hash | 294.49 | 279.38 | 975156 | Judit Acs | 
-| 18 | cpp/wc_baseline | 327.11 | 311.87 | 983248 | Judit Acs | 
-| 19 | nodejs javascript/wordcount.js | 573.7 | 572.47 | 974672 | Laci Kundra | 
-| 20 | nodejs typescript/wordcount.js | 618.24 | 592.68 | 921708 | Braun Patrik | 
+| 1 | rust/wordcount/wordcount | 21.23 | 20.28 | 990008 | Joshua Holmer | 
+| 2 | d/wordcount | 31.09 | 29.72 | 752776 | Pavel Chebotarev | 
+| 3 | cpp/wordcount | 41.98 | 39.92 | 775132 | Matias Fontanini, Judit Acs | 
+| 4 | go/bin/wordcount | 42.15 | 40.28 | 859260 | David Siklosi | 
+| 5 | python/wordcount_py2.py | 43.13 | 41.55 | 596396 | Gabor Szabo | 
+| 6 | php7.0 php/wordcount.php | 53.85 | 39.34 | 709908 | Braun Patrik | 
+| 7 | python/wordcount_py2_baseline.py | 71.46 | 69.34 | 1437328 | Judit Acs | 
+| 8 | mono csharp/WordCountList.exe | 104.0 | 72.42 | 899168 | Peter Szel | 
+| 9 | python/wordcount_py3.py | 110.37 | 107.15 | 1245036 | Judit Acs | 
+| 10 | perl/wordcount.pl | 120.85 | 117.86 | 1242060 | Larion Garaczi, Judit Acs | 
+| 11 | lua lua/wordcount.lua | 135.51 | 116.5 | 1210312 | daurnimator | 
+| 12 | php5.6 php/wordcount.php | 136.31 | 118.12 | 2126484 | Braun Patrik | 
+| 13 | java -classpath java WordCount | 143.01 | 128.67 | 1828536 | Dávid Márk Nemeskey | 
+| 14 | julia julia/wordcount.jl | 149.2 | 147.09 | 2541028 | Attila Zseder, getzdan | 
+| 15 | scala -J-Xmx2g -classpath scala Wordcount | 179.96 | 234.61 | 1423256 | Hans van den Bogert | 
+| 16 | bash/wordcount.sh | 285.97 | 301.47 | 13612 | Judit Acs | 
+| 17 | haskell/WordCount | 332.53 | 320.72 | 4217432 | Larion Garaczi | 
+| 18 | cpp/wordcount_baseline | 362.35 | 344.3 | 983244 | Judit Acs | 
+| 19 | elixir/wordcount | 397.52 | 387.1 | 2862204 | Norbert Melzer | 
+| 20 | nodejs javascript/wordcount.js | 582.64 | 580.87 | 974596 | Laci Kundra | 
+| 21 | nodejs typescript/wordcount.js | 636.28 | 609.03 | 921444 | Braun Patrik | 
 
 # The task
 

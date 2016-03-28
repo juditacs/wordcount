@@ -2,7 +2,8 @@ bash/wordcount.sh
 c/wordcount
 cpp/wordcount
 cpp/wordcount_baseline
-elixir elixir/wordcount.ex
+d/wordcount
+elixir/wordcount
 go/bin/wordcount
 haskell/WordCount
 java -classpath java WordCount
@@ -10,7 +11,6 @@ java -cp clojure.jar clojure.main clojure/wordcount.clj
 julia julia/wordcount.jl
 lua lua/wordcount.lua
 mono csharp/WordCountList.exe
-nodejs javascript/wordcount2.js
 nodejs javascript/wordcount.js
 nodejs typescript/wordcount.js
 perl/wordcount.pl
