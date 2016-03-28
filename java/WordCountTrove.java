@@ -1,11 +1,8 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,7 +13,9 @@ import gnu.trove.map.hash.TObjectIntHashMap;
 import gnu.trove.strategy.HashingStrategy;
 import gnu.trove.procedure.TObjectIntProcedure;
 
-/** Word count for Java. Slow because of boxing/unboxing. */
+/** Word count for Java.
+ *  Fast and memory-efficient because we use a primitives collection and store Strings as UTF-8 bytes.
+ */
 class WordCountTrove {
 
     private static class BytesHashingStrategy implements HashingStrategy<byte[]> {
@@ -127,8 +126,6 @@ class WordCountTrove {
         final ArrayList<byte[]> singles = new ArrayList<byte[]>(m.size()/2);
 
         TObjectIntProcedure<byte[]> proc = new TObjectIntProcedure<byte[]>(){
-            int i=0; 
-
             @Override
             public boolean execute(byte[] a, int b) {
                 if (b > 1) {
@@ -147,20 +144,28 @@ class WordCountTrove {
         System.err.println("sorting...");
         startTime = System.currentTimeMillis();
         Collections.sort(multiples);
+        endTime = System.currentTimeMillis();
+        System.err.println("Sorting multiples time (ms): "+(endTime-startTime)+ " with count: "+multiples.size());
+
+        startTime = System.currentTimeMillis();
         Collections.sort(singles, BYTE_COMPARATOR_INSTANCE);
         endTime = System.currentTimeMillis();
-        System.err.println("Sorting time (ms): "+(endTime-startTime));
+        System.err.println("Sorting single time (ms): "+(endTime-startTime) + " with count: "+singles.size());
 
         System.err.println("output...");
         startTime = System.currentTimeMillis();
-        BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        BufferedOutputStream out = new BufferedOutputStream(System.out);
         for (CountForWord c : multiples) {
-            outputWriter.write((c.toStringBuilder().append('\n')).toString());
+            out.write(c.word);
+            out.write(("\t"+c.count+'\n').getBytes(StandardCharsets.UTF_8));
         }
+        byte[] simpleSuffix = "\t1\n".getBytes(StandardCharsets.UTF_8);
         for (byte[] b : singles) {
-            outputWriter.write(new String(b, StandardCharsets.UTF_8) + "\t1\n");
+            out.write(b);
+            out.write(simpleSuffix);
         }
-        outputWriter.close();
+        out.close();
         endTime = System.currentTimeMillis();
         System.err.println("Output time (ms): "+(endTime-startTime));
     }
