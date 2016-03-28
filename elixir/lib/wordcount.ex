@@ -3,10 +3,7 @@ defmodule Wordcount do
     def new(), do: :ets.new :wc, [:set, :named_table]
 
     def count(tbl, word) do
-      case :ets.lookup(:wc, word) do
-        [{^word, cnt}] -> :ets.insert(:wc, {word, cnt + 1})
-        []             -> :ets.insert(:wc, {word, 1})
-      end
+      :ets.update_counter(tbl, word, 1, {word, 0})
       tbl
     end
 
