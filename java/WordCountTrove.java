@@ -82,6 +82,41 @@ class WordCountTrove {
         }
     }
 
+    static void fastRadixSort(ArrayList<byte[]> byteArrayList, int byteOffset) {
+        if (byteArrayList.size() > 4096) { // Overheads not justified for small arrays
+            ArrayList<byte[]>[] buckets = new ArrayList[256];
+            final int slotSize = Math.max(byteArrayList.size()>>8, 4);
+            ArrayList<byte[]> prefix = new ArrayList<byte[]>(); //Values not long enough to have this byte
+            int len = byteArrayList.size();
+            for(int i=0; i<len; i++) {
+                byte[] val = byteArrayList.get(i);
+                if (byteOffset >= val.length) {
+                    prefix.add(val);
+                } else {
+                    int index = val[byteOffset] & 0xFF;
+                    ArrayList<byte[]> slot = buckets[index];
+                    if (slot == null) {
+                        slot = new ArrayList<byte[]>(slotSize);
+                        buckets[index] = slot;
+                    }
+                    slot.add(val);  
+                }
+            }
+            // Prefix is already sorted
+            byteArrayList.clear();
+            byteArrayList.addAll(prefix);
+            for (int i=0; i<buckets.length; i++) {
+                ArrayList<byte[]> slot = buckets[i];
+                if (slot != null) {
+                    fastRadixSort(slot, byteOffset+1);
+                    byteArrayList.addAll(slot);    
+                }
+            }
+        } else {
+            Collections.sort(byteArrayList, BYTE_COMPARATOR_INSTANCE);
+         }
+    }
+
     private static final ByteArrayComparator BYTE_COMPARATOR_INSTANCE = new ByteArrayComparator();
     
     private static void submitWord(TObjectIntCustomHashMap<byte[]> m, byte[] word) {
