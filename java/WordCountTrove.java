@@ -103,7 +103,7 @@ class WordCountTrove {
      *  @param byteOffset Offset of first byte in arryays to use in sorting, use 0 for the initial sorting
      */
     static void fastRadixSort(ArrayList<byte[]> byteArrayList, int byteOffset) {
-        if (byteArrayList.size() > 4096) { // Overheads not justified for small arrays
+        if (byteArrayList.size() > 512) { // Overheads not justified for small arrays
             ArrayList<byte[]>[] buckets = new ArrayList[256];
             final int slotSize = Math.max(byteArrayList.size()>>8, 4);
             ArrayList<byte[]> prefix = new ArrayList<byte[]>(); //Values not long enough to have this byte
@@ -187,13 +187,17 @@ class WordCountTrove {
         InputStream stdin = System.in;
         TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(),1000000, 0.75f, -1);
         
-        byte[] buff = new byte[8192];  // Limits maximum token size
+        byte[] buff = new byte[16384];
 
         // Read through chunks, carrying over content that is part of a token
         int readAmount;
         int offset = 0;
         while ((readAmount = stdin.read(buff, offset, buff.length-offset)) > 0 ) {
             offset = tokenizeAndSubmitBlock(m, buff, offset, readAmount);
+            if (offset == buff.length) {  
+                // Token longer than buffer, double buffer size and keep reading
+                buff = Arrays.copyOf(buff, buff.length<<1);
+            }
         }
         if (offset > 0) {
             byte[] finalToken = new byte[offset];
