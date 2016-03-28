@@ -37,7 +37,3 @@ defmodule Wordcount do
     |> (fn a -> IO.write(:stdio, a) end).()
   end
 end
-
-# Improvements:
-# 1. Try to implement Hash-Based-Map/use HashDict
-# 2. Try an ETS, propably using some Hash-MStuff
