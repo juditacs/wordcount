@@ -1,12 +1,12 @@
-import java.io.BufferedReader;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.nio.charset.StandardCharsets;
+import java.nio.ByteBuffer;
 
 import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
@@ -14,7 +14,8 @@ import gnu.trove.strategy.HashingStrategy;
 import gnu.trove.procedure.TObjectIntProcedure;
 
 /** Word count for Java.
- *  Fast and memory-efficient because we use a primitives collection and store Strings as UTF-8 bytes.
+ *  Fast and memory-efficient because we use a primitives collection 
+ *  and store Strings as UTF-8 bytes.
  */
 class WordCountTrove {
 
@@ -61,6 +62,40 @@ class WordCountTrove {
         }
     }
 
+    // Constants for parsing
+    static final byte BYTE_SPACE = (byte)' ';
+    static final byte BYTE_TAB = (byte)'\t';
+    static final byte BYTE_NEWLINE = (byte)'\n';
+
+    /** Tokenizes characters from a byte buffer */
+    public static int tokenizeAndSubmitBlock(TObjectIntCustomHashMap<byte[]> counts, 
+        ByteBuffer buff) {
+        
+        byte[] rawBytes = buff.array();
+
+        int startIndex = buff.position();
+        int endIndex = buff.limit();
+        
+        // Go from start to end of current read
+        for (int i=startIndex; i<endIndex; i++) {
+            byte b = rawBytes[i];
+            
+            if (b == BYTE_SPACE || b==BYTE_NEWLINE || b==BYTE_TAB) { // New token
+                int pos = buff.position();
+                if (i > pos) {
+                    buff.get();
+                    byte[] output = new byte[i-pos-1];
+                    buff.get(output);
+                    submitWord(counts, output);
+                } else {
+                    buff.position(i+1);    
+                }
+            }
+        }
+        buff.compact();  // Residuals go back to the beginning
+        return 0;
+    }
+
     private static class ByteArrayComparator implements Comparator<byte[]> {
         @Override
         public int compare(byte[] b1, byte[] b2) {
@@ -81,8 +116,8 @@ class WordCountTrove {
             return o == this;
         }
     }
-
-    static void fastRadixSort(ArrayList<byte[]> byteArrayList, int byteOffset) {
+	
+	static void fastRadixSort(ArrayList<byte[]> byteArrayList, int byteOffset) {
         if (byteArrayList.size() > 4096) { // Overheads not justified for small arrays
             ArrayList<byte[]>[] buckets = new ArrayList[256];
             final int slotSize = Math.max(byteArrayList.size()>>8, 4);
@@ -126,31 +161,29 @@ class WordCountTrove {
     public static void main(String[] args) throws IOException {
         System.err.println("Parsing and adding to map");
         long startTime = System.currentTimeMillis();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+        InputStream stdin = System.in;
         TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(),1000000, 0.75f, -1);
-        String line;
-        while ((line = br.readLine()) != null) {
-            line = line.trim();
-            if (!line.isEmpty()) {
-                int index = 0;
-                for(int i = 0; i < line.length(); i++){
-                    char c = line.charAt(i);
-                    if(c == '\t' || c == ' '){
-                        if (index == i) {
-                            index ++;
-                        } else {
-                            byte[] word = line.substring(index, i).getBytes(StandardCharsets.UTF_8);
-                            index = i + 1;
-                            submitWord(m, word);
-                        }
-                    }
-                }
-                if(index < line.length()){
-                    submitWord(m, line.substring(index).getBytes(StandardCharsets.UTF_8));
-                }
-            }
+        
+        ByteBuffer buff = ByteBuffer.allocate(8192);
+        byte[] backing = buff.array();
+
+        // Read through chunks, tokenizing them directly on byte array
+        int readAmount;
+        int offset = 0;
+        int allowed = 8192;
+        while ((readAmount = stdin.read(backing, offset, allowed)) > 0 ) {
+            buff.position(offset+readAmount);
+            buff.flip();
+            tokenizeAndSubmitBlock(m, buff);
+            offset = buff.position();
+            allowed = buff.remaining();
         }
-        br.close();
+        if (offset > 0) {
+            buff.flip();
+            byte[] finalToken = new byte[offset];
+            buff.get(finalToken);
+            submitWord(m, finalToken);
+        }
         long endTime = System.currentTimeMillis();
         System.err.println("Parsing/map addition time (ms): "+(endTime-startTime));
 
