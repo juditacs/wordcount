@@ -7,12 +7,12 @@ defmodule Wordcount do
       tbl
     end
 
-    def to_list(tbl) do
-      :ets.foldl(fn {w, _} = entry, acc ->
-        new_acc = [entry|acc]
+    def to_map(tbl) do
+      :ets.foldr(fn {w, c}, acc ->
+        new_acc = Map.update(acc, c, [w], &([w|&1]))
         :ets.delete(tbl, w)
         new_acc
-      end, [], tbl)
+      end, %{}, tbl)
     end
   end
 
@@ -25,12 +25,13 @@ defmodule Wordcount do
       word, tbl ->
         Store.count(tbl, word)
     end)
-    |> Store.to_list
-    |> Enum.sort(fn
-      {word1, count},  {word2, count}  -> word1 < word2
-      {_,     count1}, {_,     count2} -> count1 > count2
+    |> Store.to_map
+    |> Enum.sort(fn {c1, _}, {c2, _} -> c1 > c2 end)
+    |> Enum.map(fn {c, ws} ->
+      cs = Integer.to_string(c)
+      Enum.sort(ws)
+      |> Enum.map(&([&1, ?\t, cs, ?\n]))
     end)
-    |> Enum.map(fn {word, count} -> [word, ?\t, Integer.to_string(count), ?\n] end)
     |> (fn a -> IO.write(:stdio, a) end).()
   end
 end
