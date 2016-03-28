@@ -6,9 +6,15 @@ defmodule Wordcount.Mixfile do
      version: "0.0.1",
      elixir: "~> 1.2",
      escript: escript,
+     erlc_options: erlc,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
+  end
+
+  def erlc do
+    [:native,
+     {:hipe, [:o3]}]
   end
 
   def escript do
