@@ -67,32 +67,37 @@ class WordCountTrove {
     static final byte BYTE_TAB = (byte)'\t';
     static final byte BYTE_NEWLINE = (byte)'\n';
 
-    /** Tokenizes characters from a byte buffer */
-    public static int tokenizeAndSubmitBlock(TObjectIntCustomHashMap<byte[]> counts, 
-        ByteBuffer buff) {
-        
-        byte[] rawBytes = buff.array();
+    /** Reads a chunk of characters, tokenizes it, and submits tokens
+    *  After execution, it shuffles residual characters to the start of the array
+    *  And returns the number of characters remaining to include in the next token
+    */
+    public static int tokenizeAndSubmitBlock(TObjectIntCustomHashMap<byte[]> counts,
+        final byte[] inputBuffer, int startIndex, int charsRead) {
 
-        int startIndex = buff.position();
-        int endIndex = buff.limit();
-        
+        int index = 0; // Start of current token
+        int endIndex = startIndex + charsRead;
+
         // Go from start to end of current read
         for (int i=startIndex; i<endIndex; i++) {
-            byte b = rawBytes[i];
-            
-            if (b == BYTE_SPACE || b==BYTE_NEWLINE || b==BYTE_TAB) { // New token
-                int pos = buff.position();
-                if (i > pos) {
-                    buff.get();
-                    byte[] output = new byte[i-pos-1];
-                    buff.get(output);
-                    submitWord(counts, output);
-                } else {
-                    buff.position(i+1);    
+            byte b = inputBuffer[i];
+
+            if (b == BYTE_SPACE || b == BYTE_NEWLINE || b == BYTE_TAB) { // New token
+                if (i != index) {
+                    byte[] word = new byte[i-index];
+                    System.arraycopy(inputBuffer, index, word, 0, word.length);                    
+                    submitWord(counts, word);
+                    index = i;
                 }
+                index++;
             }
         }
-        buff.compact();  // Residuals go back to the beginning
+
+        // Copy residual token content to beginning of the array, start going again
+        int residualSize =  endIndex - index;
+        if (residualSize > 0) {
+            System.arraycopy(inputBuffer, index, inputBuffer, 0, residualSize);
+            return residualSize;
+        }
         return 0;
     }
 
@@ -117,7 +122,7 @@ class WordCountTrove {
         }
     }
 	
-	static void fastRadixSort(ArrayList<byte[]> byteArrayList, int byteOffset) {
+    static void fastRadixSort(ArrayList<byte[]> byteArrayList, int byteOffset) {
         if (byteArrayList.size() > 4096) { // Overheads not justified for small arrays
             ArrayList<byte[]>[] buckets = new ArrayList[256];
             final int slotSize = Math.max(byteArrayList.size()>>8, 4);
@@ -164,24 +169,17 @@ class WordCountTrove {
         InputStream stdin = System.in;
         TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(),1000000, 0.75f, -1);
         
-        ByteBuffer buff = ByteBuffer.allocate(8192);
-        byte[] backing = buff.array();
+        byte[] buff = new byte[8192];  // Limits maximum token size
 
         // Read through chunks, tokenizing them directly on byte array
         int readAmount;
         int offset = 0;
-        int allowed = 8192;
-        while ((readAmount = stdin.read(backing, offset, allowed)) > 0 ) {
-            buff.position(offset+readAmount);
-            buff.flip();
-            tokenizeAndSubmitBlock(m, buff);
-            offset = buff.position();
-            allowed = buff.remaining();
+        while ((readAmount = stdin.read(buff, offset, buff.length-offset)) > 0 ) {
+            offset = tokenizeAndSubmitBlock(m, buff, offset, readAmount);
         }
         if (offset > 0) {
-            buff.flip();
             byte[] finalToken = new byte[offset];
-            buff.get(finalToken);
+            System.arraycopy(buff, 0, finalToken, 0, offset);
             submitWord(m, finalToken);
         }
         long endTime = System.currentTimeMillis();
