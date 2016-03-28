@@ -22,6 +22,9 @@ go/bin/
 haskell/WordCount
 haskell/dist
 rust/wordcount/wordcount
+typescript/node_modules/
+typescript/typings/
+typescript/wordcount.js
 
 # The data-bigpack
 data/huwikisource-latest-pages-meta-current.xml
