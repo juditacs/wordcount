@@ -15,16 +15,12 @@ data/romanian*
 **/*class
 clojure.jar
 **/*.o
+**/wordcount
 
 # all the compile binaries
-cpp/wordcount
-cpp/wordcount_baseline
 csharp/WordCountList.exe
-d/wordcount
-go/bin/
 haskell/WordCount
 haskell/dist
-rust/wordcount/wordcount
 typescript/node_modules/
 typescript/typings/
 typescript/wordcount.js
