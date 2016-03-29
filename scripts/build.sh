@@ -19,11 +19,6 @@ npm install --unsafe-perm
 cd ../csharp
 mcs WordCount.cs
 
-cd ../rust/wordcount
-cargo build --release
-cp target/release/wordcount .
-cd ..
-
 cd ../scala
 scalac Wordcount.scala
 
