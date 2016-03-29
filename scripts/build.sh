@@ -16,10 +16,6 @@ npm install
 cd ../typescript
 npm install --unsafe-perm
 
-cd ../go
-export GOPATH=$(pwd)
-go install wordcount
-
 cd ../csharp
 mcs WordCount.cs
 
