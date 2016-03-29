@@ -25,7 +25,7 @@ export GOPATH=$(pwd)
 go install wordcount
 
 cd ../csharp
-mcs WordCountList.cs
+mcs WordCount.cs
 
 cd ../haskell
 cabal install --verbose=0
