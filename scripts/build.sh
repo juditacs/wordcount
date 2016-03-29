@@ -5,6 +5,9 @@ g++ wordcount_baseline.cpp -std=c++11 -o wordcount_baseline -O3
 g++ wordcount.cpp -std=c++11 -o wordcount -O3
 clang++-3.6 wordcount.cpp -std=c++11 -o wordcount_clang -O3
 
+cd ../c
+gcc wordcount.c -o wordcount -O3 -Wall
+
 cd ../d
 dmd -O -release -inline -boundscheck=off wordcount.d
 
