@@ -13,11 +13,14 @@ PHP.iml
 de
 data/romanian*
 **/*class
+clojure.jar
+**/*.o
 
 # all the compile binaries
 cpp/wordcount
 cpp/wordcount_baseline
 csharp/WordCountList.exe
+d/wordcount
 go/bin/
 haskell/WordCount
 haskell/dist
@@ -27,7 +30,7 @@ typescript/typings/
 typescript/wordcount.js
 
 # The data-bigpack
-data/huwikisource-latest-pages-meta-current.xml
+data/huwiki*.xml
 huwiki-latest-pages-meta-current.xml.bz2
 
 # Results of a compare run
