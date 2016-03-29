@@ -9,6 +9,7 @@ RUN yes | apt-get install php7.0-cli php5.6-cli
 RUN yes | apt-get install julia
 RUN yes | apt-get install golang-go
 RUN yes | apt-get install lua5.2
+RUN yes | apt-get install clang-3.6
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN sudo apt-get install --yes nodejs
 RUN cabal update

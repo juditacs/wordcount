@@ -1,5 +1,6 @@
 bash/wordcount.sh
 cpp/wordcount
+cpp/wordcount_clang
 cpp/wordcount_baseline
 d/wordcount
 elixir/wordcount
