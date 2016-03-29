@@ -19,10 +19,6 @@ npm install --unsafe-perm
 cd ../csharp
 mcs WordCount.cs
 
-cd ../haskell
-cabal install --verbose=0
-cp dist/build/WordCount/WordCount .
-
 cd ../rust/wordcount
 cargo build --release
 cp target/release/wordcount .
