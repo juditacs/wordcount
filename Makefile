@@ -6,6 +6,7 @@ TIME = /usr/bin/time
 TIMEFORMAT = "%e__%U__%M"
 
 all: $(LANGUAGES:%=build_%)
+	scripts/build.sh # Fallback for languages not yet having a Makefile
 
 clean: $(LANGUAGES:%=clean_%)
 
