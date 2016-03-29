@@ -7,7 +7,7 @@ clean:
 	rm -rf deps
 	rm -rf _build
 
-run: wordcount
+run:
 	./wordcount
 
 rebuild: clean build

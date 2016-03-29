@@ -10,4 +10,4 @@ clean:
 rebuild: clean build
 
 run:
-	./go/bin/wordcount
+	./bin/wordcount
