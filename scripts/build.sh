@@ -18,6 +18,3 @@ npm install --unsafe-perm
 
 cd ../csharp
 mcs WordCount.cs
-
-cd ../elixir
-MIX_ENV=prod mix escript.build > /dev/null
