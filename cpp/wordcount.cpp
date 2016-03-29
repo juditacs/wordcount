@@ -15,6 +15,7 @@ int main() {
         --m[s];
     }
     vector<tuple<int, string>> mvec;
+    mvec.reserve(m.size());
     for (auto& p: m) {
         mvec.emplace_back(p.second, move(p.first));
     }
