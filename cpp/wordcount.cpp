@@ -8,6 +8,7 @@ using namespace std;
 
 int main() {
     unordered_map<string, int> m;
+    m.max_load_factor(0.5);
     string s;
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
