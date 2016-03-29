@@ -11,7 +11,7 @@ java -classpath java WordCount
 java -cp clojure.jar clojure.main clojure/wordcount.clj
 julia julia/wordcount.jl
 lua lua/wordcount.lua
-mono csharp/WordCountList.exe
+mono csharp/WordCount.exe
 nodejs javascript/wordcount.js
 nodejs typescript/wordcount.js
 perl/wordcount.pl
