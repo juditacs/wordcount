@@ -17,11 +17,15 @@ run: $(LANGUAGES=%:build_%) $(LANGUAGES:%=run_%)
 
 
 build_%:
-	make -C $* build
+	@echo building \"$*\"
+	@make -s -C $* build
+	@echo finished building \"$*\"
 
 clean_%:
-	make -C $* clean
+	@echo cleaning \"$*\"
+	@make -s -C $* clean
 
 run_%:
 	@echo running \"$*\"
 	@cat $(TESTDATA) | $(TIME) -f $(TIMEFORMAT) make -s -C $* run > /dev/null
+	@echo finished running \"$*\"
