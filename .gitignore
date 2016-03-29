@@ -16,9 +16,9 @@ data/romanian*
 clojure.jar
 **/*.o
 **/wordcount
+**/*.exe
 
 # all the compile binaries
-csharp/WordCountList.exe
 haskell/WordCount
 haskell/dist
 typescript/node_modules/
@@ -27,7 +27,7 @@ typescript/wordcount.js
 
 # The data-bigpack
 data/huwiki*.xml
-huwiki-latest-pages-meta-current.xml.bz2
+huwiki*.xml.bz2
 
 # Results of a compare run
 results.txt
