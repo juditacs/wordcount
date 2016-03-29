@@ -11,14 +11,14 @@ namespace WordCountProgram
             var wordCounts = new Dictionary<string, WordCount>();
             var wordCountList = new List<WordCount>();
             string line;
-            
+            WordCount wc = null;
             while ((line = Console.ReadLine()) != null) 
             {
                 foreach (var word in line.Split(new [] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (wordCounts.ContainsKey(word))
+                    if (wordCounts.TryGetValue(word, out wc))
                     {
-                        wordCounts[word].Count++;
+                        wc.Count++;
                     }
                     else
                     {
