@@ -6,8 +6,6 @@ elixir elixir/wordcount.ex
 go/bin/wordcount
 haskell/WordCount
 java -Xmx6G -classpath java WordCountBaseline
-java -classpath java WordCountArray
-java -classpath java WordCountEntries
 java -Xmx6G -classpath java:java/trove-3.0.3.jar WordCountOptimized
 java -cp clojure.jar clojure.main clojure/wordcount.clj
 julia julia/wordcount.jl
