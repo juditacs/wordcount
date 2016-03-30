@@ -115,7 +115,9 @@ class WordCountOptimized {
      *  @param byteOffset Offset of first byte in arryays to use in sorting, use 0 for the initial sorting
      */
     static void fastRadixSort(ArrayList<byte[]> byteArrayList, int byteOffset) {
-        if (byteArrayList.size() > 512) { // Overheads not justified for small arrays
+        if (byteArrayList.size() < 512) {
+            Collections.sort(byteArrayList, new ByteArrayComparator(byteOffset));
+        } else if (byteArrayList.size() < 200000) { // Overheads not justified for small arrays, bigger ones use first 2 bytes
             ArrayList<byte[]>[] buckets = new ArrayList[256];
             final int slotSize = Math.max(byteArrayList.size()>>8, 4);
             ArrayList<byte[]> prefix = new ArrayList<byte[]>(); //Values not long enough to have this byte
@@ -144,9 +146,36 @@ class WordCountOptimized {
                     byteArrayList.addAll(slot);    
                 }
             }
-        } else {
-            Collections.sort(byteArrayList, new ByteArrayComparator(byteOffset));
-         }
+        } else { // Huge array sort, using first 2 bytes
+            ArrayList<byte[]>[] buckets = new ArrayList[65536];
+            ArrayList<byte[]> prefix = new ArrayList<byte[]>();
+            int len = byteArrayList.size();
+            for(int i=0; i<len; i++) {
+                byte[] val = byteArrayList.get(i);
+                if (byteOffset+1 >= val.length) {
+                    prefix.add(val);
+                } else {
+                    int index = (val[byteOffset] & 0xFF) << 8 | (val[byteOffset+1] & 0xFF);
+                    ArrayList<byte[]> slot = buckets[index];
+                    if (slot == null) {
+                        slot = new ArrayList<byte[]>();
+                        buckets[index] = slot;
+                    }
+                    slot.add(val);  
+                }
+            }
+            // Prefix is already sorted
+            byteArrayList.clear();
+            Collections.sort(prefix, new ByteArrayComparator(byteOffset));
+            byteArrayList.addAll(prefix);
+            for (int i=0; i<buckets.length; i++) {
+                ArrayList<byte[]> slot = buckets[i];
+                if (slot != null) {
+                    fastRadixSort(slot, byteOffset+2);
+                    byteArrayList.addAll(slot);    
+                }
+            }
+        }
     }    
 
     // Token separators
