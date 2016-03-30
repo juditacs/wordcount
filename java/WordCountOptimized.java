@@ -73,13 +73,16 @@ class WordCountOptimized {
     }
 
     // Compares pairs of byte arrays by unsigned byte values, then by array length
-    private static class ByteArrayComparator implements Comparator<byte[]> {
+    // Allows for creating an instance with an offset
+    static class ByteArrayComparator implements Comparator<byte[]> {
+        int offset=0;
+
         @Override
         public int compare(byte[] b1, byte[] b2) {
             // Sorting by unsigned byte value is less correct
             // but avoids very expensive UTF-8 decoding
             int limit = Math.min(b1.length, b2.length);
-            for(int i=0; i<limit; i++) {
+            for(int i=offset; i<limit; i++) {
                 int diff = (b1[i] & 0xFF) - (b2[i] & 0xFF);
                 if (diff != 0) {
                     return diff;
@@ -91,6 +94,15 @@ class WordCountOptimized {
         @Override
         public boolean equals(Object o) {
             return o == this;
+        }
+
+        ByteArrayComparator() {
+
+        }
+
+        // Only start comparing at byte X
+        ByteArrayComparator(int offset){
+            this.offset = offset;
         }
     }
 
@@ -133,7 +145,7 @@ class WordCountOptimized {
                 }
             }
         } else {
-            Collections.sort(byteArrayList, BYTE_COMPARATOR_INSTANCE);
+            Collections.sort(byteArrayList, new ByteArrayComparator(byteOffset));
          }
     }    
 
