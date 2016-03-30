@@ -12,25 +12,29 @@ http://juditacs.github.io/2016/03/19/wordcount2.html
 
 ## Full Hungarian Wikipedia
 
-Updated: March 26, 2016
+Updated: March 30, 2016
 
 Only the ones that finish are listed. The rest run out of memory.
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| 1 | rust/wordcount/wordcount | 201.14 | 158.65 | 6867252 | Joshua Holmer | 
-| 2 | cpp/wc_vector | 293.53 | 281.05 | 4186928 | Judit Acs, Matias Fontanini | 
-| 3 | go/bin/wordcount | 322.35 | 309.16 | 6084592 | David Siklosi | 
-| 4 | python/wordcount_py2gabor.py | 329.32 | 315.91 | 3895348 | Gabor Szabo | 
-| 5 | php7.0 php/wordcount.php | 455.05 | 353.92 | 4111164 | Braun Patrik | 
-| 6 | python/wordcount_py2.py | 532.92 | 515.44 | 8802352 | Judit Acs | 
-| 7 | mono csharp/WordCountList.exe | 751.76 | 589.84 | 4785268 | Peter Szel | 
-| 8 | perl/wordcount.pl | 860.05 | 837.29 | 7100120 | Judit Acs, Larion Garaczi | 
-| 9 | python/wordcount_py3.py | 906.21 | 881.89 | 7672796 | Judit Acs | 
-| 10 | php5.6 php/wordcount.php | 1060.73 | 956.01 | 12672596 | Braun Patrik | 
-| 11 | julia julia/wordcount.jl | 1755.9 | 1717.57 | 7391812 | getzdan, Attila Zseder | 
-| 12 | bash/wordcount.sh | 2486.98 | 2575.02 | 13768 | Judit Acs | 
-| 13 | cpp/wc_baseline | 3204.84 | 3104.41 | 5965464 | Judit Acs | 
+| 1 | rust/wordcount/wordcount | 154.86 | 148.16 | 6867252 | Joshua Holmer | 
+| 2 | cpp/wordcount | 238.5 | 227.64 | 4373428 | Elliot Goodrich, Dmitry Andreev, Judit Acs | 
+| 3 | cpp/wordcount_clang | 243.5 | 233.41 | 4373372 | Elliot Goodrich, Dmitry Andreev, Judit Acs | 
+| 4 | d/wordcount | 250.99 | 238.54 | 6304604 | Pavel Chebotarev | 
+| 5 | c/wordcount | 305.13 | 291.47 | 2423880 | gaebor | 
+| 6 | python/wordcount_py2.py | 311.79 | 300.53 | 3894688 | Gabor Szabo | 
+| 7 | go/bin/wordcount | 325.75 | 315.63 | 6085992 | David Siklosi | 
+| 8 | php7.0 php/wordcount.php | 456.87 | 362.21 | 4111164 | Braun Patrik | 
+| 9 | python/wordcount_py2_baseline.py | 511.12 | 490.27 | 8802472 | Judit Acs | 
+| 10 | mono csharp/WordCount.exe | 733.7 | 560.38 | 4783840 | Tim Posey, Peter Szel | 
+| 11 | perl/wordcount.pl | 778.48 | 758.74 | 7100124 | Larion Garaczi, Judit Acs | 
+| 12 | python/wordcount_py3.py | 877.93 | 854.83 | 7672096 | Judit Acs | 
+| 13 | php5.6 php/wordcount.php | 1051.85 | 940.92 | 12682668 | Braun Patrik | 
+| 14 | lua lua/wordcount.lua | 1134.88 | 1029.69 | 7023604 | daurnimator | 
+| 15 | julia julia/wordcount.jl | 1554.77 | 1519.4 | 7393432 | Attila Zseder, getzdan | 
+| 16 | bash/wordcount.sh | 2463.07 | 2572.14 | 13772 | Judit Acs | 
+| 17 | cpp/wordcount_baseline | 3239.05 | 3143.51 | 5965364 | Judit Acs | 
 
 ## 5 million lines from the Hungarian Wikipedia
 
