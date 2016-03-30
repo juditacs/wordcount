@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
+import java.util.StringTokenizer;
 
-/** Represents a baseline but very efficient Java implementation without custom parsing
+/** Represents a baseline but efficient Java implementation without custom parsing/collections
+*   The WordCountOptimized version represents the opposite: a hand-tweaked implementation.
+*
 *   Main optimizations:
-*     - Use a custom object to avoid creating throwaway Integer instance & boxing/unboxing
+*     - Use a custom object to avoid creating throwaway Integer instances & boxing/unboxing
 *     - Buffer input/output
 *   
 *   * Principal author Rick Hendricksen (xupwup on Github)
@@ -37,13 +40,21 @@ class WordCountBaseline {
             }
         }
     }
-    
-    private static void submitWord(Map<String, CountForWord> m, String word){
-        CountForWord c;
-        if((c = m.get(word)) != null){
-            c.count ++;
-        }else{
-            m.put(word, new CountForWord(word));
+
+
+    private static void tokenizeAndSubmit(Map<String, CountForWord> m, String line) {
+        String trimmed = line.trim();
+        if(!line.isEmpty()) {
+            StringTokenizer tok = new StringTokenizer(line, " \t");
+            while (tok.hasMoreTokens()) {
+                String word = tok.nextToken();
+                CountForWord c = m.get(word);
+                if (c != null) {
+                    c.count++;
+                } else {
+                    m.put(word, new CountForWord(word));
+                }
+            }
         }
     }
     
@@ -52,25 +63,7 @@ class WordCountBaseline {
         Map<String, CountForWord> m = new HashMap<String, CountForWord>();
         String line;
         while ((line = br.readLine()) != null) {
-            line = line.trim();
-            if (!line.isEmpty()) {
-                int index = 0;
-                for(int i = 0; i < line.length(); i++){
-                    char c = line.charAt(i);
-                    if(c == '\t' || c == ' '){
-                        if(index == i){
-                            index ++;
-                        }else{
-                            String word = line.substring(index, i);
-                            index = i + 1;
-                            submitWord(m, word);
-                        }
-                    }
-                }
-                if(index < line.length()){
-                    submitWord(m, line.substring(index));
-                }
-            }
+            tokenizeAndSubmit(m, line);
         }
         br.close();
 
