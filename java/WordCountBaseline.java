@@ -8,10 +8,17 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 
-/** Word count for Java. Slow because of boxing/unboxing. */
-class WordCount {
+/** Represents a baseline but very efficient Java implementation without custom parsing
+*   Main optimizations:
+*     - Use a custom object to avoid creating throwaway Integer instance & boxing/unboxing
+*     - Buffer input/output
+*   
+*   * Principal author Rick Hendricksen (xupwup on Github)
+*   * Suggestions by sgwerder on GitHub & Sam Van Oort (svanoort on Github)
+*/
+class WordCountBaseline {
     
-    private static class CountForWord implements Comparable<CountForWord>{
+    private static class CountForWord implements Comparable<CountForWord> {
         String word;
         int count = 1;
 
@@ -69,6 +76,7 @@ class WordCount {
 
         System.err.println("sorting...");
         ArrayList<CountForWord> lst = new ArrayList<>(m.values());
+        System.err.println("Total tokens: "+lst.size());
         Collections.sort(lst);
         System.err.println("output...");
         BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));

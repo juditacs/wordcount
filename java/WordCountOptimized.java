@@ -15,19 +15,19 @@ import gnu.trove.procedure.TObjectIntProcedure;
 
 /** Highly optimized word count algorithm for java incorporating multiple optimizations
  *  Key tricks: 
- *    - Work directly with raw bytes (safe for UTF-8), to reduce memory and avoid text decoding cost
- *    - Buffer I/O, either using Buffered I/O classes or by explicitly reading chunks to an array
  *    - Use Trove primitive collections (performance and memory savings, plus direct-iteration procedures)
- *    - Process recurring tokens separately from singletons (big performance gain)
- *    - Use a radix byte sort to sort large lists of bytestrings
- *    - Sort strings using byte order (fudging the sort order slightly, for great performance savings)
+ *    - Buffer I/O, either using Buffered I/O classes or by explicitly reading chunks to an array    
+ *    - Process recurring tokens separately from singletons (big performance gain)    
+ *    - Work directly with raw bytes (safe for UTF-8), to reduce memory and avoid text decoding cost
+ *    - Sort strings using byte order (fudging the sort order slightly, faster than decoding to sort)
+ *    - Use a radix byte sort to sort large lists of bytestrings (small performance gain)
  *  
  *  Authors:  
- *   - Sam Van Oort <samvanoort@gmail.com>
- *   - xupwup   
- *   - Rick Hendricksen
+ *   - Sam Van Oort <samvanoort@gmail.com> (svanoort on GitHub)
+ *   - Rick Hendricksen (xupwup on GitHub)
+ *   - sgwerder on GitHub
  */
-class WordCountTrove {
+class WordCountOptimized {
 
     private static class BytesHashingStrategy implements HashingStrategy<byte[]> {
         @Override
