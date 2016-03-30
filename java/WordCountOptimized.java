@@ -117,7 +117,7 @@ class WordCountOptimized {
     static void fastRadixSort(ArrayList<byte[]> byteArrayList, int byteOffset) {
         if (byteArrayList.size() < 512) {
             Collections.sort(byteArrayList, new ByteArrayComparator(byteOffset));
-        } else if (byteArrayList.size() < 200000) { // Overheads not justified for small arrays, bigger ones use first 2 bytes
+        } else if (byteArrayList.size() < 4096) { // Overheads not justified for small arrays, bigger ones use first 2 bytes
             ArrayList<byte[]>[] buckets = new ArrayList[256];
             final int slotSize = Math.max(byteArrayList.size()>>8, 4);
             ArrayList<byte[]> prefix = new ArrayList<byte[]>(); //Values not long enough to have this byte
