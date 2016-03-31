@@ -23,4 +23,4 @@ python/wordcount_py2.py
 python/wordcount_py3.py
 ruby2.3 ruby/wordcount.rb
 rust/wordcount/wordcount
-scala -J-Xmx2g -classpath scala Wordcount
+scala -J-Xmx6g -classpath scala Wordcount
