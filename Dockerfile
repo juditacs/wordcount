@@ -1,5 +1,9 @@
 FROM ubuntu:14.04
-MAINTAINER Judit Acs
+MAINTAINER Sam Van Oort and Judit Acs
+
+# Builder and run environment for when you want to cover *MANY* languages
+# Currently does C, C++, C#, Clojure, D, Erlang, Elixir, javascript (node.js), Julia
+#   Go, Java, Lua, Perl, PHP, Python2, Python3, Rust, Scala
 
 # Core utilities and languges, concatenated into one operation to reduce layers
 # No text editors or git, since we can directly edit mounted files in local folder
@@ -48,7 +52,7 @@ RUN wget www.scala-lang.org/files/archive/scala-2.11.7.deb \
 RUN apt-add-repository -y ppa:staticfloat/juliareleases \
     && apt-key update \
     && apt-get update \
-    && apt-get install -y julia \
+    && apt-get install -y --no-install-recommends julia \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Node.js
@@ -64,7 +68,7 @@ RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
     && rm -f erlang-solutions_1.0_all.deb \
     && apt-key update \
     && apt-get update \
-    && apt-get install -y esl-erlang elixir \
+    && apt-get install -y --no-install-recommends esl-erlang elixir \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # D
@@ -76,7 +80,7 @@ RUN wget http://downloads.dlang.org/releases/2.x/2.070.2/dmd_2.070.2-0_amd64.deb
 RUN apt-add-repository ppa:brightbox/ruby-ng \
     && apt-key update \ 
     && apt-get update \
-    && apt-get install -y ruby2.3 \
+    && apt-get install -y --no-install-recommends ruby2.3 \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # PHP 
@@ -86,7 +90,8 @@ RUN apt-add-repository -y ppa:ondrej/php \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Clojure
-RUN wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar -O clojure.jar
+RUN wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar -O /usr/lib/clojure.jar \
+    && chmod a+rx /usr/lib/clojure.jar
 
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -95,4 +100,4 @@ ENV LC_ALL en_US.UTF-8
 ENV LC_COLLATE C
 ENV PYTHONIOENCODING utf-8
 COPY scripts/as_user.sh /bin/as_user.sh
-WORKDIR /wordcount
+WORKDIR /allthelanguages

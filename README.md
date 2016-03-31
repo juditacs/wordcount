@@ -116,15 +116,21 @@ See the installation commands in `Dockerfile`.
 
 ## Docker image
 
-You can run the experiment in a Docker container. The Dockerfile is provided, run:
+You can run the experiment in a Docker container. 
 
-    docker build -t wordcount --rm .
+Pull from DockerHub & tag it:
 
-This might take a while and requires several GB of storage.
+    docker pull svanoort/allthelanguages:latest && docker tag svanoort/allthelanguages:latest allthelanguages
 
-Run the image, mounting the local directoriy into the working directory of the docker file as a volume:
+If you wish to build locally (this while take quite a while):
 
-    docker run -h DOCKER -it --rm -v $(pwd):/wordcount wordcount as_user.sh $(id -un) $(id -u) $(id -gn) $(id -g)
+    docker build -t allthelanguages --rm .
+
+In either case, this requires quite a bit of storage, currently about 2.4 GB.
+
+Run the image, mounting the local directory into the working directory of the docker file as a volume:
+
+    docker run -h DOCKER -it --rm -v $(pwd):/allthelanguages allthelanguages as_user.sh $(id -un) $(id -u) $(id -gn) $(id -g)
 
 Changes you made in the folder will show up in the docker container, and any output (builds, results) will write to the folder as well. All permissions are maintained.
 
