@@ -18,17 +18,16 @@ RUN apt-add-repository -y ppa:webupd8team/java \
     && apt-get install -y oracle-java8-installer \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/oracle-jdk8-installer
 
+# Scala
+RUN wget www.scala-lang.org/files/archive/scala-2.11.7.deb \
+    && dpkg -i scala-2.11.7.deb \
+    && rm -f scala-2.11.7.deb
+
 # Julia
 RUN apt-add-repository -y ppa:staticfloat/juliareleases \
     && apt-key update \
     && apt-get update \
     && apt-get install -y julia \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# PHP 
-RUN apt-add-repository -y ppa:ondrej/php \
-    && apt-get update \
-    && apt-get install -y --allow-unauthenticated php7.0-cli php5.6-cli \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Node.js
@@ -37,11 +36,6 @@ RUN sudo apt-get install --yes nodejs
 
 # Rust
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh
-
-# Scala
-RUN wget www.scala-lang.org/files/archive/scala-2.11.7.deb \
-    && dpkg -i scala-2.11.7.deb \
-    && rm -f scala-2.11.7.deb
 
 # Erlang + Elixir, might not need the apt-get update here?
 RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
@@ -62,6 +56,12 @@ RUN apt-add-repository ppa:brightbox/ruby-ng \
     && apt-key update \ 
     && apt-get update \
     && apt-get install -y ruby2.3 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# PHP 
+RUN apt-add-repository -y ppa:ondrej/php \
+    && apt-get update \
+    && apt-get install -y --allow-unauthenticated php7.0-cli php5.6-cli \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Clojure
