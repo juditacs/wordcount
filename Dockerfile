@@ -6,7 +6,7 @@ MAINTAINER Judit Acs
 RUN apt-get update \
     && apt-get install -y wget curl time software-properties-common xdg-utils git \
        gcc g++ clang-3.6 \
-       python perl mono-mcs golang-go lua5.2 ruby2.3\
+       python perl mono-mcs golang-go lua5.2 \
        ghc cabal-install && cabal update \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -56,6 +56,13 @@ RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
 RUN wget http://downloads.dlang.org/releases/2.x/2.070.2/dmd_2.070.2-0_amd64.deb \
     && dpkg -i dmd_2.070.2-0_amd64.deb \
     && rm -f dmd_2.070.2-0_amd64.deb
+
+# Ruby
+RUN apt-add-repository ppa:brightbox/ruby-ng \
+    && apt-key update \ 
+    && apt-get update \
+    && apt-get install -y ruby2.3 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Clojure
 RUN wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar -O clojure.jar
