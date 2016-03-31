@@ -12,7 +12,8 @@ cd ../d
 dmd -O -release -inline -boundscheck=off wordcount.d
 
 cd ../java
-javac WordCount.java
+javac WordCountBaseline.java
+javac -cp .:trove-3.0.3.jar WordCountOptimized.java
 
 cd ../javascript
 npm install
