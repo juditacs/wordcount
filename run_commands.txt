@@ -21,5 +21,6 @@ php7.0 php/wordcount.php
 python/wordcount_py2_baseline.py
 python/wordcount_py2.py
 python/wordcount_py3.py
+ruby2.3 ruby/wordcount.rb
 rust/wordcount/wordcount
 scala -J-Xmx2g -classpath scala Wordcount
