@@ -124,9 +124,9 @@ This might take a while and requires several GB of storage.
 
 Run the image, mounting the local directoriy into the working directory of the docker file as a volume:
 
-    docker run -it --rm -v `pwd`:/tmp/wordcount wordcount bash
+    docker run -h DOCKER -it --rm -v $(pwd):/wordcount wordcount as_user.sh $(id -un) $(id -u) $(id -gn) $(id -g)
 
-Changes you made in the folder will show up in the docker container, and any output (builds, results) will write to the folder as well.
+Changes you made in the folder will show up in the docker container, and any output (builds, results) will write to the folder as well. All permissions are maintained.
 
 ## Downloading the dataset
 
