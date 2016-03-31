@@ -67,11 +67,11 @@ class WordCountBaseline {
         }
         br.close();
 
-        System.err.println("sorting...");
+        // System.err.println("sorting...");
         ArrayList<CountForWord> lst = new ArrayList<>(m.values());
-        System.err.println("Total tokens: "+lst.size());
+        // System.err.println("Total tokens: "+lst.size());
         Collections.sort(lst);
-        System.err.println("output...");
+        // System.err.println("output...");
         BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
         for(CountForWord c : lst){
             outputWriter.write(c.word + "\t" + c.count);

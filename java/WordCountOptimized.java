@@ -223,7 +223,7 @@ class WordCountOptimized {
     }
     
     public static void main(String[] args) throws IOException {
-        System.err.println("Parsing and adding to map");
+        // System.err.println("Parsing and adding to map");
         long startTime = System.currentTimeMillis();
         InputStream stdin = System.in;
         TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(),1000000, 0.75f, -1);
@@ -246,9 +246,9 @@ class WordCountOptimized {
             submitWord(m, finalToken);
         }
         long endTime = System.currentTimeMillis();
-        System.err.println("Parsing/map addition time (ms): "+(endTime-startTime));
+        // System.err.println("Parsing/map addition time (ms): "+(endTime-startTime));
 
-        System.err.println("Creating Count objects for sorting");
+        // System.err.println("Creating Count objects for sorting");
         startTime = System.currentTimeMillis();
 
         // Separating singleton tokens from multiples lets us store & sort them more efficiently
@@ -268,20 +268,20 @@ class WordCountOptimized {
         m.forEachEntry(proc);
         m = null; // Just-in-case, this allows for GC
         endTime = System.currentTimeMillis();
-        System.err.println("Count object creation time (ms): "+(endTime-startTime));
+        // System.err.println("Count object creation time (ms): "+(endTime-startTime));
 
-        System.err.println("sorting...");
+        // System.err.println("sorting...");
         startTime = System.currentTimeMillis();
         Collections.sort(multiples);
         endTime = System.currentTimeMillis();
-        System.err.println("Sorting multiples time (ms): "+(endTime-startTime)+ " with count: "+multiples.size());
+        // System.err.println("Sorting multiples time (ms): "+(endTime-startTime)+ " with count: "+multiples.size());
 
         startTime = System.currentTimeMillis();
         fastRadixSort(singles, 0);
         endTime = System.currentTimeMillis();
-        System.err.println("Sorting single time (ms): "+(endTime-startTime) + " with count: "+singles.size());
+        // System.err.println("Sorting single time (ms): "+(endTime-startTime) + " with count: "+singles.size());
 
-        System.err.println("output...");
+        // System.err.println("output...");
         startTime = System.currentTimeMillis();
         // Output is buffered to reduce stream I/O overhead
         BufferedOutputStream out = new BufferedOutputStream(System.out);
@@ -297,6 +297,6 @@ class WordCountOptimized {
         }
         out.close();
         endTime = System.currentTimeMillis();
-        System.err.println("Output time (ms): "+(endTime-startTime));
+        // System.err.println("Output time (ms): "+(endTime-startTime));
     }
 }
