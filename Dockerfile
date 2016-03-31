@@ -4,12 +4,14 @@ RUN apt-get update
 RUN yes | apt-get install -y wget curl gcc g++ nano python perl git default-jdk time software-properties-common mono-mcs ghc cabal-install xdg-utils
 RUN yes | apt-add-repository ppa:ondrej/php
 RUN yes | apt-add-repository ppa:staticfloat/juliareleases
+RUN yes | apt-add-repository ppa:brightbox/ruby-ng
 RUN yes | apt-get update
 RUN yes | apt-get install php7.0-cli php5.6-cli
 RUN yes | apt-get install julia
 RUN yes | apt-get install golang-go
 RUN yes | apt-get install lua5.2
 RUN yes | apt-get install clang-3.6
+RUN yes | apt-get install ruby2.3
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN sudo apt-get install --yes nodejs
 RUN cabal update
