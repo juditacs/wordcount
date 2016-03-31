@@ -29,7 +29,7 @@ cd ../csharp
 mcs WordCount.cs
 
 cd ../haskell
-cabal install --verbose=0
+cabal update && cabal install --verbose=0
 cp dist/build/WordCount/WordCount .
 
 cd ../rust/wordcount

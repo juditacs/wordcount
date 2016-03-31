@@ -7,7 +7,7 @@ RUN apt-get update \
     && apt-get install -y wget curl time software-properties-common xdg-utils git \
        gcc g++ clang-3.6 \
        python perl mono-mcs golang-go lua5.2 \
-       ghc cabal-install && cabal update \
+       ghc cabal-install
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Latest Oracle 8 JDK for the JVM languages
