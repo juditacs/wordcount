@@ -6,7 +6,7 @@ MAINTAINER Judit Acs
 RUN apt-get update \
     && apt-get install -y wget curl time software-properties-common xdg-utils git \
        gcc g++ clang-3.6 \
-       python perl mono-mcs golang-go lua5.2 \
+       python perl mono-mcs golang-go lua5.2 ruby2.3\
        ghc cabal-install && cabal update \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
