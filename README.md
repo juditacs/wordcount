@@ -120,16 +120,13 @@ You can run the experiment in a Docker container. The Dockerfile is provided, ru
 
     docker build -t wordcount --rm .
 
-This might take a while.
+This might take a while and requires several GB of storage.
 
-Load the image into a container:
+Run the image, mounting the local directoriy into the working directory of the docker file as a volume:
 
-    docker run -it wordcount bash
+    docker run -it --rm -v `pwd`:/tmp/wordcount wordcount bash
 
-You should see the cloned directory in `/root`
-
-    cd wordcount
-
+Changes you made in the folder will show up in the docker container, and any output (builds, results) will write to the folder as well.
 
 ## Downloading the dataset
 
