@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Sam Van Oort and Judit Acs
 
 # Builder and run environment for when you want to cover *MANY* languages
@@ -8,7 +8,7 @@ MAINTAINER Sam Van Oort and Judit Acs
 # Core utilities and languges, concatenated into one operation to reduce layers
 # No text editors or git, since we can directly edit mounted files in local folder
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends wget curl time software-properties-common xdg-utils git \
+    && apt-get install -y --no-install-recommends wget sudo curl time software-properties-common xdg-utils git \
        gcc g++ clang-3.6 \
        python perl mono-mcs golang-go lua5.2 \
        ghc cabal-install \
@@ -48,11 +48,12 @@ RUN wget www.scala-lang.org/files/archive/scala-2.11.7.deb \
     && rm -f scala-2.11.7.deb \
     && rm -rf /usr/share/doc/scala/
 
-# Julia
+# Julia, plus add the "file" command which rust needs
 RUN apt-add-repository -y ppa:staticfloat/juliareleases \
+    && grep -ril 'julia' /etc/apt/sources.list.d/ | xargs sed -i -e 's/xenial/wily/g' \
     && apt-key update \
     && apt-get update \
-    && apt-get install -y --no-install-recommends julia \
+    && apt-get install -y --no-install-recommends julia file \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Node.js
@@ -63,21 +64,30 @@ RUN sudo apt-get install --yes nodejs
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
 # Erlang + Elixir, might not need the apt-get update here?
-RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
-    && dpkg -i erlang-solutions_1.0_all.deb \
-    && rm -f erlang-solutions_1.0_all.deb \
-    && apt-key update \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends esl-erlang elixir \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Erlang has serious issues with installation
+#RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
+#    && dpkg -i erlang-solutions_1.0_all.deb \
+#    && rm -f erlang-solutions_1.0_all.deb \
+#    && ls /etc/apt/sources.list.d/*erlang* | xargs sed -i -e 's/xenial/wily/g' \
+#    && apt-key update \
+#    && apt-get update \
+#    && apt-get install -y --no-install-recommends esl-erlang elixir \
+#    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# D
+# Install packages from legacy that are not available in Xenial and needed for D + erlang/elixir
+RUN apt-get update \
+  && apt-get install -y libcurl3 \
+#  libssl0.9.8 libwxbase2.8-0 libwxgtk2.8-0 \  # Erlang stuff, libssl old is a bad dep for erlang?
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# D needs libcurl3
 RUN wget http://downloads.dlang.org/releases/2.x/2.070.2/dmd_2.070.2-0_amd64.deb \
     && dpkg -i dmd_2.070.2-0_amd64.deb \
     && rm -f dmd_2.070.2-0_amd64.deb
 
 # Ruby
 RUN apt-add-repository ppa:brightbox/ruby-ng \
+    && ls /etc/apt/sources.list.d/*brightbox* | xargs sed -i -e 's/xenial/wily/g' \
     && apt-key update \ 
     && apt-get update \
     && apt-get install -y --no-install-recommends ruby2.3 \

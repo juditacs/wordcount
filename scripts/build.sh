@@ -39,6 +39,3 @@ cd ..
 
 cd ../scala
 scalac Wordcount.scala
-
-cd ../elixir
-MIX_ENV=prod mix escript.build > /dev/null
