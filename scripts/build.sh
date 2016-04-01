@@ -8,6 +8,13 @@ clang++-3.6 wordcount.cpp -std=c++11 -o wordcount_clang -O3
 cd ../c
 gcc wordcount.c -o wordcount -O3 -Wall
 
+cd ../clojure
+if [ -f ../clojure.jar ]; then
+    wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar \
+    -O ../clojure.jar
+    chmod a+rx ../clojure.jar
+fi
+
 cd ../d
 dmd -O -release -inline -boundscheck=off wordcount.d
 
