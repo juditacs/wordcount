@@ -74,7 +74,8 @@ def get_contributors(fn):
         email = lines[i+1].decode('utf8').split()[1]
         if email not in emails:
             emails[email] = nam
-            contributors.append(nam)
+            if not nam in contributors:
+                contributors.append(nam)
     return contributors
 
 
