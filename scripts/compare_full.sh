@@ -21,8 +21,9 @@ cat $workdir/input | ./bash/wordcount.sh > $workdir/etalon
 
 cat run_commands.txt | while read line; do
     cat $workdir/input | eval $line > $workdir/current
-    output=$(diff $workdir/etalon $workdir/current | wc -l)
-    if [ $output -ne 0 ]; then
+    hash_expected=$(md5sum $workdir/etalon | awk '{ print $1 }')
+    hash_actual=$(md5sum $workdir/current | awk '{ print $1 }')
+    if [ ${hash_actual} -ne ${hash_expected} ]; then
        echo "$line output differs from etalon"
     fi
 done
