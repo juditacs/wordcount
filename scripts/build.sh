@@ -9,7 +9,7 @@ cd ../c
 gcc wordcount.c -o wordcount -O3 -Wall
 
 cd ../clojure
-if [ -f ../clojure.jar ]; then
+if [ ! -f ../clojure.jar ]; then
     wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar \
     -O ../clojure.jar
     chmod a+rx ../clojure.jar
@@ -39,7 +39,13 @@ cd ../csharp
 mcs WordCount.cs
 
 cd ../haskell
-cabal update && cabal install --verbose=0
+cabal install --verbose=0 --dry-run
+RETURNCODE=$?
+# Update if we have not already
+if [ "$RETURNCODE" -ne "0" ]; then 
+    cabal update 
+fi
+cabal install --verbose=0
 cp dist/build/WordCount/WordCount .
 
 cd ../rust/wordcount
