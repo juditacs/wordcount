@@ -31,7 +31,7 @@ Only the ones that finish are listed. The rest run out of memory.
 | 11 | mono csharp/WordCount.exe | 733.7 | 560.38 | 4783840 | Tim Posey, Peter Szel | 
 | 12 | perl/wordcount.pl | 778.48 | 758.74 | 7100124 | Larion Garaczi, Judit Acs | 
 | 13 | mono csharp/WordCountList.exe | 787.18 | 618.81 | 4787352 |  | 
-| 14 | java -Xmx6G -classpath java WordCountBaseline | 791.52 | 1077.33 | 6150272 | Sam Van Oort, Rick Hendricksen, Rick Hendricksen, Dávid Márk Nemeskey | 
+| 14 | java -Xmx6G -classpath java WordCountBaseline | 791.52 | 1077.33 | 6150272 | Sam Van Oort, Rick Hendricksen, Dávid Márk Nemeskey | 
 | 15 | python/wordcount_py3.py | 877.93 | 854.83 | 7672096 | Judit Acs | 
 | 16 | php5.6 php/wordcount.php | 1051.85 | 940.92 | 12682668 | Braun Patrik | 
 | 17 | lua lua/wordcount.lua | 1134.88 | 1029.69 | 7023604 | daurnimator | 
