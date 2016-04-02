@@ -4,7 +4,7 @@ defmodule Wordcount.Mixfile do
   def project do
     [app: :wordcount,
      version: "0.0.1",
-     elixir: "~> 1.1.0-dev",
+     elixir: ">= 1.2.0 or ~> 1.1.0-dev",  # 1.1.0-dev is b/c current Ubuntu 16 repo does not include 1.2
      escript: escript,
      erlc_options: erlc,
      build_embedded: Mix.env == :prod,

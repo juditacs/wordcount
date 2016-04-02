@@ -48,7 +48,7 @@ RUN wget www.scala-lang.org/files/archive/scala-2.11.7.deb \
     && rm -f scala-2.11.7.deb \
     && rm -rf /usr/share/doc/scala/
 
-# Julia
+# Julia, hack to use Ubuntu 15.10 wily version until they add Xenial support
 RUN apt-add-repository -y ppa:staticfloat/juliareleases \
     && grep -ril 'julia' /etc/apt/sources.list.d/ | xargs sed -i -e 's/xenial/wily/g' \
     && apt-key update \
@@ -77,7 +77,7 @@ RUN wget http://downloads.dlang.org/releases/2.x/2.070.2/dmd_2.070.2-0_amd64.deb
     && rm -f dmd_2.070.2-0_amd64.deb \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Ruby
+# Ruby, hack to use Ubuntu 15.10 wily version until they add Xenial support
 RUN apt-add-repository ppa:brightbox/ruby-ng \
     && ls /etc/apt/sources.list.d/*brightbox* | xargs sed -i -e 's/xenial/wily/g' \
     && apt-key update \ 

@@ -11,6 +11,9 @@ gcc wordcount.c -o wordcount -O3 -Wall
 cd ../d
 dmd -O -release -inline -boundscheck=off wordcount.d
 
+cd ../elixir
+MIX_ENV=prod mix escript.build > /dev/null
+
 cd ../java
 javac WordCountBaseline.java
 javac -cp .:trove-3.0.3.jar WordCountOptimized.java
