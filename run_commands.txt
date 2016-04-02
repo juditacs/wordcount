@@ -4,6 +4,7 @@ cpp/wordcount
 cpp/wordcount_clang
 cpp/wordcount_baseline
 d/wordcount
+elixir/wordcount
 go/bin/wordcount
 haskell/WordCount
 java -Xmx6G -classpath java WordCountBaseline
