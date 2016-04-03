@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 from collections import defaultdict
 from sys import stdin
+from sys import stdout
 import codecs
-
-stdin = codecs.getreader('utf8')(stdin.detach(), errors='ignore')
 
 
 def word_count():
     counter = defaultdict(int)
-    for l in stdin:
-        for word in bytes(l, 'utf8').split():
+    for l in stdin.buffer:
+        for word in l.split():
             counter[word] += 1
-    for word, cnt in sorted(counter.items(), key=lambda x: (-x[1], x[0])):
-        print('{0}\t{1}'.format(word.decode('utf8'), cnt))
+    wordlist = [(word,count) for word,count in counter.items()]
+    del counter  # Free the memory, man!
+    wordlist.sort(key=lambda x: (-x[1], x[0]))
+
+    # Print as bytes
+    for word, count in wordlist:
+        stdout.buffer.write(word + b'/t' + str(count).encode('utf-8'))
 
 if __name__ == '__main__':
     word_count()
