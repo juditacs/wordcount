@@ -16,7 +16,7 @@ def word_count():
 
     # Print as bytes
     for word, count in wordlist:
-        stdout.buffer.write(word + b'/t' + str(count).encode('utf-8'))
+        stdout.buffer.write(word + b'\t' + str(count).encode('utf-8')+b'\n')
 
 if __name__ == '__main__':
     word_count()
