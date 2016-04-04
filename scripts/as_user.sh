@@ -11,5 +11,5 @@ else
     addgroup "$3" --gid "$4"
     useradd "$1" -m -u "$2" -g "$3"
     echo "$1 ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-    su $1 -c bash
+    su $1 -s /bin/bash
 fi
