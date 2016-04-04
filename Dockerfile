@@ -97,7 +97,7 @@ RUN wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clo
 
 # Build tooling & updates
 RUN apt-get update \
-  && apt-get install -y make \
+  && apt-get install -y make bzip2 xz-utils\
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN locale-gen en_US.UTF-8
