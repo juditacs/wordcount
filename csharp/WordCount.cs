@@ -1,66 +1,88 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
+using System.IO;
+using System.Text;
 
 namespace WordCountProgram
 {
-    public class Program
+    internal static class Program
     {
-        public static void Main()
+        private static void Main()
         {
-            var wordCounts = new Dictionary<string, WordCount>();
-            var wordCountList = new List<WordCount>();
-            string line;
-            WordCount wc = null;
-            while ((line = Console.ReadLine()) != null)
+            Encoding inputEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: false);
+
+            using (Stream inputStream = Console.OpenStandardInput())
+            using (Stream outputStream = Console.OpenStandardOutput())
+            using (StreamReader inputReader = new StreamReader(inputStream, inputEncoding, false, 4096, true))
+            using (StreamWriter outputWriter = new StreamWriter(outputStream, Console.OutputEncoding, 4096, true))
             {
-                foreach (var word in line.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries))
+                Console.SetIn(inputReader);
+                Console.SetOut(outputWriter);
+
+                var wordCountIndexes = new Dictionary<string, int>();
+                var wordCountList = new List<WordCount>();
+                string line;
+                int wcIndex;
+
+                char[] splitChars = { ' ', '\t' };
+                while ((line = Console.ReadLine()) != null)
                 {
-                    if (wordCounts.TryGetValue(word, out wc))
+                    foreach (var word in line.Split(splitChars, StringSplitOptions.RemoveEmptyEntries))
                     {
+                        WordCount wc;
+                        if (wordCountIndexes.TryGetValue(word, out wcIndex))
+                        {
+                            wc = wordCountList[wcIndex];
+                        }
+                        else
+                        {
+                            wordCountIndexes[word] = wordCountList.Count;
+                            wordCountList.Add(wc = new WordCount(word));
+                        }
+
                         wc.Count++;
                     }
-                    else
-                    {
-                        var initialwordCount = new WordCount(word);
-                        wordCounts[word] = initialwordCount;
-                        wordCountList.Add(initialwordCount);
-                    }
                 }
-            }
 
-            wordCountList.Sort(new WordCountComparer());
+                wordCountList.Sort();
 
-            foreach (var wordCount in wordCountList)
-            {
-                Console.WriteLine("{0}\t{1}", wordCount.Word, wordCount.Count);
+                // cache the output strings for words with counts under 1024.
+                string[] cachedStrings = new string[1024];
+                for (int i = 0; i < cachedStrings.Length; i++)
+                {
+                    cachedStrings[i] = i.ToString(CultureInfo.InvariantCulture);
+                }
+
+                foreach (var wordCount in wordCountList)
+                {
+                    Console.WriteLine(wordCount.Word +
+                                      '\t' +
+                                      (wordCount.Count < cachedStrings.Length
+                                           ? cachedStrings[wordCount.Count]
+                                           : wordCount.Count.ToString(CultureInfo.InvariantCulture)));
+                }
             }
         }
     }
 
-    public class WordCount
+    internal sealed class WordCount : IComparable<WordCount>
     {
-        public WordCount(string word)
-        {
-            Word = word;
-            Count = 1;
-        }
-
         public readonly string Word;
 
         public long Count;
-    }
 
-    public class WordCountComparer : IComparer<WordCount>
-    {
-        public int Compare(WordCount x, WordCount y)
+        internal WordCount(string word)
         {
-            var compareTo = Comparer<long>.Default.Compare(x.Count, y.Count);
+            Word = word;
+        }
 
-            if (compareTo != 0)
-                return -compareTo;
-
-            return String.Compare(x.Word, y.Word, StringComparison.Ordinal);
+        public int CompareTo(WordCount other)
+        {
+            var compareTo = this.Count.CompareTo(other.Count);
+            return compareTo == 0
+                ? String.Compare(this.Word, other.Word, StringComparison.Ordinal)
+                : -compareTo;
         }
     }
 }
