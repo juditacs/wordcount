@@ -24,8 +24,6 @@ defmodule Wordcount do
     pattern = :binary.compile_pattern([" ", "\n", "\t"])
     IO.stream(:stdio, :line)
     |> Stream.flat_map(&:binary.split(&1, pattern, [:global]))
-    # |> Stream.map(&:binary.replace(&1, pattern, "", [:global])) # (&String.strip/1)
-    # |> Enum.into([]) |> IO.inspect
     |> Enum.reduce(Store.new, fn
       word, tbl ->
         Store.count(tbl, word)
