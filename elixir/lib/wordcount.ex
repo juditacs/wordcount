@@ -2,6 +2,7 @@ defmodule Wordcount do
   defmodule Store do
     def new(), do: :ets.new :wc, [:set, :named_table]
 
+    def count(tbl, ""), do: tbl
     def count(tbl, word) do
       :ets.update_counter(tbl, word, 1, {word, 0})
       tbl
@@ -16,11 +17,13 @@ defmodule Wordcount do
     end
   end
 
+  def main(), do: main([]) # needed for profiling only
   def main([]), do: wordcount()
 
   defp wordcount() do
+    pattern = :binary.compile_pattern([" ", "\n", "\t"])
     IO.stream(:stdio, :line)
-    |> Stream.flat_map(&Regex.scan(~r/\S+/, &1))
+    |> Stream.flat_map(&:binary.split(&1, pattern, [:global]))
     |> Enum.reduce(Store.new, fn
       word, tbl ->
         Store.count(tbl, word)
