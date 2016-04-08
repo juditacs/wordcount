@@ -7,37 +7,30 @@ $stdin = fopen('php://stdin', 'r');
 
 $array = array();
 while (false !== ($line = fgets($stdin))) {
-  $words = preg_split('/\s+/', $line);
+    $words = preg_split('/\s+/', $line, -1, PREG_SPLIT_NO_EMPTY);
     foreach($words as $word){
-        if(empty($word) &&  $word !== "0"){
-            continue;
-        }
-        if (!array_key_exists($word,$array)){
+        if (isset($array[$word])){
+            $array[$word]++;
+        } else {
             $array[$word] = 1;
-            continue;
         }
-        $array[$word]++;
     }
-
-
 }
 fclose($stdin);
 $array2 = array();
-
 foreach($array as $key => $value){
-
-    if (!array_key_exists($value,$array2)){
+    if (!isset($array2[$value])){
         $array2[$value] = array($key);
-        continue;
+    } else {
+        $array2[$value][] = $key;
     }
-    $array2[$value][] =(string) $key;
 }
-
-
 krsort($array2);
+ob_start();
 foreach($array2 as $count => $wordsArray){
     sort ($wordsArray);
     foreach($wordsArray as $word) {
         print "$word\t$count\n";
     }
 }
+ob_end_flush();
