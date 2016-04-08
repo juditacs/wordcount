@@ -14,7 +14,7 @@ class WordCount {
 
 $array = array();
 while (false !== ($line = fgets($stdin))) {
-  $words = preg_split('/\s+/', $line);
+  $words = explode(' ', $line);
     foreach($words as $word){
         if(empty($word)){
             continue;
