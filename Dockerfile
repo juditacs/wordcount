@@ -5,7 +5,10 @@ RUN yes | apt-get install -y wget curl gcc g++ nano python perl git default-jdk 
 RUN yes | apt-add-repository ppa:ondrej/php
 RUN yes | apt-add-repository ppa:staticfloat/juliareleases
 RUN yes | apt-add-repository ppa:brightbox/ruby-ng
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
+RUN add-apt-repository "deb http://dl.hhvm.com/ubuntu $(lsb_release -sc) main"
 RUN yes | apt-get update
+RUN yes | apt-get install hhvm
 RUN yes | apt-get install php7.0-cli php5.6-cli
 RUN yes | apt-get install julia
 RUN yes | apt-get install golang-go

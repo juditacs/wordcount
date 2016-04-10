@@ -18,6 +18,7 @@ nodejs typescript/wordcount.js
 perl/wordcount.pl
 php5.6 php/wordcount.php
 php7.0 php/wordcount.php
+hhvm php/wordcount.php
 python/wordcount_py2_baseline.py
 python/wordcount_py2.py
 python/wordcount_py3.py
