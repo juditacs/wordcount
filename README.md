@@ -108,7 +108,7 @@ The output should contain lines like this:
 Why Wikisource? It's not too small not too large and more importantly, it's valid utf8.
 Why Hungarian? There are many non-ascii characters and the number of different word types is high.
 
-`script/create_large_input.sh` downloads the unpacks the latest Hungarian Wikipedia.
+`scripts/create_large_input.sh` downloads the unpacks the latest Hungarian Wikipedia.
 This is the largest input used for comparison, see the first leaderboard.
 
 ### Usage
