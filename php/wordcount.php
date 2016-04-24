@@ -29,9 +29,11 @@ foreach ($countedWords as $word => $count) {
 
 krsort($groupedByCountWords);
 
+ob_start(null, 4096);
 foreach ($groupedByCountWords as $count => $words) {
     sort($words, SORT_STRING);
     foreach ($words as $word) {
         printf("%s\t%s\n", $word, $count);
     }
 }
+ob_end_flush();
