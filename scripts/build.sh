@@ -7,6 +7,7 @@ clang++-3.6 wordcount.cpp -std=c++11 -o wordcount_clang -O3
 
 cd ../c
 gcc wordcount.c -o wordcount -O3 -Wall
+clang-3.6 -O3 -Wall -march=native -std=gnu99 wordcount_opt.c -o wordcount_opt
 
 cd ../d
 dmd -O -release -inline -boundscheck=off wordcount.d
