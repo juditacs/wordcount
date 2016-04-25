@@ -15,7 +15,7 @@ RUN yes | apt-get install golang-go
 RUN yes | apt-get install lua5.2
 RUN yes | apt-get install clang-3.6
 RUN yes | apt-get install ruby2.3
-RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 RUN sudo apt-get install --yes nodejs
 RUN cabal update
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh
