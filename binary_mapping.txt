@@ -5,8 +5,8 @@ d/wordcount	d/wordcount.d
 go/bin/wordcount	go/src/wordcount/wordcount.go
 haskell/WordCount	haskell/WordCount.hs
 java -classpath java WordCount	java/WordCount.java
-java -Xmx6G -classpath java WordCountBaseline   java/WordCountBaseline.java
-java -Xmx6G -classpath java:java/trove-3.0.3.jar WordCountOptimized     java/WordCountOptimized.java
+java -Xmx6G -classpath java WordCountBaseline	java/WordCountBaseline.java
+java -Xmx6G -classpath java:java/trove-3.0.3.jar WordCountOptimized	java/WordCountOptimized.java
 java -cp clojure.jar clojure.main clojure/wordcount.clj	clojure/wordcount.clj
 mono csharp/WordCount.exe	csharp/WordCount.cs
 nodejs typescript/wordcount.js	typescript/wordcount.ts

@@ -1,51 +1,44 @@
 "use strict";
-var readline = require('readline');
 var TimSort = require('timsort');
 
 process.stdin.setEncoding('utf8');
-
-let rl = readline.createInterface({ input: process.stdin, terminal: false });
-let wordCounts = {};
-const regExp = /[ \t\n\r]+/g;
-
-rl.on('line', (line) => {
-  let words = line.trim().split(regExp);
-
-  for(let i = 0, len = words.length; i < len; i++) {
-    let word = words[i];
-
-    if (!word)
-      return;
-
-    if(wordCounts.hasOwnProperty(word)) {
-      wordCounts[word]++;
-    }
-    else {
-      wordCounts[word] = 1;
+const regExp = /[ \t\n\r]+/;
+var lastChunk = '';
+var counts = new Map();
+process.stdin.on('data', function (chunk) {
+  var words = chunk.split(regExp);
+  var count = words.length;
+  if (lastChunk) {
+    words[0] = lastChunk + words[0];
+  }
+  lastChunk = words[count - 1];
+  count--;
+  for (var i = 0; i < count; i++) {
+    var word = words[i];
+    if (word) {
+      counts.set(word, (counts.get(word) || 0) + 1);
     }
   }
-}).on('close', () => {
-  let wordList = Object.keys(wordCounts);
-
-  let compare = (x, y) => {
-    if(wordCounts[x] < wordCounts[y])
-      return 1;
-
-    if(wordCounts[x] === wordCounts[y] && x > y)
-      return 1;
-
-    return -1;
+}).on('end', function () {
+  if (lastChunk) {
+    counts.set(lastChunk, (counts.get(lastChunk) || 0) + 1);
   }
-
-  TimSort.sort(wordList, compare);
+  var res = [...counts.keys()];
+  var comparer = (a, b)=> {
+    var ca = counts.get(a);
+    var cb = counts.get(b);
+    return (ca < cb || (ca === cb && a > b) ? 1 : -1);
+  };
+  TimSort.sort(res, comparer);
+  var c = res.length;
 
   let word = '';
   let count = '';
   let buff = '';
   const maxBuff = 1000;
-  for(let i = 0, len = wordList.length; i < len; i++) {
-    word = wordList[i];
-    count = wordCounts[word];
+  for (let i = 0; i < c; i++) {
+    word = res[i];
+    count = counts.get(word);
 
     buff += word + '\t' + count + '\n';
     if (i % maxBuff === 0) {
