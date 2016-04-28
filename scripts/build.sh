@@ -8,8 +8,18 @@ clang++-3.6 wordcount.cpp -std=c++11 -o wordcount_clang -O3
 cd ../c
 gcc wordcount.c -o wordcount -O3 -Wall
 
+cd ../clojure
+if [ ! -f ../clojure.jar ]; then
+    wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar \
+    -O ../clojure.jar
+    chmod a+rx ../clojure.jar
+fi
+
 cd ../d
 dmd -O -release -inline -boundscheck=off wordcount.d
+
+cd ../elixir
+MIX_ENV=prod mix escript.build > /dev/null
 
 cd ../java
 javac WordCountBaseline.java
@@ -29,6 +39,12 @@ cd ../csharp
 mcs WordCount.cs
 
 cd ../haskell
+cabal install --verbose=0 --dry-run
+RETURNCODE=$?
+# Update if we have not already
+if [ "$RETURNCODE" -ne "0" ]; then 
+    cabal update 
+fi
 cabal install --verbose=0
 cp dist/build/WordCount/WordCount .
 
@@ -39,6 +55,3 @@ cd ..
 
 cd ../scala
 scalac Wordcount.scala
-
-cd ../elixir
-MIX_ENV=prod mix escript.build > /dev/null
