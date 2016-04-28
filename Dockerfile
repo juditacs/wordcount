@@ -48,11 +48,8 @@ RUN wget www.scala-lang.org/files/archive/scala-2.11.7.deb \
     && rm -f scala-2.11.7.deb \
     && rm -rf /usr/share/doc/scala/
 
-# Julia, hack to use Ubuntu 15.10 wily version until they add Xenial support
-RUN apt-add-repository -y ppa:staticfloat/juliareleases \
-    && grep -ril 'julia' /etc/apt/sources.list.d/ | xargs sed -i -e 's/xenial/wily/g' \
-    && apt-key update \
-    && apt-get update \
+# Julia
+RUN apt-get update \
     && apt-get install -y --no-install-recommends julia \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -63,8 +60,7 @@ RUN sudo apt-get install --yes nodejs
 # Rust
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
-# Erlang + Elixir, might not need the apt-get update here?
-# Erlang has serious issues with installation
+# Erlang + Elixir
 RUN apt-get update \
   && apt-get install -y --no-install-recommends erlang elixir \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -90,6 +86,11 @@ RUN apt-add-repository -y ppa:ondrej/php \
     && apt-get update \
     && apt-get install -y --no-install-recommends --allow-unauthenticated php7.0-cli php5.6-cli \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# HHVM, allow-unauthenticated bypasses some key signing problems with dependencies libmemcached11 libzip4
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends --allow-unauthenticated hhvm \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Clojure
 RUN wget https://oss.sonatype.org/content/repositories/snapshots/org/clojure/clojure/1.9.0-master-SNAPSHOT/clojure-1.9.0-master-20160119.195127-1.jar -O /usr/lib/clojure.jar \
