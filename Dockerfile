@@ -54,7 +54,7 @@ RUN apt-get update \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Node.js
-RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 RUN sudo apt-get install --yes nodejs
 
 # Rust
