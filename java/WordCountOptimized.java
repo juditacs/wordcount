@@ -6,41 +6,26 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.nio.charset.StandardCharsets;
-import java.nio.ByteBuffer;
-
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.map.hash.TObjectIntHashMap;
-import gnu.trove.strategy.HashingStrategy;
-import gnu.trove.procedure.TObjectIntProcedure;
+import net.openhft.hashing.LongHashFunction;
 
 /** Highly optimized word count algorithm for java incorporating multiple optimizations
- *  Key tricks: 
- *    - Use Trove primitive collections (performance and memory savings, plus direct-iteration procedures)
- *    - Buffer I/O, either using Buffered I/O classes or by explicitly reading chunks to an array    
+ *  Key tricks:
+ *    - Buffer I/O, either using Buffered I/O classes or by explicitly reading chunks to an array
  *    - Process recurring tokens separately from singletons (big performance gain)    
  *    - Work directly with raw bytes (safe for UTF-8), to reduce memory and avoid text decoding cost
  *    - Sort strings using byte order (fudging the sort order slightly, faster than decoding to sort)
  *    - Use a radix byte sort to sort large lists of bytestrings (small performance gain)
+ *    - Faster hashing
  *  
  *  Authors:  
  *   - Sam Van Oort <samvanoort@gmail.com> (svanoort on GitHub)
  *   - Rick Hendricksen (xupwup on GitHub)
  *   - sgwerder on GitHub
+ *   - Roman Leventov (leventov on Github)
  */
 class WordCountOptimized {
 
-    private static class BytesHashingStrategy implements HashingStrategy<byte[]> {
-        @Override
-        public int computeHashCode(byte[] object) {
-            return Arrays.hashCode(object);
-        }
-
-        // Compare byte-byte byte, if they're equal aside from length, return last
-        @Override
-        public boolean equals(byte[] b1, byte[] b2) {
-            return b1 == b2 || Arrays.equals(b1, b2);
-        }
-    } 
+    public static final LongHashFunction XX_HASH = LongHashFunction.xx_r39();
 
     private static class CountForWord implements Comparable<CountForWord>{
         byte[] word;
@@ -188,11 +173,15 @@ class WordCountOptimized {
     *   and all successive bytes of multibyte encodings have the high bit set
     *   @return Length of residual at beginning of array, that is part of next token
     */
-    public static int tokenizeAndSubmitBlock(TObjectIntCustomHashMap<byte[]> counts,
+    public static int tokenizeAndSubmitBlock(WordMap map,
         final byte[] inputBuffer, int startIndex, int length) {
 
         int tokenStartIndex = 0;
         int endIndex = startIndex + length;
+
+        byte[][] keys = map.keys;
+        int[] values = map.values;
+        int size = map.size;
 
         // Go from start to end of current read
         for (int i=startIndex; i<endIndex; i++) {
@@ -200,14 +189,15 @@ class WordCountOptimized {
 
             if (b == BYTE_SPACE || b == BYTE_NEWLINE || b == BYTE_TAB) { // Token end
                 if (i != tokenStartIndex) {
-                    byte[] word = new byte[i-tokenStartIndex];
-                    System.arraycopy(inputBuffer, tokenStartIndex, word, 0, word.length);                    
-                    submitWord(counts, word);
+                    size = submitWord(keys, values, size,
+                            inputBuffer, tokenStartIndex, i - tokenStartIndex);
                     tokenStartIndex = i;
                 }
                 tokenStartIndex++;
             }
         }
+
+        map.size = size;
 
         // Copy residual token content to beginning of the array, so we can read in more data
         int residualSize =  endIndex - tokenStartIndex;
@@ -217,33 +207,67 @@ class WordCountOptimized {
         }
         return 0;
     }
-    
-    private static void submitWord(TObjectIntCustomHashMap<byte[]> m, byte[] word) {
-        m.adjustOrPutValue(word, 1, 1);        
+
+    /** There are rumors that hugnarian wiki has about 25 mln of words */
+    private static final int TABLE_SIZE = 64 * 1024 * 1024;
+    private static final int TABLE_MASK = TABLE_SIZE - 1;
+
+    static class WordMap {
+        final byte[][] keys = new byte[TABLE_SIZE][];
+        final int[] values = new int[TABLE_SIZE];
+        int size = 0;
     }
-    
+
+    private static int submitWord(byte[][] keys, int[] values, int size,
+                                   byte[] word, int off, int len) {
+        int hashCode = (int) XX_HASH.hashBytes(word, off, len);
+        int index = hashCode & TABLE_MASK;
+        while (true) {
+            byte[] key = keys[index];
+            if (key != null) {
+                if (equal(key, word, off, len)) {
+                    values[index]++;
+                    return size;
+                }
+                index = (index + 1) & TABLE_MASK;
+            } else {
+                keys[index] = Arrays.copyOfRange(word, off, off + len);
+                values[index] = 1;
+                return size + 1;
+            }
+        }
+    }
+
+    private static boolean equal(byte[] key, byte[] word, int off, int len) {
+        if (key.length != len)
+            return false;
+        for (int i = 0; i < len; i++) {
+            if (key[i] != word[off + i])
+                return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) throws IOException {
         // System.err.println("Parsing and adding to map");
         long startTime = System.currentTimeMillis();
         InputStream stdin = System.in;
-        TObjectIntCustomHashMap<byte[]> m = new TObjectIntCustomHashMap<byte[]>(new BytesHashingStrategy(),1000000, 0.75f, -1);
-        
+        WordMap map = new WordMap();
+
         byte[] buff = new byte[16384];
 
         // Read through chunks, carrying over content that is part of a token
         int readAmount;
         int offset = 0;
         while ((readAmount = stdin.read(buff, offset, buff.length-offset)) > 0 ) {
-            offset = tokenizeAndSubmitBlock(m, buff, offset, readAmount);
+            offset = tokenizeAndSubmitBlock(map, buff, offset, readAmount);
             if (offset == buff.length) {  
                 // Token longer than buffer, double buffer size and keep reading
                 buff = Arrays.copyOf(buff, buff.length<<1);
             }
         }
         if (offset > 0) {
-            byte[] finalToken = new byte[offset];
-            System.arraycopy(buff, 0, finalToken, 0, offset);
-            submitWord(m, finalToken);
+            map.size = submitWord(map.keys, map.values, map.size, buff, 0, offset);
         }
         long endTime = System.currentTimeMillis();
         // System.err.println("Parsing/map addition time (ms): "+(endTime-startTime));
@@ -252,21 +276,22 @@ class WordCountOptimized {
         startTime = System.currentTimeMillis();
 
         // Separating singleton tokens from multiples lets us store & sort them more efficiently
-        final ArrayList<CountForWord> multiples = new ArrayList<CountForWord>(m.size()/2);
-        final ArrayList<byte[]> singles = new ArrayList<byte[]>(m.size()/2);
-        TObjectIntProcedure<byte[]> proc = new TObjectIntProcedure<byte[]>(){
-            @Override
-            public boolean execute(byte[] a, int b) {
-                if (b > 1) {
-                    multiples.add(new CountForWord(a, b));
+        final ArrayList<CountForWord> multiples = new ArrayList<CountForWord>(map.size/2);
+        final ArrayList<byte[]> singles = new ArrayList<byte[]>(map.size/2);
+        byte[][] keys = map.keys;
+        int[] values = map.values;
+        for (int i = 0; i < keys.length; i++) {
+            byte[] key = keys[i];
+            if (key != null) {
+                int count = values[i];
+                if (count > 1) {
+                    multiples.add(new CountForWord(key, count));
                 } else {
-                    singles.add(a);
+                    singles.add(key);
                 }
-                return true;
             }
-        };
-        m.forEachEntry(proc);
-        m = null; // Just-in-case, this allows for GC
+        }
+        map = null; // Just-in-case, this allows for GC
         endTime = System.currentTimeMillis();
         // System.err.println("Count object creation time (ms): "+(endTime-startTime));
 
