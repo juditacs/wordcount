@@ -179,9 +179,12 @@ class WordCountOptimized {
         int tokenStartIndex = 0;
         int endIndex = startIndex + length;
 
+        map.rehash();
+
         byte[][] keys = map.keys;
         int[] values = map.values;
         int size = map.size;
+        int tableMask = map.tableMask;
 
         // Go from start to end of current read
         for (int i=startIndex; i<endIndex; i++) {
@@ -189,7 +192,7 @@ class WordCountOptimized {
 
             if (b == BYTE_SPACE || b == BYTE_NEWLINE || b == BYTE_TAB) { // Token end
                 if (i != tokenStartIndex) {
-                    size = submitWord(keys, values, size,
+                    size += submitWord(keys, values, tableMask,
                             inputBuffer, tokenStartIndex, i - tokenStartIndex);
                     tokenStartIndex = i;
                 }
@@ -208,32 +211,57 @@ class WordCountOptimized {
         return 0;
     }
 
-    /** There are rumors that hugnarian wiki has about 25 mln of words */
-    private static final int TABLE_SIZE = 64 * 1024 * 1024;
-    private static final int TABLE_MASK = TABLE_SIZE - 1;
-
     static class WordMap {
-        final byte[][] keys = new byte[TABLE_SIZE][];
-        final int[] values = new int[TABLE_SIZE];
+        int tableSize = 64 * 1024 * 1024;
+        int tableMask = tableSize - 1;
+        byte[][] keys = new byte[tableSize][];
+        int[] values = new int[tableSize];
         int size = 0;
+
+        void rehash() {
+            if (size <= (int) (tableSize * 0.6))
+                return;
+            tableSize *= 2;
+            int tableMask = this.tableMask = tableSize - 1;
+            byte[][] oldKeys = this.keys;
+            int[] oldValues = this.values;
+            byte[][] keys = this.keys = new byte[tableSize][];
+            int[] values = this.values = new int[tableSize];
+            for (int i = 0; i < oldKeys.length; i++) {
+                byte[] key = oldKeys[i];
+                if (key != null) {
+                    int hashCode = (int) XX_HASH.hashBytes(key);
+                    int index = hashCode & tableMask;
+                    while (keys[index] != null) {
+                        index = (index + 1) & tableMask;
+                    }
+                    keys[index] = key;
+                    values[index] = oldValues[i];
+                }
+            }
+        }
     }
 
-    private static int submitWord(byte[][] keys, int[] values, int size,
-                                   byte[] word, int off, int len) {
+    /**
+     * Returns number of new entries in the table (0 or 1)
+     */
+    private static int submitWord(
+            byte[][] keys, int[] values, int tableMask,
+            byte[] word, int off, int len) {
         int hashCode = (int) XX_HASH.hashBytes(word, off, len);
-        int index = hashCode & TABLE_MASK;
+        int index = hashCode & tableMask;
         while (true) {
             byte[] key = keys[index];
             if (key != null) {
                 if (equal(key, word, off, len)) {
                     values[index]++;
-                    return size;
+                    return 0;
                 }
-                index = (index + 1) & TABLE_MASK;
+                index = (index + 1) & tableMask;
             } else {
                 keys[index] = Arrays.copyOfRange(word, off, off + len);
                 values[index] = 1;
-                return size + 1;
+                return 1;
             }
         }
     }
@@ -267,7 +295,7 @@ class WordCountOptimized {
             }
         }
         if (offset > 0) {
-            map.size = submitWord(map.keys, map.values, map.size, buff, 0, offset);
+            map.size += submitWord(map.keys, map.values, map.tableMask, buff, 0, offset);
         }
         long endTime = System.currentTimeMillis();
         // System.err.println("Parsing/map addition time (ms): "+(endTime-startTime));
@@ -276,6 +304,7 @@ class WordCountOptimized {
         startTime = System.currentTimeMillis();
 
         // Separating singleton tokens from multiples lets us store & sort them more efficiently
+        // TODO allocate arrays more wisely not just size/2 and size/2
         final ArrayList<CountForWord> multiples = new ArrayList<CountForWord>(map.size/2);
         final ArrayList<byte[]> singles = new ArrayList<byte[]>(map.size/2);
         byte[][] keys = map.keys;
