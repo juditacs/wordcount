@@ -1,7 +1,6 @@
 cpp/wordcount_baseline	cpp/wordcount_baseline.cpp
 cpp/wordcount	cpp/wordcount.cpp
 c/wordcount	c/wordcount.c
-c/wordcount_opt	c/wordcount_opt.c
 d/wordcount	d/wordcount.d
 go/bin/wordcount	go/src/wordcount/wordcount.go
 haskell/WordCount	haskell/WordCount.hs
