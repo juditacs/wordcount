@@ -18,8 +18,11 @@ for(i = functions.length - 1; i >= 0; i--){
 
 
 const RegExp = /[ \t\n\r]+/g;
+function notEmpty(word:string):boolean{
+    return !!word;
+}
 rl.on('line', (line:string) => {
-    words = line.trim().split(RegExp);
+    words = line.split(RegExp).filter(notEmpty);
 
     for(i = words.length-1; i >=0 ; i--) {
         if (!words[i])
