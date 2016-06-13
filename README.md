@@ -12,33 +12,35 @@ http://juditacs.github.io/2016/03/19/wordcount2.html
 
 ## Full Hungarian Wikipedia
 
-Updated: April 16, 2016
+Updated: June 13, 2016
 
 Only the ones that finish are listed. The rest run out of memory.
 
 | Rank | Experiment | CPU seconds | User time | Maximum memory | Contributor |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| 1 | rust/wordcount/wordcount | 154.86 | 148.16 | 6867252 | Joshua Holmer | 
-| 2 | java -Xmx6G -classpath java:java/trove-3.0.3.jar WordCountOptimized | 217.75 | 262.39 | 3929384 | Sam Van Oort | 
-| 3 | cpp/wordcount_clang | 225.96 | 214.96 | 4373408 |  | 
-| 4 | cpp/wordcount | 230.23 | 217.0 | 4373432 | Dmitry Andreev, Matias Fontanini, Judit Acs | 
-| 5 | d/wordcount | 231.02 | 219.36 | 6294800 | Pavel Chebotarev | 
-| 6 | c/wordcount | 296.55 | 284.99 | 2424084 | gaebor | 
-| 7 | python/wordcount_py2.py | 302.02 | 289.65 | 3893812 | Gabor Szabo | 
-| 8 | go/bin/wordcount | 315.19 | 305.57 | 6084804 | David Siklosi | 
-| 9 | php7.0 php/wordcount.php | 324.69 | 233.06 | 4108972 | Andrey Bukatov, Braun Patrik | 
-| 10 | hhvm php/wordcount.php | 408.28 | 286.06 | 4964372 | Andrey Bukatov, Braun Patrik | 
-| 11 | mono csharp/WordCount.exe | 466.53 | 447.97 | 4464920 | Joe Amenta, Tim Posey, Peter Szel | 
-| 12 | python/wordcount_py2_baseline.py | 511.12 | 490.27 | 8802472 | Judit Acs | 
-| 13 | php5.6 php/wordcount.php | 718.46 | 602.91 | 12564676 | Andrey Bukatov, Braun Patrik | 
-| 14 | perl/wordcount.pl | 778.48 | 758.74 | 7100124 | Larion Garaczi, Judit Acs | 
-| 15 | java -Xmx6G -classpath java WordCountBaseline | 791.52 | 1077.33 | 6150272 | Sam Van Oort, Rick Hendricksen, Dávid Márk Nemeskey | 
-| 16 | python/wordcount_py3.py | 877.93 | 854.83 | 7672096 | Judit Acs | 
-| 17 | lua lua/wordcount.lua | 1134.88 | 1029.69 | 7023604 | daurnimator | 
-| 18 | julia julia/wordcount.jl | 1554.77 | 1519.4 | 7393432 | Attila Zseder, getzdan | 
-| 19 | elixir/wordcount | 2214.77 | 2065.93 | 12584512 | Norbert Melzer | 
-| 20 | bash/wordcount.sh | 2432.64 | 2538.23 | 13772 | Judit Acs | 
-| 21 | cpp/wordcount_baseline | 3005.61 | 2909.42 | 5965548 | Judit Acs | 
+| 1 | java -Xms2G -Xmx8G -classpath java:java/zah-0.6.jar WordCountOptimized | 140.64 | 191.44 | 4232308 |  |
+| 2 | java -Xms2G -Xmx8G -classpath java:java/trove-3.0.3.jar WordCountOptimized | 183.17 | 219.39 | 4391804 |  |
+| 3 | rust/wordcount/wordcount | 208.86 | 193.34 | 6966228 | Joshua Holmer |
+| 4 | cpp/wordcount_clang | 224.23 | 211.76 | 4933968 |  |
+| 5 | cpp/wordcount | 227.74 | 213.86 | 4934204 | Dmitry Andreev, Matias Fontanini, Judit Acs |
+| 6 | c/wordcount | 270.15 | 255.95 | 2453228 | gaebor |
+| 7 | php7.0 php/wordcount.php | 285.01 | 267.78 | 4174284 | Andrey Bukatov, Braun Patrik |
+| 8 | d/wordcount | 297.95 | 285.76 | 6363420 | Pavel Chebotarev |
+| 9 | hhvm php/wordcount.php | 315.48 | 294.06 | 5076280 | Andrey Bukatov, Braun Patrik |
+| 10 | java -Xms2G -Xmx8G -classpath java WordCountBaseline | 378.77 | 577.71 | 7036308 |  |
+| 11 | python/wordcount_py2.py | 403.6 | 389.15 | 3943716 | Judit Acs |
+| 12 | go/bin/wordcount | 410.81 | 418.64 | 5274756 | David Siklosi |
+| 13 | scala -J-Xms2G -J-Xmx8g -classpath scala Wordcount | 546.28 | 710.57 | 7075976 |  |
+| 14 | mono csharp/WordCount.exe | 610.95 | 588.56 | 4517848 | Joe Amenta, Tim Posey, Peter Szel |
+| 15 | python/wordcount_py2_baseline.py | 627.22 | 606.13 | 8920684 | Judit Acs |
+| 16 | php5.6 php/wordcount.php | 671.8 | 646.55 | 12745360 | Andrey Bukatov, Braun Patrik |
+| 17 | perl/wordcount.pl | 942.27 | 915.93 | 7206948 | Larion Garaczi, Judit Acs |
+| 18 | cpp/wordcount_baseline | 1094.24 | 990.64 | 6043624 | Judit Acs |
+| 19 | python/wordcount_py3.py | 1192.51 | 1162.29 | 7771396 | Judit Acs |
+| 20 | lua lua/wordcount.lua | 1344.87 | 1219.83 | 7255316 | daurnimator |
+| 21 | julia julia/wordcount.jl | 1828.39 | 1789.74 | 7457092 | Attila Zseder, getzdan |
+| 22 | elixir/wordcount | 2326.65 | 2290.94 | 12542340 | Norbert Melzer |
+| 23 | bash/wordcount.sh | 2561.07 | 2643.59 | 13728 | Judit Acs |
 
 ## 5 million lines from the Hungarian Wikipedia
 
