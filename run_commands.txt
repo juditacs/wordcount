@@ -1,5 +1,6 @@
 bash/wordcount.sh
 c/wordcount
+c/wordcount_opt
 cpp/wordcount
 cpp/wordcount_clang
 cpp/wordcount_baseline
