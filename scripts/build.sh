@@ -23,7 +23,7 @@ MIX_ENV=prod mix escript.build > /dev/null
 
 cd ../java
 javac WordCountBaseline.java
-javac -cp .:trove-3.0.3.jar WordCountOptimized.java
+javac -cp .:zah-0.6.jar WordCountOptimized.java
 
 cd ../javascript
 npm install
