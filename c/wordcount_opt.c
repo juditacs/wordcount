@@ -8,8 +8,8 @@
 #include <string.h>
 
 #define TABLE_SIZE       (1L << 27) // Main hash table entries.
-#define ENTRIES_MAX_SIZE (1L << 27) // Max number of distinct words.
-#define NODE_AREA_SIZE   (1L << 32) // Virtual memory area for nodes.
+#define ENTRIES_MAX_SIZE (1L << 30) // Max number of distinct words.
+#define NODE_AREA_SIZE   (1L << 35) // Virtual memory area for nodes.
 #define IO_CHUNKS        1024       // Number of SSE registers in stdin read.
 
 struct node {
@@ -31,7 +31,8 @@ static uint8_t excess_io_bytes[1024 * 1024]; // 1M character word limit.
 static void * virt_alloc(size_t size)
 {
 	void *ptr = mmap(NULL, size,
-			PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, 0, 0);
+			PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS | MAP_NORESERVE,
+			0, 0);
 	if (ptr == MAP_FAILED) {
 		fprintf(stderr, "mmap failed: %d\n", errno);
 		exit(EXIT_FAILURE);
