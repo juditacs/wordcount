@@ -35,6 +35,10 @@ cd ../go
 export GOPATH=$(pwd)
 go install wordcount
 
+cd ../guile
+guild compile wordcount.scm
+guild compile wordcount_reference.scm
+
 cd ../csharp
 mcs WordCount.cs
 
