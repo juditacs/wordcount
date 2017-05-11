@@ -37,7 +37,8 @@ exec guile $0
 ;;; Code:
 
 (import (ice-9 rdelim)
-        (ice-9 hash-table))
+        (ice-9 hash-table)
+        (srfi srfi-1))
 
 (define (count-or-unicode>? a b)
   (let ((Na (cdr a))(Nb (cdr b)))
@@ -58,8 +59,8 @@ exec guile $0
     (let ((line (read-delimited "\t" port)))
       (if (eof-object? line)
           #f
-          (map (λ (x) (string-split x #\space))
-                             (string-split line #\newline)))))
+          (map! (λ (x) (string-split x #\space))
+                (string-split line #\newline)))))
   (define count (make-hash-table 100000))
   (define (add-word next)
     (unless (string-null? next)
