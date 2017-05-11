@@ -59,7 +59,7 @@ exec guile $0
     (let ((line (read-delimited "\t" port)))
       (if (eof-object? line)
           #f
-          (map! (λ (x) (string-split x #\space))
+          (map (λ (x) (string-split x #\space))
                 (string-split line #\newline)))))
   (define count (make-hash-table 100000))
   (define (add-word next)
@@ -77,3 +77,4 @@ exec guile $0
 (for-each
  (lambda (x) (format #t "~a\t~a\n" (car x) (cdr x)))
  (count-words (current-input-port)))
+
