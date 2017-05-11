@@ -40,12 +40,11 @@ exec guile $0
         (ice-9 hash-table))
 
 (define (count-or-unicode>? a b)
-  (let ((Na (car a))(Nb (car b)))
-    (if (> Na Nb)
-        #t
-         (if (= Na Nb)
-             (string<? (cdr a) (cdr b))
-             #f))))
+  (let ((Na (cdr a))(Nb (cdr b)))
+    (cond
+     [(> Na Nb) #t]
+     [(= Na Nb) (string<? (car a) (car b))]
+     [else #f])))
 
 (define (skip-whitespace port)
   (let ([ch (peek-char port)])
@@ -68,14 +67,12 @@ exec guile $0
                  (1+ (hash-ref count next 0)))))
   (let loop ((next (read-word port)))
     (when next
-      (for-each (lambda (wl)
-                  (for-each (lambda (w) (add-word w)) wl))
-                next)
+      (for-each (lambda (wl) (for-each add-word wl)) next)
       (loop (read-word port))))
   (sort! ;; destructive sort to save memory
-   (hash-map->list (lambda (key val) (cons val key)) count)
+   (hash-map->list cons count)
    count-or-unicode>?))
 
 (for-each
- (lambda (x) (format #t "~a\t~a\n" (cdr x) (car x)))
+ (lambda (x) (format #t "~a\t~a\n" (car x) (cdr x)))
  (count-words (current-input-port)))
