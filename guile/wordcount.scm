@@ -41,33 +41,36 @@ exec guile $0
 
 (define (count-or-unicode>? a b)
   (let ((Na (car a))(Nb (car b)))
-    (or (> Na Nb)
-        (and (= Na Nb)
-             (string<? (cdr a) (cdr b))))))
+    (if (> Na Nb)
+        #t
+         (if (= Na Nb)
+             (string<? (cdr a) (cdr b))
+             #f))))
 
 (define (skip-whitespace port)
   (let ([ch (peek-char port)])
-    (or (eof-object? ch) (not (char-whitespace? ch))
-        (begin (read-char port)
-               (skip-whitespace port)))))
+    (when (and (not (eof-object? ch)) (char-whitespace? ch))
+      (read-char port)
+      (skip-whitespace port))))
 
 (define (count-words port)
-  (define delimiters " \t\n")
-  (define buf (make-string 10000))
   (define (read-word port)
     (skip-whitespace port)
-    (let ((res (%read-delimited! delimiters buf #t port)))
-      (or (and (eof-object? (car res))
-               (car res))
-          (substring buf 0 (cdr res)))))
+    (let ((line (read-delimited "\t" port)))
+      (if (eof-object? line)
+          #f
+          (map (λ (x) (string-split x #\space))
+                             (string-split line #\newline)))))
   (define count (make-hash-table 100000))
   (define (add-word next)
-    (hash-set! count next
-               (1+ (hash-ref count next 0))))
+    (unless (string-null? next)
+      (hash-set! count next
+                 (1+ (hash-ref count next 0)))))
   (let loop ((next (read-word port)))
-    (unless (eof-object? next)
-      (unless (string-null? next)
-        (add-word next))
+    (when next
+      (for-each (lambda (wl)
+                  (for-each (lambda (w) (add-word w)) wl))
+                next)
       (loop (read-word port))))
   (sort! ;; destructive sort to save memory
    (hash-map->list (lambda (key val) (cons val key)) count)
