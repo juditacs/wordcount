@@ -40,27 +40,27 @@ exec guile $0
         (ice-9 hash-table))
 
 (define (count-or-unicode>? a b)
-  (let ((Na (car a)) (Nb (car b)))
-    (or (> Na Nb)
-        (and (= Na Nb)
-             (string<? (cdr a) (cdr b))))))
+  (let ((Na (cdr a))(Nb (cdr b)))
+    (cond
+     [(> Na Nb) #t]
+     [(= Na Nb) (string<? (car a) (car b))]
+     [else #f])))
 
 (define (count-words port)
-  (define delimiters " \t\n")
-  (define delimiters-set (string->char-set delimiters))
-  (define count (make-hash-table (inexact->exact 1e6)))
+  (define delimiters " \n\t")
+  (define count (make-hash-table #e1e6))
   (define (add-word next)
     (hash-set! count next
-                (1+ (hash-ref count next 0))))
+               (1+ (hash-ref count next 0))))
   (let loop ((next (read-delimited delimiters port)))
     (unless (eof-object? next)
-       (unless (string-every delimiters-set next)
-         (add-word next))
+      (unless (string-null? next)
+        (add-word next))
       (loop (read-delimited delimiters port))))
   (sort! ;; destructive sort to save memory
-   (hash-map->list (lambda (key val) (cons val key)) count)
+   (hash-map->list cons count)
    count-or-unicode>?))
 
 (for-each
- (lambda (x) (format #t "~a\t~a\n" (cdr x) (car x)))
+ (lambda (x) (format #t "~a\t~a\n" (car x) (cdr x)))
  (count-words (current-input-port)))
