@@ -10,7 +10,7 @@ MAINTAINER Sam Van Oort and Judit Acs
 RUN apt-get update \
     && apt-get install -y --no-install-recommends file wget sudo curl time software-properties-common xdg-utils git \
        gcc g++ clang-3.6 \
-       python perl mono-mcs golang-go lua5.2 \
+       python perl mono-mcs golang-go lua5.2 guile \
        ghc cabal-install \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
