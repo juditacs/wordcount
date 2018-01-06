@@ -1,5 +1,9 @@
 # wordcount
 
+# Announcement
+
+This project is looking for a new owner. Discussion [here](#97).
+
 Counting words in different programming languages.
 
 See the article on this project:
