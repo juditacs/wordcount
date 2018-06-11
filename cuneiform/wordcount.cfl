@@ -1,0 +1,46 @@
+def unzip( zip : File ) -> <fileLst : [File]>
+in Bash *{
+  unzip -d dir $zip
+  fileLst=`ls dir | awk '{print "dir/" $0}'`
+}*
+
+def split( file : File ) -> <splitLst : [File]>
+in Bash *{
+  split -l 1024 $file txt
+  splitLst=txt*
+}*
+
+def count( txt : File ) -> <csv : File>
+in Bash *{
+  csv=count.csv
+  sed "s/[^a-zA-Z0-9]/ /g" < $txt | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | \
+  sort | uniq -c -i > $csv
+}*
+
+def join( csvLst : [File] ) -> <csv : File>
+in Bash *{
+  csv=ret.csv
+  cat ${csvLst[@]} | awk '{a[$2]+=$1}END{for(i in a) print i "\t" a[i]}' > $csv
+}*
+
+let zip : File = 'sotu/stateoftheunion1790-2014.txt.zip';
+
+let <fileLst = txtLst : [File]> =
+  unzip( zip = zip );
+
+for txt <- txtLst do
+
+  let <splitLst = splitLst : [File]> =
+    split( file = txt );
+
+  let countLst : [File] =
+    for split <- splitLst do
+      ( count( txt = split )|csv )
+      : File
+    end;
+
+  ( join( csvLst = countLst )|csv )
+  : File
+
+end;
+
