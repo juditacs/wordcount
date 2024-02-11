@@ -14,3 +14,4 @@ ruby2.3 ruby/wordcount.rb	ruby/wordcount.rb
 rust/wordcount/wordcount	rust/wordcount/src/main.rs
 scala -J-Xmx2g -classpath scala Wordcount	scala/Wordcount.scala
 elixir/wordcount	elixir/lib/wordcount.ex
+zig/zig-out/bin/wordcount	zig/src/wordcount.zig
