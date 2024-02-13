@@ -59,3 +59,6 @@ cd ..
 
 cd ../scala
 scalac Wordcount.scala
+
+cd ../zig
+zig build -Doptimize=ReleaseFast
